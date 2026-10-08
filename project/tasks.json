@@ -241,7 +241,7 @@
       "name": "Light/dark/system appearance foundation",
       "status": "partial",
       "scope": "design/light-dark-foundation draft",
-      "limits": "Local/browser verified; isolated CI reset checks and full per-page redesign pending; not production released",
+      "limits": "Local/browser and isolated CI reset checks verified; physical iPhone review and full per-page redesign pending; not production released",
       "evidence": [
         "project/evidence/U1.md"
       ]

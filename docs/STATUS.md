@@ -99,7 +99,7 @@ Informational screens do not establish working capabilities
 
 **◐ Partial** · design/light-dark-foundation draft
 
-Local/browser verified; isolated CI reset checks and full per-page redesign pending; not production released
+Local/browser and isolated CI reset checks verified; physical iPhone review and full per-page redesign pending; not production released
 
 [project/evidence/U1.md](../project/evidence/U1.md)
 
