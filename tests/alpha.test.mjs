@@ -45,3 +45,20 @@ test('Image proxy is narrowly scoped and immutable', () => {
   assert.match(source, /method !== 'GET'/);
   assert.doesNotMatch(source, /savedata|\/auth\//i);
 });
+
+test('Status moves bypass the attack damage calculator', () => {
+  const code = read('game-integration/modules/damage-preview.ts');
+  assert.match(code, /import \{ MoveCategory \} from '\.\.\/\.\.\/enums\/move-category'/);
+  const statusPosition = code.indexOf('move.category === MoveCategory.STATUS');
+  const calculationPosition = code.indexOf('target.getAttackDamage({');
+  assert.ok(statusPosition >= 0 && calculationPosition > statusPosition, 'Status must be handled before damage calculation');
+  assert.match(code, /no direct attack damage/);
+});
+
+test('Mobile preview output is a separate block with a non-overlapping refresh control', () => {
+  const code = read('game-integration/modules/damage-preview.ts');
+  assert.match(code, /\.rp-panel-output\{display:block/);
+  assert.match(code, /\.rp-panel-refresh\{display:block/);
+  assert.match(code, /\.rp-panel-moves\{display:flex;flex-wrap:wrap/);
+  assert.match(code, /aria-live/);
+});
