@@ -13,7 +13,7 @@ const page=await browser.newPage({viewport:{width:1280,height:720},deviceScaleFa
 await page.addInitScript(() => {
  const original = HTMLMediaElement.prototype.canPlayType;
  HTMLMediaElement.prototype.canPlayType = function(type) {
-   if (/video\\/(mp4|x-m4v)/i.test(type)) return 'probably';
+   if (type.includes('video/mp4') || type.includes('video/x-m4v')) return 'probably';
    return original.call(this,type);
  };
 });
