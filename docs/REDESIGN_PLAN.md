@@ -1,5 +1,7 @@
 # Rogue+ proposed redesign plan
 
+Dated comparison/proposal, preserved for provenance. Current task status, dependencies and authorization live in project/tasks.json and generated [ROADMAP.md](ROADMAP.md). U4a/U4b/U7a/U7b map to registry IDs U4A/U4B/U7A/U7B. Read [DECISIONS.md](DECISIONS.md) for the pre-chat baseline and pending visual adoption; this proposal is not implementation permission.
+
 Date: 2026-10-08. Approval status: awaiting user direction approval. Documentation only; all implementation packets below are unstarted.
 
 ## Recommended direction

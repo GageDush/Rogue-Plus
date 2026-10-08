@@ -35,3 +35,25 @@ The original [AppDeploy companion](https://pokerogue-command-center-zgi7j4.v2.ap
 ## Privacy and licensing
 
 See [PRIVACY.md](docs/PRIVACY.md). Do not commit PokéRogue save exports, trainer information, decrypted saves, or secrets. Honor PokéRogue source/asset licensing and attribution if distributing modified upstream game code.
+
+<!-- PROJECT:START -->
+## Project progress
+
+1 / 32 tracked tasks verified. Counts describe this work plan, not overall product completion.
+
+| Milestone | Verified/total |
+| --- | --- |
+| Project tracking | 1/1 |
+| Foundation release candidate | 0/3 |
+| Hybrid visual redesign | 0/11 |
+| Module contracts | 0/1 |
+| Privacy and source quality | 0/3 |
+| Independent local storage | 0/3 |
+| Build editor | 0/4 |
+| Intelligent Goals | 0/1 |
+| Offline alpha release | 0/2 |
+| Runs and optional Play | 0/2 |
+| Advanced modules | 0/1 |
+
+[Status](docs/STATUS.md) · [Roadmap](docs/ROADMAP.md) · [Next task](docs/NEXT_TASK.md) · [File map](docs/FILE_MAP.md) · [Development workflow](docs/PROJECT_WORKFLOW.md)
+<!-- PROJECT:END -->
