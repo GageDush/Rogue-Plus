@@ -123,7 +123,7 @@ Latest hybrid-head Actions were successful:
 
 Tests inspected: five storage/import tests and three navigation/config tests. CI browser checks exercise synthetic data, desktop navigation, IndexedDB reload, exported backup import in an isolated 390px context, planned screens, same-origin requests and one overflow check. They do not establish complete visual quality, real-user restore, offline upgrade correctness or every malformed nested payload.
 
-This audit ran the read-only module-boundary check: PASS, 45 source files and ten extraction checks. It did not install dependencies or rerun the entire build/test suite. No fresh mobile screenshot pass, iPhone signoff, full accessibility audit, Git-history audit or reserve parity check is claimed.
+This audit ran the read-only module-boundary check: PASS, 45 source files and ten extraction checks. It did not install dependencies or rerun the entire build/test suite. User-supplied phone screenshots were subsequently reviewed as documented below. No fresh interactive iPhone signoff, full accessibility audit, Git-history audit or reserve parity check is claimed.
 
 ## Critical findings
 
@@ -138,3 +138,20 @@ This audit ran the read-only module-boundary check: PASS, 45 source files and te
 | P2 offline | SOURCE; public/sw.js | Hashed JS/CSS are fetched/cache-filled opportunistically, not fully install-precached; same shell cache name persists and upgrades are not transactional. | O0 |
 
 Nothing in this audit changes implementation code, reference pins, private saves or deployments.
+
+## User-supplied phone evidence (2026-10-08)
+
+Seven screenshots show Home, Dex, Build, Goals, More, Trainer and Fusion. These are visual evidence supplied by the user, not an interactive device test or deployment-SHA verification. Full-page captures do not establish the first visible viewport or exact CSS dimensions. Private account values and source filenames are deliberately omitted from this public document.
+
+Preserve the five-tab navigation, two-by-two metric grids, six-member roster overview, authentic sprites and numeric progress bars. The current application already has a coherent phone structure.
+
+| Screen | Observed finding | Proposed response |
+|---|---|---|
+| Home | Preset appears before next actions and is called Current run build | Prioritize next actions; label the bundled preset honestly |
+| Home | ALL TIERS appears beneath the red-shiny count | Source account.ts defines allShinyTiers as entries with t1 AND t2 AND t3; label All three tiers unlocked, preserving calculation |
+| Dex / Goals | Long uninterrupted result lists | Improve row hierarchy and result context first; preserve existing search/filter/reveal and ranking semantics |
+| Build | Six-member overview works; supporting role/readiness text and repeated notes are dense | Keep roster overview; increase supporting-text readability and group notes |
+| Trainer / More | Clear progress and comfortable secondary navigation rows | Preserve these patterns while adopting the supplied visual system |
+| Fusion | Tall participant panels contain substantial empty space; recipe tabs extend beyond the visible right edge | Compact paired identities, preserve first/second order and caveats; make horizontal tab scrolling discoverable |
+
+Screenshot review closes the missing phone-image evidence gap. Keyboard, touch interaction, safe-area behavior, tab scrolling, offline updates and actual-user backup restoration remain unverified. Do not publish these private-account screenshots in the public repository.
