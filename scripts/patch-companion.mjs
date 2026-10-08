@@ -34,7 +34,7 @@ if (!app.includes('function PlayPage()')) {
     "      <div className='button-row'>",
     "        <a className='primary big' href='/play/'>Launch PokéRogue</a>",
     '      </div>',
-    '      <p>Gameplay login and session saving depend on upstream services. Account data is not uploaded to Rogue+.</p>',
+    '      <p>This preview uses PokéRogue Guest mode: progress stays in this browser, with no official account sync. Export a separate backup before clearing browser data.</p>',
     '    </section>',
     '  );',
     '}',

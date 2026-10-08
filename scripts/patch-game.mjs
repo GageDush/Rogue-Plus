@@ -23,4 +23,16 @@ if (!text.includes(hook)) {
   text = text.replace(bootAnchor, bootAnchor + '\n' + hook);
 }
 writeFileSync(entry, text);
+const envPath = resolve(root, 'upstream/.env.production');
+let envText = readFileSync(envPath, 'utf8');
+if (process.env.ROGUE_PLUS_GAME_MODE !== 'official') {
+  // The official API normally allows only the official game's browser origin.
+  // Guest mode is the game's own localStorage-based play/save path; no API proxy.
+  if (!/^VITE_BYPASS_LOGIN=[01]$/m.test(envText)) {
+    throw new Error('Upstream login toggle changed; aborting Guest mode patch.');
+  }
+  envText = envText.replace(/^VITE_BYPASS_LOGIN=[01]$/m, 'VITE_BYPASS_LOGIN=1');
+  writeFileSync(envPath, envText);
+  console.log('Rogue+ Play using official PokéRogue local Guest save mode.');
+}
 console.log('Game extension hook installed without modifying battle logic.');

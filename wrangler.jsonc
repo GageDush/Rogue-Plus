@@ -10,5 +10,6 @@
       "/play/images/*"
     ]
   },
-  "main": "./worker/asset-proxy.js"
+  "main": "./worker/asset-proxy.js",
+  "previews": {}
 }
