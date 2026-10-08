@@ -34,13 +34,13 @@ try {
   await nav('Goals').click();
   await page.locator('.hunt-list').waitFor();
   await nav('More').click();
-  await page.getByRole('button', { name: /Trainer/i }).click();
+  await page.locator('.more-grid').getByRole('button', { name: /Trainer/i }).click();
   await page.locator('.progress-list').waitFor();
   await nav('More').click();
-  await page.getByRole('button', { name: /Modules/i }).click();
+  await page.locator('.more-grid').getByRole('button', { name: /Modules/i }).click();
   await page.getByText('MODULE REGISTRY · PLANNED').waitFor();
   await nav('More').click();
-  await page.getByRole('button', { name: /Import \/ Settings/i }).click();
+  await page.locator('.more-grid').getByRole('button', { name: /Import \/ Settings/i }).click();
   await page.locator('.settings-hero').waitFor();
 
   const [download] = await Promise.all([
@@ -75,8 +75,11 @@ try {
   await phone.locator('.bottom-nav').getByRole('button', { name: 'Run', exact: true }).click();
   await phone.getByText('RUNS · PLANNED').waitFor();
   await phone.getByRole('button', { name: 'More navigation' }).click();
-  await phone.getByRole('button', { name: /Import \/ Settings/i }).waitFor();
-  console.log('PASS: Mobile navigation and cross-profile synthetic backup restore');
+  await phone.locator('.more-grid').getByRole('button', { name: /Import \/ Settings/i }).waitFor();
+  assert.equal(await phone.locator('.bottom-nav .nav-button').count(), 5, 'Mobile navigation must contain five primary destinations');
+  const pageWidth = await phone.evaluate(() => document.documentElement.scrollWidth);
+  assert.ok(pageWidth <= 390, 'Horizontal overflow on iPhone-width viewport: '+pageWidth);
+  console.log('PASS: Mobile navigation, responsive layout and cross-profile synthetic backup restore');
 
   assert.deepEqual(errors, [], 'Unexpected client JS error(s)');
   assert.deepEqual(fail, [], 'Failed application assets');
