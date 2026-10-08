@@ -1,0 +1,21 @@
+name: Live Play preview smoke
+on:
+  push:
+    branches: [alpha/play-integration]
+    paths:
+      - '.github/workflows/preview-smoke.yml'
+      - 'scripts/check-live-preview.mjs'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Probe deployed preview's public files without accessing accounts
+        run: node scripts/check-live-preview.mjs
