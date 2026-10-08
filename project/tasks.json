@@ -1795,8 +1795,9 @@
         "docs/ARCHITECTURE.md"
       ],
       "delivery": {
-        "stage": "working_branch",
-        "branch": "design/profile-candy-overview"
+        "stage": "pr_open",
+        "branch": "design/profile-candy-overview",
+        "pr": "https://github.com/GageDush/Rogue-Plus/pull/8"
       },
       "acceptance": [
         {

@@ -30,7 +30,7 @@ export function buildDemoState(): AppState {
     demoPokemonRow(932, 'Nacli', 4, { luck: 3, t1: true, t2: true, t3: true, passiveUnlocked: true, eggCount: 4, perfectIvs: 6, costReductions: 2, classicWins: 2 }),
     demoPokemonRow(425, 'Drifloon', 2, { passiveUnlocked: true, eggCount: 4, perfectIvs: 6, costReductions: 2, classicWins: 2 }),
     demoPokemonRow(190, 'Aipom', 2, { luck: 1, t1: true, passiveUnlocked: true, eggCount: 4, perfectIvs: 5, costReductions: 2, classicWins: 2 }),
-    demoPokemonRow(664, 'Scatterbug', 2, { luck: 1, t1: true, passiveUnlocked: true, eggCount: 3, perfectIvs: 6, costReductions: 2 }),
+    demoPokemonRow(664, 'Scatterbug', 2, { candy: 60, luck: 1, t1: true, passiveUnlocked: true, eggCount: 3, perfectIvs: 6, costReductions: 2 }),
   ];
 
   const account: AccountMetrics = {

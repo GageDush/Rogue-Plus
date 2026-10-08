@@ -12,7 +12,7 @@
 | --- | --- | --- |
 | BASE-FOUND | Review existing foundation extraction | [Open PR](https://github.com/GageDush/Rogue-Plus/pull/2) |
 | BASE-SHELL | Review existing canonical hybrid shell | [Open PR](https://github.com/GageDush/Rogue-Plus/pull/3) |
-| U1-CANDY | Profile overview and actionable candy planning | design/profile-candy-overview |
+| U1-CANDY | Profile overview and actionable candy planning | [Open PR](https://github.com/GageDush/Rogue-Plus/pull/8) |
 
 ## Dependency-ready tasks
 

@@ -124,7 +124,7 @@ Source and synthetic browser checks pass; physical iPhone review and production 
 | **S0** | ✓ Verified | pr open |
 | **U1** | ✓ Verified | pr open |
 | **DOCS-01** | ✓ Verified | pr open |
-| **U1-CANDY** | ◇ Ready for review | working branch |
+| **U1-CANDY** | ◇ Ready for review | pr open |
 
 - **TRACK-01** — `chore/project-tracking-2026-10-08` · [PR](https://github.com/GageDush/Rogue-Plus/pull/5)
 - **BASE-FOUND** — `alpha/companion-foundation` · [PR](https://github.com/GageDush/Rogue-Plus/pull/2)
@@ -132,7 +132,7 @@ Source and synthetic browser checks pass; physical iPhone review and production 
 - **S0** — `fix/failed-load-recovery` · [PR](https://github.com/GageDush/Rogue-Plus/pull/6)
 - **U1** — `design/light-dark-foundation` · [PR](https://github.com/GageDush/Rogue-Plus/pull/7)
 - **DOCS-01** — `chore/project-tracking-2026-10-08` · [PR](https://github.com/GageDush/Rogue-Plus/pull/5)
-- **U1-CANDY** — `design/profile-candy-overview`
+- **U1-CANDY** — `design/profile-candy-overview` · [PR](https://github.com/GageDush/Rogue-Plus/pull/8)
 
 ## Before release
 

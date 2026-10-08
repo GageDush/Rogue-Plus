@@ -28,3 +28,5 @@ Normalized snapshots do not retain egg inventory. Budget floor(candy/current pri
 ## Limits and delivery
 
 No physical iPhone/Safari signoff, live-save freshness guarantee, automatic purchasing, real save restoration, merge or deployment. Existing per-page polish stays tracked separately. Source guidance and generated progress refreshed in this packet; previous U1 evidence remains dated history.
+
+Draft PR: https://github.com/GageDush/Rogue-Plus/pull/8, stacked on #7. Fresh demo gives Scatterbug 60 synthetic candy so Show all/Show fewer are required browser assertions rather than optional branches.

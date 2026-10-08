@@ -41,7 +41,11 @@ export async function checkTheme(browser, base) {
           assert.equal(await page.getByRole('progressbar').count(), 4);
           assert.equal(await page.locator('.priority-row').filter({ hasText: /Finish egg moves|Unlock egg/ }).count(), 0);
           const all = page.getByRole('button', { name: /Show all/ });
-          if (await all.count()) await all.click();
+          assert.equal(await all.count(), 1, 'Synthetic candy list must exercise expansion');
+          await all.click();
+          assert.ok(await page.locator('.priority-row').count() > 3);
+          await page.getByRole('button', { name: 'Show fewer', exact: true }).click();
+          assert.equal(await page.locator('.priority-row').count(), 3);
           await page.getByRole('combobox', { name: 'Egg order' }).selectOption('least-progress');
           await page.getByRole('combobox', { name: 'Egg order' }).selectOption('most-eggs');
           await page.locator('.priority-row').first().click();
