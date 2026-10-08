@@ -47,7 +47,7 @@ jobs:
           test -s dist/play/index.html
           test -s dist/play/asset-manifest.json
           test -s dist/play/service-worker.js
-          test -d dist/play/images
+          test ! -e dist/play/images
           node scripts/verify-alpha-output.mjs
           du -sh dist dist/play
           find dist/play -type f | wc -l
