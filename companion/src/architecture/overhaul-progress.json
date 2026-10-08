@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "architectureOverhaul": "2026-10-07",
+  "decisions": {
+    "legacySnapshots": "A",
+    "teamsAndFusion": "A",
+    "referenceGameData": "A"
+  },
+  "passes": {
+    "pass1": {
+      "name": "Sources",
+      "status": "complete"
+    },
+    "pass2": {
+      "name": "Import + normalized domain model",
+      "status": "complete"
+    },
+    "pass3": {
+      "name": "Asset resolver",
+      "status": "complete"
+    },
+    "pass4": {
+      "name": "Versioned local storage + migrations",
+      "status": "complete"
+    },
+    "pass5": {
+      "name": "UI migration + system audit",
+      "status": "complete",
+      "auditResult": "pass",
+      "completedWork": [
+        "Migrated all visible pages to schema-v2 domain facade/canonical user-data sources.",
+        "Replaced all visible legacy Pokémon images with PokemonSprite pinned icon-atlas rendering.",
+        "Migrated Teams and Fusion Lab to teams.v1.json/fusions.v1.json.",
+        "Replaced READY overclaims with account-verifiable starter/shiny checks and explicit in-run requirements.",
+        "Retired data.ts duplicate runtime constants to an empty documentation stub.",
+        "Added legacy-current guard so preserved pre-v2 snapshots cannot enter the schema-v2 domain.",
+        "Completed storage/backup/settings integration, mobile safe-area cleanup, and final source ownership audit.",
+        "Final deployment QA reported zero frontend errors and zero network errors."
+      ],
+      "finalAuditFile": "src/architecture/final-audit.v1.json",
+      "knownLimitations": [
+        "Fresh .prsv import required once after legacy migration.",
+        "iOS system file chooser may show extra media choices; Choose File remains the supported path.",
+        "Exact user-selected form/gender display is deferred; canonical form resolution remains stable.",
+        "No separate AppDeploy E2E run-group was emitted, so audit relied on compiled deployment QA, source regression checks, and the in-app architecture self-test."
+      ]
+    }
+  }
+}

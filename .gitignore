@@ -1,0 +1,24 @@
+node_modules/
+**/node_modules/
+dist/
+**/dist/
+coverage/
+**/.env
+**/.env.local
+*.prsv
+*.prsv.*
+private-data/
+game-upstream/
+.DS_Store
+
+# Never commit player saves or private regression fixtures
+companion/private/
+private/
+*.sav
+*.save
+*.savestate
+account-fixture.*.local.json
+*.rogue-plus-backup.json
+
+# Generated from the pinned upstream source at build time
+companion/src/reference/generated/

@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "fixtureId": "LOCAL_ACCOUNT_TEST_ONLY",
+  "sourceSave": "${LOCAL_SAVE_FILE}",
+  "gameVersion": "${GAME_VERSION}",
+  "saveTimestampUtc": "${SAVE_TIMESTAMP}",
+  "accountExpectations": {
+    "startersUnlocked": null,
+    "passivesUnlocked": null,
+    "eggMovesUnlocked": null,
+    "perfectIvStarters": null,
+    "shinyStarters": null,
+    "achievements": null,
+    "vouchers": {
+      "regular": null,
+      "plus": null,
+      "premium": null,
+      "golden": null
+    }
+  },
+  "careerExpectations": {
+    "battles": null,
+    "pokemonHatched": null,
+    "highestEndlessWave": null
+  }
+}

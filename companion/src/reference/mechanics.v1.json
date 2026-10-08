@@ -1,0 +1,144 @@
+{
+  "schemaVersion": 1,
+  "referenceVersion": "2026-10-07-r1",
+  "officialSourceRevision": "e734a202a912cc969409c84111b5ab6a15fc7774",
+  "starterOwnership": {
+    "canonicalRule": "A selectable starter is unlocked when its dex caughtAttr is non-zero.",
+    "doNotUseAsOwnership": [
+      "caughtCount",
+      "hatchedCount",
+      "seenCount"
+    ],
+    "note": "Lifetime counters and starter ownership are separate concepts."
+  },
+  "saveFieldSemantics": {
+    "dex": {
+      "seenAttr": "packed form/gender/shiny/variant bitfield",
+      "caughtAttr": "packed caught form/gender/shiny/variant bitfield",
+      "natureAttr": "nature unlock bitmask",
+      "seenCount": "lifetime gameplay counter",
+      "caughtCount": "lifetime gameplay counter",
+      "hatchedCount": "lifetime gameplay counter",
+      "ivs": [
+        "HP",
+        "Attack",
+        "Defense",
+        "Special Attack",
+        "Special Defense",
+        "Speed"
+      ]
+    },
+    "starter": {
+      "eggMoves": {
+        "kind": "4-bit mask",
+        "allUnlocked": 15
+      },
+      "abilityAttr": {
+        "kind": "bitmask",
+        "allObservedBits": 7,
+        "caveat": "Not every species has three distinct valid ability slots."
+      },
+      "passiveAttr": {
+        "kind": "bitmask",
+        "unlockedAndEnabled": 3
+      },
+      "valueReduction": {
+        "range": [
+          0,
+          2
+        ],
+        "bothReductions": 2
+      },
+      "classicWinCount": "Classic wins by starter",
+      "candyCount": "species candy",
+      "friendship": "starter friendship"
+    }
+  },
+  "shinyLuck": {
+    "t1": 1,
+    "t2": 2,
+    "t3": 3
+  },
+  "starterCostReductions": {
+    "none": 0,
+    "one": 1,
+    "both": 2
+  },
+  "candyCostsByBaseStarterCost": {
+    "1": {
+      "passive": 40,
+      "costReduction": [
+        25,
+        60
+      ]
+    },
+    "2": {
+      "passive": 40,
+      "costReduction": [
+        25,
+        60
+      ]
+    },
+    "3": {
+      "passive": 35,
+      "costReduction": [
+        20,
+        50
+      ]
+    },
+    "4": {
+      "passive": 30,
+      "costReduction": [
+        15,
+        40
+      ]
+    },
+    "5": {
+      "passive": 25,
+      "costReduction": [
+        12,
+        35
+      ]
+    },
+    "6": {
+      "passive": 20,
+      "costReduction": [
+        10,
+        30
+      ]
+    },
+    "7": {
+      "passive": 15,
+      "costReduction": [
+        8,
+        20
+      ]
+    },
+    "8": {
+      "passive": 10,
+      "costReduction": [
+        5,
+        15
+      ]
+    },
+    "9": {
+      "passive": 10,
+      "costReduction": [
+        5,
+        15
+      ]
+    },
+    "10": {
+      "passive": 10,
+      "costReduction": [
+        5,
+        15
+      ]
+    }
+  },
+  "precisionRule": "Packed large attribute values must not be casually coerced to JavaScript Number when they can exceed safe integer precision.",
+  "fusionRule": "Recorded first/second fusion directions are project strategy decisions. Exact inheritance order is version-sensitive and must be rechecked before destructive in-game splice decisions.",
+  "accountTotals": {
+    "achievements": 76
+  }
+}

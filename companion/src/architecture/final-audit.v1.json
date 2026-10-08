@@ -1,0 +1,80 @@
+{
+  "schemaVersion": 1,
+  "completedAt": "2026-10-07",
+  "architectureVersion": "2026-10-07-r1",
+  "result": "pass",
+  "deployment": {
+    "appId": "pokerogue-command-center-zgi7j4",
+    "status": "ready",
+    "frontendErrors": 0,
+    "networkErrors": 0
+  },
+  "sourceOwnership": {
+    "pass": true,
+    "checks": [
+      "App.tsx has no import from retired data.ts.",
+      "App.tsx has no raw save short-field interpretation.",
+      "App.tsx has no direct IndexedDB/localStorage API calls.",
+      "App.tsx has no img tags, spriteUrl calls, memberReady function, READY overclaim, or Exact build package wording.",
+      "No runtime source contains the old /images/pokemon/{id}.png battle-sheet path or the moving pokerogue-assets/beta URL.",
+      "data.ts is an empty retirement stub; canonical reference/strategy sources live under reference/, user-data/, and domain/."
+    ]
+  },
+  "domainAndSave": {
+    "pass": true,
+    "checks": [
+      "Starter ownership derives from caughtAttr != 0 rather than caughtCount.",
+      "Packed large attributes are preserved through bigint/string-safe normalization.",
+      "Schema-v2 domain facade refuses legacy snapshots.",
+      "Account imports use generic snapshot validation; optional private regression values are never bundled."
+    ]
+  },
+  "strategy": {
+    "pass": true,
+    "checks": [
+      "Canonical 5850 Cheese roster is Eternatus, Drifloon, Scatterbug, Skitty, Burmy, Nincada.",
+      "Static architecture audit checks 5850 total cost 12.75 and Luck 13.",
+      "All exact-roster team members resolve to canonical starter references.",
+      "Fusion Lab reads fusions.v1.json and labels exact inheritance as version-sensitive."
+    ]
+  },
+  "assets": {
+    "pass": true,
+    "checks": [
+      "PokemonSprite is the only visible Pokémon artwork path.",
+      "Asset resolver uses pinned pokerogue-assets revision 056a1f408f26a3be4fef243f7462cb43608c7928.",
+      "Pass 3 audit established 572/572 normal starter icons, 572/572 T1 icons, and paired T2/T3 support for 406 starter roots.",
+      "PWA service worker caches pinned icon atlases separately from account IndexedDB."
+    ]
+  },
+  "storage": {
+    "pass": true,
+    "checks": [
+      "IndexedDB DB v2 and state schema v2 are explicit.",
+      "Legacy state is preserved and marked legacy rather than reinterpreted.",
+      "Versioned backups validate backup/state/reference versions and legacy raw backups remain compatibility-supported.",
+      "Account reset removes account state while preserving Cache Storage artwork."
+    ]
+  },
+  "responsiveAndUX": {
+    "pass": true,
+    "checks": [
+      "Mobile bottom content padding exceeds fixed navigation height and includes safe-area inset.",
+      "Import label is visible on mobile.",
+      "Readiness wording separates starter availability, shiny targets, and in-run requirements.",
+      "Source-backed build notes avoid claiming unsupported exact-build certainty."
+    ]
+  },
+  "knownLimitations": [
+    "One fresh .prsv import is intentionally required after legacy migration to establish the canonical schema-v2 baseline.",
+    "iOS may still present Photo Library/Camera/Choose File for an unrestricted file input; the UI instructs the user to choose Choose File so uncommon .prsv files remain selectable.",
+    "Exact per-starter selected form/gender is not yet decoded for display; PokemonSprite uses the canonical default starter form unless a strategy explicitly supplies a form.",
+    "The first successful asset-cache warmup requires network access.",
+    "AppDeploy produced compiled deployment QA screenshots and zero frontend/network errors, but no separate E2E QA run-group was available for transcript inspection."
+  ],
+  "finalRule": "Future UI pages consume the domain/storage facade and PokemonSprite; they do not interpret raw saves, construct Pokémon asset URLs, or introduce duplicate team/fusion/reference constants.",
+  "privacy": {
+    "personalFixtureBundled": false,
+    "gitHistoryNeedsScrubBeforePublicRelease": true
+  }
+}

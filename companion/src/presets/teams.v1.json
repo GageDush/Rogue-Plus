@@ -1,0 +1,251 @@
+{
+  "schemaVersion": 1,
+  "strategyVersion": "2026-10-07-r1",
+  "source": "04_Endless_Strategy_Blueprints.md",
+  "confidence": "CONVERSATION-DECISION",
+  "teams": [
+    {
+      "id": "initial-endless-spliced-fusion-utility",
+      "name": "Initial Endless Spliced — Fusion Utility",
+      "mode": "ENDLESS_SPLICED",
+      "recordedTotalCost": 11,
+      "recordedLuck": 15,
+      "cap": 15,
+      "exactRoster": true,
+      "members": [
+        {
+          "slot": 1,
+          "starter": "Calyrex",
+          "shinyTier": "T3",
+          "cost": 6,
+          "luck": 3,
+          "role": "primary carry; planned Spectrier splice"
+        },
+        {
+          "slot": 2,
+          "starter": "Deino",
+          "shinyTier": "T3",
+          "cost": 2,
+          "luck": 3,
+          "role": "No Guard utility → eventual Run Away chassis"
+        },
+        {
+          "slot": 3,
+          "starter": "Rattata",
+          "shinyTier": "T3",
+          "cost": 0.25,
+          "luck": 3,
+          "role": "Run Away donor"
+        },
+        {
+          "slot": 4,
+          "starter": "Burmy",
+          "shinyTier": "T3",
+          "gender": "female",
+          "form": "Trash Cloak",
+          "cost": 0.5,
+          "luck": 3,
+          "role": "Sturdy / late DoT chassis"
+        },
+        {
+          "slot": 5,
+          "starter": "Nacli",
+          "shinyTier": "T3",
+          "cost": 2,
+          "luck": 3,
+          "role": "Purifying Salt donor / chip utility"
+        },
+        {
+          "slot": 6,
+          "starter": "Smeargle",
+          "shinyTier": null,
+          "cost": 0.25,
+          "luck": 0,
+          "role": "Dark Void / move-donor utility"
+        }
+      ],
+      "recordedFusionDirections": [
+        "Calyrex first + Spectrier second.",
+        "Deino first + Smeargle second temporarily for Dark Void.",
+        "Later Hydreigon first + Raticate second to preserve Run Away.",
+        "Burmy first + Naclstack/Garganacl second for Sturdy + Purifying Salt direction."
+      ]
+    },
+    {
+      "id": "complete-endless-spliced-5850-cheese",
+      "name": "Complete Endless Spliced — 5850 Cheese",
+      "mode": "ENDLESS_SPLICED",
+      "recordedTotalCost": 12.75,
+      "recordedLuck": 13,
+      "cap": 15,
+      "exactRoster": true,
+      "members": [
+        {
+          "slot": 1,
+          "starter": "Eternatus",
+          "shinyTier": "T3",
+          "cost": 8,
+          "luck": 3,
+          "role": "Early/mid raw-damage carry",
+          "startingMoveIdea": [
+            "Dragon Energy",
+            "Malignant Chain",
+            "Nasty Plot",
+            "Recover-or-coverage"
+          ],
+          "tera": "Dragon"
+        },
+        {
+          "slot": 2,
+          "starter": "Drifloon",
+          "shinyTier": "T3",
+          "cost": 0.5,
+          "luck": 3,
+          "role": "Magic Guard support / Wonder Guard branch",
+          "passive": "Magic Guard on",
+          "fusion": "Drifloon first + Nincada second",
+          "recordedTera": "Flying"
+        },
+        {
+          "slot": 3,
+          "starter": "Scatterbug",
+          "shinyTier": "T3",
+          "cost": 0.5,
+          "luck": 3,
+          "role": "Run Away / Normalize + Entrainment support",
+          "passive": "Run Away on",
+          "fusion": "Scatterbug first + Skitty second",
+          "recordedTera": "Ghost"
+        },
+        {
+          "slot": 4,
+          "starter": "Skitty",
+          "shinyTier": "T1",
+          "cost": 0.25,
+          "luck": 1,
+          "role": "Normalize + Entrainment control",
+          "ability": "Normalize",
+          "keyMove": "Entrainment",
+          "recordedTera": "Ghost"
+        },
+        {
+          "slot": 5,
+          "starter": "Burmy",
+          "shinyTier": "T3",
+          "cost": 0.5,
+          "luck": 3,
+          "role": "Late boss chassis",
+          "passive": "Sturdy on",
+          "inRunTarget": "Purifying Salt donor",
+          "moveConcept": [
+            "Sappy Seed",
+            "Soak",
+            "Salt Cure",
+            "Curse/Heal Block"
+          ],
+          "recordedTera": "Ghost"
+        },
+        {
+          "slot": 6,
+          "starter": "Nincada",
+          "shinyTier": null,
+          "cost": 3,
+          "luck": 0,
+          "role": "Wonder Guard / evolution-duplication source",
+          "ability": "Run Away in recorded roster",
+          "instruction": "Pause evolution around level 20 until fusion setup is ready.",
+          "recordedTera": "Ground"
+        }
+      ],
+      "runArchitecture": {
+        "early": "damage carry + economy + luck",
+        "midgame": "establish Run Away for trash waves",
+        "late": "survival + fixed/percentage-style chip rather than raw damage alone",
+        "recordedTransitionWindow": "roughly wave 1,500–2,500, dependent on run strength"
+      }
+    },
+    {
+      "id": "high-luck-skill-link-grip-claw",
+      "name": "High-Luck Skill Link — Grip Claw Farming",
+      "mode": "ENDLESS_SPLICED",
+      "recordedTotalCost": 10.25,
+      "recordedLuck": 14,
+      "cap": 15,
+      "exactRoster": true,
+      "members": [
+        {
+          "slot": 1,
+          "starter": "Eternatus",
+          "shinyTier": "T3",
+          "role": "main damage carry"
+        },
+        {
+          "slot": 2,
+          "starter": "Scatterbug",
+          "shinyTier": "T3",
+          "role": "Run Away / support"
+        },
+        {
+          "slot": 3,
+          "starter": "Skitty",
+          "shinyTier": "T1",
+          "role": "Normalize + Entrainment option"
+        },
+        {
+          "slot": 4,
+          "starter": "Burmy",
+          "shinyTier": "T3",
+          "role": "Sturdy + DoT safety"
+        },
+        {
+          "slot": 5,
+          "starter": "Aipom",
+          "shinyTier": "T3",
+          "role": "Pickup/Scrappy side of multi-hit thief chassis"
+        },
+        {
+          "slot": 6,
+          "starter": "Pikipek",
+          "shinyTier": "T1",
+          "role": "Skill Link + Population Bomb donor"
+        }
+      ],
+      "coreFusion": {
+        "first": "Ambipom",
+        "second": "Toucannon",
+        "finalConcept": [
+          "Scrappy passive",
+          "Skill Link ability",
+          "Population Bomb",
+          "Grip Claw",
+          "King's Rock",
+          "Wide Lens / accuracy support"
+        ]
+      },
+      "purpose": [
+        "many hit events",
+        "item stealing",
+        "flinch pressure",
+        "farming while preserving separate Run Away and late-game safety plans"
+      ]
+    },
+    {
+      "id": "regular-endless-blueprint",
+      "name": "Regular Endless blueprint",
+      "mode": "ENDLESS",
+      "exactRoster": false,
+      "recordedTotalCost": null,
+      "recordedLuck": null,
+      "targetLuck": 14,
+      "targetShinyCharms": 4,
+      "architecture": [
+        "strongest available early carry",
+        "target high luck and economy",
+        "acquire reliable Run Away",
+        "eventually skip trash waves rather than brute-force everything",
+        "build Sturdy + Purifying Salt late-boss chassis",
+        "use Sappy Seed/Leech-style effect + Soak + Salt Cure + Curse/Heal Block"
+      ]
+    }
+  ]
+}

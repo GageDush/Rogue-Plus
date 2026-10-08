@@ -1,0 +1,19 @@
+{
+  "name": "Rogue Plus — PokéRogue Companion",
+  "short_name": "Rogue+",
+  "description": "Local-first companion for PokéRogue collection tracking, builds, runs, and progression.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#090D12",
+  "theme_color": "#090D12",
+  "icons": [
+    {
+      "src": "./icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

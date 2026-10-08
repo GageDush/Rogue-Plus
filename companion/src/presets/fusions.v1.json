@@ -1,0 +1,65 @@
+{
+  "schemaVersion": 1,
+  "strategyVersion": "2026-10-07-r1",
+  "source": "04_Endless_Strategy_Blueprints.md + 05_Game_Mechanics_Reference.md",
+  "exactInheritanceNeedsLiveRecheck": true,
+  "recipes": [
+    {
+      "id": "calyrex-spectrier",
+      "first": "Calyrex",
+      "second": "Spectrier",
+      "purpose": "planned carry splice",
+      "confidence": "CONVERSATION-DECISION"
+    },
+    {
+      "id": "deino-smeargle-temp",
+      "first": "Deino",
+      "second": "Smeargle",
+      "purpose": "temporary Dark Void utility",
+      "confidence": "CONVERSATION-DECISION"
+    },
+    {
+      "id": "hydreigon-raticate",
+      "first": "Hydreigon",
+      "second": "Raticate",
+      "purpose": "preserve Run Away",
+      "confidence": "CONVERSATION-DECISION"
+    },
+    {
+      "id": "burmy-nacl-line",
+      "first": "Burmy",
+      "second": "Naclstack/Garganacl",
+      "purpose": "Sturdy + Purifying Salt direction",
+      "confidence": "CONVERSATION-DECISION"
+    },
+    {
+      "id": "drifloon-nincada",
+      "first": "Drifloon",
+      "second": "Nincada",
+      "purpose": "Wonder Guard branch with Magic Guard support",
+      "confidence": "CONVERSATION-DECISION"
+    },
+    {
+      "id": "scatterbug-skitty",
+      "first": "Scatterbug",
+      "second": "Skitty",
+      "purpose": "Normalize + Entrainment control support",
+      "confidence": "CONVERSATION-DECISION"
+    },
+    {
+      "id": "ambipom-toucannon",
+      "first": "Ambipom",
+      "second": "Toucannon",
+      "purpose": "Skill Link + Population Bomb item-farming chassis",
+      "confidence": "CONVERSATION-DECISION",
+      "support": [
+        "Scrappy passive",
+        "Skill Link ability",
+        "Population Bomb",
+        "Grip Claw",
+        "King's Rock",
+        "Wide Lens / accuracy support"
+      ]
+    }
+  ]
+}

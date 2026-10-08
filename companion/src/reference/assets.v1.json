@@ -1,0 +1,136 @@
+{
+  "schemaVersion": 1,
+  "referenceVersion": "2026-10-07-assets-r1",
+  "assetRepository": "pagefaultgames/pokerogue-assets",
+  "assetRevision": "056a1f408f26a3be4fef243f7462cb43608c7928",
+  "baseUrl": "https://raw.githubusercontent.com/pagefaultgames/pokerogue-assets/056a1f408f26a3be4fef243f7462cb43608c7928/images",
+  "transport": "Pinned immutable GitHub asset revision, cached by the PWA service worker. Runtime code never follows the moving beta branch.",
+  "iconAtlasConvention": {
+    "logicalFrameWidth": 40,
+    "logicalFrameHeight": 30,
+    "baseAtlas": "pokemon_icons_{generation}",
+    "variantAtlas": "pokemon_icons_{generation}v",
+    "normalFrame": "{id}{-form?}",
+    "t1Frame": "{id}s{-form?}",
+    "t2Frame": "{id}{-form?}_2",
+    "t3Frame": "{id}{-form?}_3"
+  },
+  "generationRules": {
+    "nationalDex": [
+      {
+        "min": 1,
+        "max": 151,
+        "generation": 1
+      },
+      {
+        "min": 152,
+        "max": 251,
+        "generation": 2
+      },
+      {
+        "min": 252,
+        "max": 386,
+        "generation": 3
+      },
+      {
+        "min": 387,
+        "max": 493,
+        "generation": 4
+      },
+      {
+        "min": 494,
+        "max": 649,
+        "generation": 5
+      },
+      {
+        "min": 650,
+        "max": 721,
+        "generation": 6
+      },
+      {
+        "min": 722,
+        "max": 809,
+        "generation": 7
+      },
+      {
+        "min": 810,
+        "max": 905,
+        "generation": 8
+      },
+      {
+        "min": 906,
+        "max": 1025,
+        "generation": 9
+      }
+    ],
+    "syntheticIdRules": [
+      {
+        "min": 2000,
+        "max": 3999,
+        "generation": 7,
+        "note": "Alolan and other generation-7 synthetic starter ids unless explicitly overridden."
+      },
+      {
+        "min": 4000,
+        "max": 5999,
+        "generation": 8,
+        "note": "Galarian synthetic starter ids."
+      },
+      {
+        "min": 6000,
+        "max": 7999,
+        "generation": 8,
+        "note": "Hisuian synthetic starter ids."
+      },
+      {
+        "min": 8000,
+        "max": 9999,
+        "generation": 9,
+        "note": "Paldean/special generation-9 synthetic starter ids."
+      }
+    ],
+    "overrides": {
+      "2670": 6
+    }
+  },
+  "canonicalStarterFormOverrides": {
+    "201": "a",
+    "412": "plant",
+    "422": "east",
+    "487": "altered",
+    "492": "land",
+    "493": "normal",
+    "550": "red-striped",
+    "585": "spring",
+    "641": "incarnate",
+    "642": "incarnate",
+    "645": "incarnate",
+    "647": "ordinary",
+    "648": "aria",
+    "669": "red",
+    "716": "neutral",
+    "778": "disguised",
+    "905": "incarnate",
+    "931": "green-plumage",
+    "978": "curly",
+    "1007": "apex-build",
+    "1008": "ultimate-mode",
+    "1012": "counterfeit",
+    "1017": "teal-mask"
+  },
+  "audit": {
+    "starterRootsAudited": 572,
+    "baseFramesResolved": 572,
+    "t1FramesResolved": 572,
+    "t2FramesAvailable": 406,
+    "t3FramesAvailable": 406,
+    "variantPartialPairs": 0,
+    "battleSpriteSheetUse": "prohibited for companion icons",
+    "notes": [
+      "PokéRogue battle PNGs are texture atlases/sprite sheets and must not be rendered directly with img tags.",
+      "The companion uses PokéRogue's pokemon_icons atlases because they provide one logical 40x30 icon frame per form/shiny variant.",
+      "Canonical default-form overrides are sourced from the game's form order for the 23 starter roots that do not have an unsuffixed icon frame.",
+      "Exact user-selected form/gender is not yet represented in the normalized account model; the icon resolver therefore uses the game's canonical first/default starter form unless a caller explicitly provides a form key."
+    ]
+  }
+}

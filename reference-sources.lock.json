@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1,
+  "game": {
+    "repository": "pagefaultgames/pokerogue",
+    "commit": "e734a202a912cc969409c84111b5ab6a15fc7774"
+  },
+  "assets": {
+    "repository": "pagefaultgames/pokerogue-assets",
+    "commit": "056a1f408f26a3be4fef243f7462cb43608c7928"
+  }
+}

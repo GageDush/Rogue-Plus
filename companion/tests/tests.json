@@ -1,0 +1,120 @@
+[
+  {
+    "name": "Home uses schema-v2 metrics and canonical 5850 strategy",
+    "sanity": true,
+    "viewport": "mobile",
+    "covers": [
+      "domain facade",
+      "canonical strategy source",
+      "PokemonSprite",
+      "starter ownership metric"
+    ],
+    "setup": [
+      "Import a schema-v2 save or choose Try sample view"
+    ],
+    "description": "Verifies Home is a domain consumer rather than a legacy constants consumer.",
+    "steps": [
+      "Open Home",
+      "Review the four KPI blocks",
+      "Review Current run build"
+    ],
+    "expected": "Home renders account metrics from the normalized snapshot and the Current run build identifies the canonical 5850 Cheese strategy without a generic READY claim."
+  },
+  {
+    "name": "Pokédex sprites use icon atlas and detail opens",
+    "viewport": "mobile",
+    "covers": [
+      "PokemonSprite icon-atlas crop",
+      "Dex search",
+      "detail navigation",
+      "no battle-sheet rendering"
+    ],
+    "setup": [
+      "Choose Try sample view"
+    ],
+    "description": "Verifies single Pokémon icons render through PokemonSprite and detail remains usable.",
+    "steps": [
+      "Open Dex",
+      "Search Calyrex",
+      "Open the result"
+    ],
+    "expected": "A single icon is shown rather than an animation sheet and the Detail page opens."
+  },
+  {
+    "name": "Canonical team readiness is honest",
+    "viewport": "desktop",
+    "covers": [
+      "canonical teams.v1",
+      "team readiness",
+      "source-backed build notes",
+      "strategy roster"
+    ],
+    "setup": [
+      "Choose Try sample view"
+    ],
+    "description": "Verifies the Teams screen uses canonical strategy data and separates account checks from in-run requirements.",
+    "steps": [
+      "Open Teams",
+      "Select 5850 Cheese",
+      "Review the six starter cards and Source-backed build notes"
+    ],
+    "expected": "The roster is Eternatus, Drifloon, Scatterbug, Skitty, Burmy, Nincada and status wording does not claim full build readiness from incomplete checks."
+  },
+  {
+    "name": "Fusion Lab uses canonical recipes",
+    "viewport": "mobile",
+    "covers": [
+      "canonical fusions.v1",
+      "source-starter ownership",
+      "PokemonSprite evolved visual mapping"
+    ],
+    "setup": [
+      "Choose Try sample view"
+    ],
+    "description": "Verifies fusion recipes no longer come from legacy data.ts.",
+    "steps": [
+      "Open More",
+      "Open Fusion Lab",
+      "Browse recipe tabs"
+    ],
+    "expected": "Recipes show first/second source notes, purpose, source ownership, and a version-sensitive inheritance warning."
+  },
+  {
+    "name": "Architecture self-test covers all five passes",
+    "viewport": "mobile",
+    "covers": [
+      "decryptor",
+      "domain",
+      "assets",
+      "storage",
+      "static architecture audit"
+    ],
+    "description": "Verifies the local self-test spans the completed architecture.",
+    "steps": [
+      "Open More",
+      "Open Import / Settings",
+      "Run Local architecture self-test"
+    ],
+    "expected": "Self-test status changes to PASS."
+  },
+  {
+    "name": "Storage and reset remain isolated",
+    "viewport": "desktop",
+    "covers": [
+      "versioned storage",
+      "backup",
+      "legacy status",
+      "asset cache separation"
+    ],
+    "setup": [
+      "Choose Try sample view"
+    ],
+    "description": "Verifies settings expose versioned storage and account reset retains artwork cache.",
+    "steps": [
+      "Open More then Import / Settings",
+      "Review Storage",
+      "Choose Clear local data and confirm"
+    ],
+    "expected": "Account state clears and the app reports cached artwork was retained."
+  }
+]

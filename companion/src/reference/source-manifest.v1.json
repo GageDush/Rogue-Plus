@@ -1,0 +1,69 @@
+{
+  "schemaVersion": 1,
+  "referenceVersion": "2026-10-07-r1",
+  "createdForPass": 1,
+  "project": "Poke Rogue",
+  "sourcePolicy": {
+    "accountStateAuthority": [
+      "newest intended active raw .prsv",
+      "lossless decrypted JSON from that save",
+      "account-reference workbook generated from the same save",
+      "PokéRogue source code at the documented revision",
+      "project conversation decisions",
+      "older save files"
+    ],
+    "gameplayBuildAuthority": [
+      "current/live game mechanics when rechecked",
+      "active account snapshot",
+      "04_Endless_Strategy_Blueprints.md",
+      "older chat discussion"
+    ],
+    "separationRule": "Stable game/schema/reference knowledge must remain separate from mutable player state."
+  },
+  "acceptedArchitectureDecisions": {
+    "legacySnapshots": "preserve-as-legacy-require-one-fresh-import",
+    "teamsAndFusion": "bundled-default-presets-separate-from-user-created-IndexedDB-content",
+    "gameReference": "bundled-versioned-snapshot-no-runtime-live-fetch"
+  },
+  "projectSources": {
+    "projectIndex": "00_PokeRogue_Project_Index.md",
+    "saveFormat": "01_Save_File_Format_Map.md",
+    "fieldCatalog": "02_Save_Edit_Field_Catalog.md",
+    "currentSaveState": "03_Current_Save_State_2026-10-07.md",
+    "endlessStrategies": "04_Endless_Strategy_Blueprints.md",
+    "mechanics": "05_Game_Mechanics_Reference.md",
+    "researchLog": "07_Research_Log.md",
+    "projectDecisions": "08_Project_Decisions.md",
+    "inventory": "SOURCE_INVENTORY.md"
+  },
+  "officialGameSource": {
+    "repository": "pagefaultgames/pokerogue",
+    "revision": "e734a202a912cc969409c84111b5ab6a15fc7774",
+    "filesUsedForReference": [
+      "src/data/balance/starters.ts",
+      "src/data/species-data-registry.ts",
+      "src/system/game-data.ts",
+      "src/ui/handlers/game-stats-ui-handler.ts",
+      "src/data/pokemon-species.ts",
+      "src/sprites/pokemon-sprite.ts"
+    ]
+  },
+  "assetSource": {
+    "repository": "pagefaultgames/pokerogue-assets",
+    "revision": "056a1f408f26a3be4fef243f7462cb43608c7928",
+    "runtimeTransport": "raw.githubusercontent.com pinned immutable revision",
+    "localReference": "src/reference/assets.v1.json",
+    "cache": "PWA Cache Storage prewarms generation 1-9 base and variant icon atlases.",
+    "policy": "UI components may not construct asset URLs. All Pokémon visuals must resolve through domain/assets.ts and PokemonSprite."
+  },
+  "runtimeRuleForPass2AndLater": "Default public strategy examples live under presets/. Private user Builds, goals and preferences belong in local browser storage. UI consumes domain/storage facades.",
+  "generatedReferences": {
+    "starterRoots": {
+      "path": "src/reference/generated/starter-roots.v1.json",
+      "generator": "scripts/generate-game-references.mjs",
+      "authority": "reference-sources.lock.json",
+      "retrieval": "build-only",
+      "distribution": "bundled offline"
+    }
+  }
+}

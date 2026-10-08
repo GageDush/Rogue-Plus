@@ -1,0 +1,22 @@
+name: Pinned reference parity
+on:
+  push:
+    branches: [refactor/source-driven-references]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify-reference:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Validate reference generator syntax
+        run: node --check scripts/generate-game-references.mjs
+      - name: Regenerate pinned upstream references and verify outputs
+        run: node scripts/generate-game-references.mjs && node --input-type=module -e "import fs from 'node:fs';const j=JSON.parse(fs.readFileSync('companion/src/reference/generated/starter-roots.v1.json'));if(j.count!==572||j.starters.length!==572)process.exit(1)"
+      - name: Build Rogue+ with generated reference assets
+        run: npm --prefix companion install --no-audit --no-fund && npm --prefix companion run build

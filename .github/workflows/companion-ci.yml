@@ -1,0 +1,19 @@
+name: Companion baseline
+on:
+  push:
+    branches: [main, alpha/play-integration]
+  pull_request:
+jobs:
+  companion-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Verify repository data boundaries
+        run: node scripts/validate-repository.mjs
+      - name: Install companion dependencies
+        run: npm --prefix companion install --no-audit --no-fund
+      - name: Build preserved companion
+        run: npm --prefix companion run build
