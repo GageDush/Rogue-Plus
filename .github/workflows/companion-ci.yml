@@ -17,3 +17,5 @@ jobs:
         run: npm --prefix companion install --no-audit --no-fund
       - name: Build preserved companion
         run: npm --prefix companion run build
+      - name: Check integration scripts and module contracts
+        run: npm test

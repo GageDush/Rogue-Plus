@@ -1,0 +1,8 @@
+{
+  "repository": "https://github.com/pagefaultgames/pokerogue.git",
+  "ref": "e2cbf33b1f33686c63ef8e8c314273b9e5fd287d",
+  "gameVersion": "1.12.1.0",
+  "branch": "beta",
+  "verifiedAt": "2026-10-07",
+  "note": "Never silently update to beta HEAD."
+}
