@@ -614,7 +614,7 @@
       "id": "U2",
       "milestone": "B",
       "title": "Shell, navigation and authentic branding",
-      "scope": "Preserve destinations; implement approved shared navigation and brand treatment.",
+      "scope": "Review remaining shared navigation, responsive/focus states and phone behavior beyond U1/U1-CANDY; reuse existing brand and Home-only header Import without repeating them.",
       "excludes": "No unrelated features, mechanics changes, storage migration or production deployment.",
       "class": "presentation",
       "authorization": "pending",
@@ -655,7 +655,7 @@
       "id": "U3",
       "milestone": "B",
       "title": "Home hierarchy and truthful labels",
-      "scope": "Restyle the existing screen behavior with phone-first hierarchy and honest provenance.",
+      "scope": "Polish remaining Home change-summary, preset and empty/partial states; retain Profile overview, candy-only actions and progress bars established by U1-CANDY.",
       "excludes": "No unrelated features, mechanics changes, storage migration or production deployment.",
       "class": "presentation",
       "authorization": "pending",
@@ -1752,7 +1752,7 @@
       "excludes": "No save editing, purchasing, storage migration, score-weight changes, merge or deployment.",
       "class": "interaction",
       "authorization": "approved",
-      "status": "ready_for_review",
+      "status": "verified",
       "dependsOn": [
         "U1"
       ],
@@ -1824,7 +1824,8 @@
             "project/evidence/U1-CANDY.md"
           ]
         }
-      ]
+      ],
+      "verifiedOn": "2026-10-08"
     }
   ]
 }

@@ -23,10 +23,20 @@ Normalized snapshots do not retain egg inventory. Budget floor(candy/current pri
 - Cloud browser with synthetic demo only: Home no overflow at 320 in both modes and desktop 1330; 390 light/dark screenshot review; four accessible Home progress bars; detail four bars/Trainer six bars at 320 dark; red-shiny filter returns four sample starters. Sort changes order (least progress Nincada before Calyrex, most eggs Calyrex first). Header Import absent on Dex; More retains Import / Settings; action opens detail. Keyboard/native select interactions preserved.
 - Scoped App diff against actual remote parent is only conditional header Import (recovery/autosave untouched).
 - docs/assets/profile-candy-modes.jpg captures a prior synthetic demo (egg-only recommendations); fresh synthetic demo includes an affordable Nincada passive and adjusted passive total. No user account data in evidence.
-- Expanded existing CI theme browser check covers 320/390/1330, Home-only header Import, progress accessibility, Show all, both egg sorts, detail/back and prior persistence/reset checks. Remote result pending initial PR creation.
+- Expanded existing CI theme browser check covers 320/390/1330, Home-only header Import, progress accessibility, Show all, both egg sorts, detail/back and prior persistence/reset checks. Remote results passed for application commit e2af0c191addebffb39f70d8e5f2b5ed6c042766.
 
 ## Limits and delivery
 
 No physical iPhone/Safari signoff, live-save freshness guarantee, automatic purchasing, real save restoration, merge or deployment. Existing per-page polish stays tracked separately. Source guidance and generated progress refreshed in this packet; previous U1 evidence remains dated history.
 
 Draft PR: https://github.com/GageDush/Rogue-Plus/pull/8, stacked on #7. Fresh demo gives Scatterbug 60 synthetic candy so Show all/Show fewer are required browser assertions rather than optional branches.
+
+## Remote implementation verification
+
+All three application checks passed on e2af0c191addebffb39f70d8e5f2b5ed6c042766:
+
+- Companion baseline: https://github.com/GageDush/Rogue-Plus/actions/runs/37858608648
+- Companion UI regression: https://github.com/GageDush/Rogue-Plus/actions/runs/37858608594
+- Project tracking: https://github.com/GageDush/Rogue-Plus/actions/runs/37858608630
+
+U1-CANDY acceptance verified. U2/U3 scopes narrowed to remaining work so future sessions do not repeat implemented refinements. Later ledger-only commits do not alter application code; their own checks may run separately. Not merged or deployed.
