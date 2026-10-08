@@ -1,0 +1,40 @@
+name: Companion UI regression
+on:
+  push:
+    branches: [alpha/companion-foundation]
+    paths:
+      - 'companion/src/**'
+      - 'companion/package.json'
+      - 'companion/scripts/**'
+      - 'scripts/**'
+      - '.github/workflows/companion-ui.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  ui-regression:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Install the companion and synthetic browser testing dependencies
+        run: |
+          npm --prefix companion install --no-audit --no-fund
+          npm --prefix companion install --no-save --no-package-lock playwright@1.56.1
+          cd companion && npx playwright install --with-deps chromium
+      - name: Build from pinned reference sources
+        run: npm --prefix companion run build
+      - name: Start private CI-only preview
+        run: |
+          npm --prefix companion run preview -- --host 127.0.0.1 --port 4173 > /tmp/rogue-companion-preview.log 2>&1 &
+          for i in $(seq 1 40); do
+            if curl -fsS http://127.0.0.1:4173/ > /dev/null; then exit 0; fi
+            sleep 1
+          done
+          cat /tmp/rogue-companion-preview.log
+          exit 1
+      - name: Test screens, mobile navigation, backup, reload, and restore
+        run: node companion/scripts/check-ui.mjs
