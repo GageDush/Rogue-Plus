@@ -16,6 +16,7 @@ jobs:
       ROGUE_PLUS_BASE_URL: https://design-hybrid-shell-v1-rogue-plus.gagedush-bff.workers.dev/
       # The live preview predates S0; run new recovery checks against CI builds.
       ROGUE_PLUS_RECOVERY_CHECK: skip
+      ROGUE_PLUS_THEME_CHECK: skip
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4

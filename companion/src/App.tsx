@@ -275,17 +275,14 @@ function App() {
       </aside>
 
       <main className='main'>
-        <header className='topbar'>
+        <header className={page === 'detail' ? 'topbar topbar-detail' : 'topbar'}>
           <div className='topbar-copy'>
+            <Brand compact />
             {page === 'detail' && (
               <button className='icon-button back' aria-label='Back to Pokédex' onClick={() => navigate('dex')}>
                 <ArrowLeft />
               </button>
             )}
-            <div>
-              <div className='eyebrow'>ROGUE+ • LOCAL COMPANION</div>
-              <h1>{pageTitles[page]}</h1>
-            </div>
           </div>
           <div className='topbar-actions'>
             <button type='button' className='more-nav-trigger' aria-label='More navigation' onClick={() => navigate('more')}>
@@ -299,6 +296,10 @@ function App() {
         </header>
 
         <div className='content'>
+          <div className='page-heading'>
+            <h1>{pageTitles[page]}</h1>
+            <p>{current?.demo ? 'Sample collection · Local only' : 'Local companion · On this device'}</p>
+          </div>
           {page === 'home' && <HomePage data={data} legacyCurrent={legacyCurrent ? current : null} onImport={() => saveInput.current?.click()} onDemo={loadDemo} onNavigate={navigate} onPokemon={openPokemon} />}
           {page === 'dex' && (
             <DexPage

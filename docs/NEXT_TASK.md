@@ -18,7 +18,7 @@
 | Task | Work packet | Implementation approval |
 | --- | --- | --- |
 | S1 | Validate backup payloads deeply | pending |
-| U1 | Review and establish visual tokens | pending |
+| U2 | Shell, navigation and authentic branding | pending |
 | C0 | First narrow companion module contract | pending |
 | I0 | Lock dependencies and reproducible CI | pending |
 | D0 | Public-source and reachable-history review | pending |

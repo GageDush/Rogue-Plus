@@ -1,28 +1,32 @@
 :root {
-  font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  color: #F4F1EB;
-  background: #090D12;
+  font-family: var(--font-body);
+  color: var(--text);
+  background: var(--bg);
   font-synthesis: none;
-  color-scheme: dark;
-  --bg: #090D12;
-  --header: #090D12;
-  --panel: #121923;
-  --panel2: #18212D;
-  --panel3: #202B38;
-  --line: #2B3542;
-  --line-strong: #3A4655;
-  --text: #F4F1EB;
-  --muted: #9AA3AE;
-  --muted-2: #6F7A87;
+  color-scheme: light;
+  --bg: #FBF8F2;
+  --header: #FBF8F2;
+  --panel: #FFFFFF;
+  --panel2: #F3EEE5;
+  --panel3: #E9E2D7;
+  --line: #E5DFD6;
+  --line-strong: #C9C1B5;
+  --text: #202A36;
+  --muted: #52606B;
+  --muted-2: #64707B;
   --orange: #FF6A35;
-  --green: #67D7A0;
-  --gold: #E5C45A;
-  --purple: #9A7AEA;
-  --blue: #70B7E6;
-  --red: #E26C6C;
-  --radius-control: 9px;
-  --radius-card: 13px;
-  --radius-hero: 18px;
+  --accent-text: #BA3E13;
+  --accent-soft: #FFF0E9;
+  --on-orange: #202A36;
+  --green: #21734B;
+  --gold: #796015;
+  --purple: #7350AD;
+  --blue: #286D9B;
+  --red: #B13B46;
+  --brand-tile: #121923;
+  --radius-control: 10px;
+  --radius-card: 16px;
+  --radius-hero: 22px;
   --space-1: 4px;
   --space-2: 8px;
   --space-3: 12px;
@@ -31,7 +35,32 @@
   --space-6: 32px;
   --max-content: 1220px;
   --control-min-height: 44px;
-  --focus-ring: 2px solid var(--orange);
-  --font-display: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --font-data: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --focus-ring: 2px solid var(--accent-text);
+  --font-body: 'Source Sans 3', ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-display: Rubik, ui-rounded, 'Source Sans 3', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-data: var(--font-body);
 }
+
+/* One semantic contract for every feature. Orange fill and readable accent
+   text are separate so small labels remain legible on both canvases. */
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --bg: #090D12;
+  --header: #090D12;
+  --panel: #121923;
+  --panel2: #18212D;
+  --panel3: #202B38;
+  --line: #2B3542;
+  --line-strong: #526172;
+  --text: #F4F1EB;
+  --muted: #A5AEB9;
+  --muted-2: #96A2B0;
+  --accent-text: #FF956F;
+  --accent-soft: #302017;
+  --green: #67D7A0;
+  --gold: #E5C45A;
+  --purple: #B094F2;
+  --blue: #70B7E6;
+  --red: #F18B91;
+}
+

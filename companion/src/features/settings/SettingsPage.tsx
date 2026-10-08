@@ -1,7 +1,8 @@
-import { Download, FlaskConical, Info, ShieldCheck, Trash2, Upload } from 'lucide-react';
+import { Download, FlaskConical, Info, Monitor, Moon, ShieldCheck, Sun, Trash2, Upload } from 'lucide-react';
 import type { AppState } from '../../domain/types';
 import type { StorageStatus } from '../../store';
 import { DataLine } from '../../ui/components/AppWidgets';
+import { useTheme } from '../../ui/useTheme';
 
 export function SettingsPage({
   state,
@@ -22,8 +23,18 @@ export function SettingsPage({
   onClear:()=>void;
   onSelfTest:()=>void;
 }) {
+  const { preference, setPreference } = useTheme();
   return (
     <>
+      <section className='appearance-section' aria-labelledby='appearance-title'>
+        <h2 id='appearance-title'>Appearance</h2>
+        <p>Choose a theme, or follow your device. This preference stays separate from imported account data.</p>
+        <div className='appearance-options' role='group' aria-label='Color theme'>
+          {([{ value: 'system', label: 'System', Icon: Monitor }, { value: 'light', label: 'Light', Icon: Sun }, { value: 'dark', label: 'Dark', Icon: Moon }] as const).map(({ value, label, Icon }) => (
+            <button key={value} type='button' aria-pressed={preference === value} onClick={() => setPreference(value)}><Icon aria-hidden='true' />{label}</button>
+          ))}
+        </div>
+      </section>
       <section className='settings-hero'><ShieldCheck /><div><div className='eyebrow'>LOCAL-FIRST</div><h2>Your save stays on this device.</h2><p>Decryption, normalization, comparison, and snapshot storage happen in the browser. Trainer ID and Secret ID are discarded before normalized data is created.</p></div></section>
       <section className='section'><h2>Save import</h2><div className='settings-actions'>
         <button className='primary big' onClick={onImport}><Upload /> Import .prsv</button>
@@ -50,4 +61,5 @@ export function SettingsPage({
     </>
   );
 }
+
 

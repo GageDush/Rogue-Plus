@@ -74,6 +74,21 @@ export function HomePage({
       </section>
 
       <section className='section'>
+        <SectionHeading title='Next actions' action='Ranked list' onClick={() => onNavigate('goals')} />
+        <div className='priority-list'>
+          {data.priorities.slice(0, 3).map((pokemon, index) => (
+            <button key={pokemon.id} className='priority-row' onClick={() => onPokemon(pokemon.id)}>
+              <span className='rank'>{index + 1}</span>
+              <PokemonSprite pokemon={pokemon} size={46} />
+              <span className='priority-copy'><strong>{pokemon.name}</strong><small>{pokemon.nextAction}</small></span>
+              <span className='score'>{pokemon.priorityScore}</span>
+              <ChevronRight />
+            </button>
+          ))}
+        </div>
+      </section>
+
+      <section className='section'>
         <SectionHeading title='New since last save' action={changes.length ? changes.length + ' changes' : 'Baseline'} onClick={() => onNavigate('changes')} />
         {changes.length ? (
           <div className='change-stack'>{changes.map((change, index) => <ChangeCard key={index} change={change} />)}</div>
@@ -83,10 +98,10 @@ export function HomePage({
       </section>
 
       <section className='section'>
-        <SectionHeading title='Current run build' action='Open Build' onClick={() => onNavigate('build')} />
+        <SectionHeading title='Strategy preset' action='View build' onClick={() => onNavigate('build')} />
         <div className='team-banner'>
           <div>
-            <div className='eyebrow'>{teamModeLabel(team)}</div>
+            <div className='eyebrow'>Bundled preset · {teamModeLabel(team)}</div>
             <h3>{teamShortName(team)}</h3>
             <p>
               {teamCostText(team)} / {team.cap ?? 15} points • {teamLuckText(team)} Luck
@@ -101,23 +116,9 @@ export function HomePage({
         </div>
       </section>
 
-      <section className='section'>
-        <SectionHeading title='Next actions' action='Ranked list' onClick={() => onNavigate('goals')} />
-        <div className='priority-list'>
-          {data.priorities.slice(0, 5).map((pokemon, index) => (
-            <button key={pokemon.id} className='priority-row' onClick={() => onPokemon(pokemon.id)}>
-              <span className='rank'>{index + 1}</span>
-              <PokemonSprite pokemon={pokemon} size={46} />
-              <span className='priority-copy'><strong>{pokemon.name}</strong><small>{pokemon.nextAction}</small></span>
-              <span className='score'>{pokemon.priorityScore}</span>
-              <ChevronRight />
-            </button>
-          ))}
-        </div>
-      </section>
-
       <SaveMeta current={data.snapshot} />
     </>
   );
 }
+
 

@@ -26,12 +26,12 @@ export function DexPage({
     <>
       <div className='search-box'>
         <Search />
-        <input value={search} onChange={event => setSearch(event.target.value)} placeholder='Search Pokémon or collection gaps…' />
-        {search && <button onClick={() => setSearch('')}><X /></button>}
+        <input aria-label='Search Pokémon or collection gaps' value={search} onChange={event => setSearch(event.target.value)} placeholder='Search Pokémon or gaps…' />
+        {search && <button aria-label='Clear search' onClick={() => setSearch('')}><X /></button>}
       </div>
       <div className='filter-row'>
         {([['all','All'],['missing','Missing'],['t3','T3'],['passive','Passive'],['team','Team'],['iv','IVs']] as Array<[DexFilter,string]>).map(([id,label]) => (
-          <button key={id} className={filter === id ? 'filter active' : 'filter'} onClick={() => setFilter(id)}>{label}</button>
+          <button key={id} aria-pressed={filter === id} className={filter === id ? 'filter active' : 'filter'} onClick={() => setFilter(id)}>{label}</button>
         ))}
       </div>
       <div className='result-meta'><span>{total} starters</span><span>Tap a row for full detail</span></div>
@@ -55,11 +55,12 @@ function PokemonCard({ pokemon, onClick }: { pokemon: PokemonRecord; onClick: ()
         <small>{pokemon.progressGaps === 'None' ? 'Core progress complete' : pokemon.progressGaps}</small>
       </div>
       <div className='pokemon-status'>
-        <span className={pokemon.passiveUnlocked ? 'status complete' : 'status missing'}>{pokemon.passiveUnlocked ? 'PASSIVE ✓' : 'PASSIVE'}</span>
-        <span className={pokemon.t3 ? 'status t3' : 'status subtle'}>{pokemon.t3 ? 'RED SHINY' : 'T3 —'}</span>
+        <span className={pokemon.passiveUnlocked ? 'status complete' : 'status missing'}>{pokemon.passiveUnlocked ? 'Passive unlocked' : 'Passive missing'}</span>
+        <span className={pokemon.t3 ? 'status t3' : 'status subtle'}>{pokemon.t3 ? 'T3 shiny' : 'No T3 shiny'}</span>
       </div>
       <ChevronRight />
     </button>
   );
 }
+
 

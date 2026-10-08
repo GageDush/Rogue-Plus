@@ -236,6 +236,15 @@
       "evidence": [
         "docs/CURRENT_STATE.md"
       ]
+    },
+    {
+      "name": "Light/dark/system appearance foundation",
+      "status": "partial",
+      "scope": "design/light-dark-foundation draft",
+      "limits": "Local/browser and isolated CI reset checks verified; physical iPhone review and full per-page redesign pending; not production released",
+      "evidence": [
+        "project/evidence/U1.md"
+      ]
     }
   ],
   "releaseGates": [
@@ -274,7 +283,7 @@
     "Cloudflare Workers remains authoritative; historical AppDeploy/Pages proposals are not current configuration.",
     "Implementation verification does not prove merge, deployment or production release.",
     "Private account screenshots, saves and backups are excluded; use sanitized evidence.",
-    "Redesign and future feature packets remain pending implementation authorization."
+    "Selected warm field-guide direction and U1 light/dark foundation authorized 2026-10-08; other feature packets and production release remain separate."
   ],
   "tasks": [
     {
@@ -521,43 +530,76 @@
     {
       "id": "U1",
       "milestone": "B",
-      "title": "Review and establish visual tokens",
-      "scope": "Adopt only approved palette/type choices and deliberately bridge legacy styles.",
+      "title": "Selected visual foundation with light/dark modes",
+      "scope": "Approved warm field-guide foundation; semantic light/dark tokens, system preference, persistent independent appearance settings and representative shared Home/Dex bridge.",
       "excludes": "No unrelated features, mechanics changes, storage migration or production deployment.",
-      "class": "presentation",
-      "authorization": "pending",
-      "status": "planned",
+      "class": "interaction",
+      "authorization": "approved",
+      "status": "verified",
       "dependsOn": [
         "S0"
       ],
       "paths": [
         "companion/src/ui/styles/tokens.css",
-        "companion/src/index.css"
+        "companion/src/ui/styles/field-guide.css",
+        "companion/src/ui/theme.ts",
+        "companion/src/ui/useTheme.ts",
+        "companion/public/rogue-mark.png",
+        "companion/src/ui/components/Navigation.tsx",
+        "companion/src/App.tsx",
+        "companion/src/main.tsx",
+        "companion/src/features/settings/SettingsPage.tsx",
+        "companion/src/features/home/HomePage.tsx",
+        "companion/src/features/dex/DexPage.tsx",
+        "companion/index.html",
+        "companion/vite.config.ts",
+        "companion/tests/theme.test.ts",
+        "companion/scripts/check-theme.mjs",
+        "companion/scripts/check-ui.mjs",
+        ".github/workflows/hybrid-preview-browser.yml"
       ],
       "guidance": [
         "docs/DECISIONS.md",
         "docs/ARCHITECTURE.md",
         "docs/DESIGN.md"
       ],
-      "docsReviewed": [],
+      "docsReviewed": [
+        "docs/DECISIONS.md",
+        "docs/ARCHITECTURE.md",
+        "docs/DESIGN.md"
+      ],
       "delivery": {
-        "stage": "not_started",
-        "branch": null
+        "stage": "pr_open",
+        "branch": "design/light-dark-foundation",
+        "pr": "https://github.com/GageDush/Rogue-Plus/pull/7"
       },
       "acceptance": [
         {
           "id": "AC1",
           "description": "Selected values and direction approved and recorded.",
-          "result": "not_tested",
-          "evidence": []
+          "result": "pass",
+          "evidence": [
+            "project/evidence/U1.md"
+          ]
         },
         {
           "id": "AC2",
           "description": "Representative 320/390px and desktop states remain legible with no domain/storage diff.",
-          "result": "not_tested",
-          "evidence": []
+          "result": "pass",
+          "evidence": [
+            "project/evidence/U1.md"
+          ]
+        },
+        {
+          "id": "AC3",
+          "description": "Light/dark/system preference survives reload; system changes respond live, explicit mode overrides OS, blocked preference storage remains usable, and account reset does not clear appearance.",
+          "result": "pass",
+          "evidence": [
+            "project/evidence/U1.md"
+          ]
         }
-      ]
+      ],
+      "verifiedOn": "2026-10-08"
     },
     {
       "id": "U2",
