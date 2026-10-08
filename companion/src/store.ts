@@ -62,22 +62,19 @@ export async function loadStateWithStatus(): Promise<StorageLoadResult> {
   const stored = await readStoredValues();
 
   if (stored.current !== undefined) {
-    try {
-      const envelope = parseStateEnvelope(stored.current);
-      return {
-        state: envelope.state,
-        status: makeStatus(
-          envelope.state,
-          stored.backend,
-          'schema-v2',
-          envelope.savedAt,
-          [],
-          envelope.referenceVersion
-        ),
-      };
-    } catch (error) {
-      if (stored.legacy === undefined) throw error;
-    }
+    // Rejected current bytes must not be replaced by a legacy migration.
+    const envelope = parseStateEnvelope(stored.current);
+    return {
+      state: envelope.state,
+      status: makeStatus(
+        envelope.state,
+        stored.backend,
+        'schema-v2',
+        envelope.savedAt,
+        [],
+        envelope.referenceVersion
+      ),
+    };
   }
 
   if (stored.legacy !== undefined) {
@@ -138,3 +135,4 @@ export function statusAfterRestore(
 }
 
 export { runStorageSchemaSelfTest };
+

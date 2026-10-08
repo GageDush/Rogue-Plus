@@ -20,6 +20,12 @@ project/tasks.json owns ongoing task state and evidence; scripts/project-trackin
 
 Legacy combined schema-v2 state must remain recoverable until v3 import validation passes. No silent data deletion, rollback on incomplete migration. JSON backup must be schema-versioned and previewed before restoration; individual Build JSON/code formats must not leak player account identity.
 
+### Failed-load recovery (S0)
+
+Startup uses loading/ready/blocked phases; only ready enables the React autosave effect. A rejected current envelope never falls back to a legacy migration that would replace it. Malformed localStorage JSON remains an error, not absent state. A present IndexedDB API with a failed read blocks startup rather than assuming its inaccessible database is empty. Both current storage values must pass envelope validation when present: a usable localStorage fallback cannot hide rejected IndexedDB bytes. After validation, localStorage fallback values take precedence because successful IndexedDB writes remove that fallback key. When the IndexedDB API is absent, localStorage remains supported.
+
+Blocked startup exposes a persistent recovery screen with retry and explicitly confirmed local-account reset. Ordinary import/demo/restore controls remain inaccessible while blocked. Retry/reload do not write rejected data. A failed IndexedDB reset cannot be reported as a successful localStorage-only reset. Successful deliberate reset clears account keys and permits a fresh account; cached artwork is unaffected. No automatic quarantine, schema migration, nested backup-validation overhaul, raw recovery export or PokéRogue save write-back is added. See project/evidence/S0.md for exact tests and release limitations.
+
 ## Module capability model
 - Stable module IDs, versions, dependency and compatibility declarations; explicit read-only game-state and storage capability scopes.
 - Core features appear in main navigation. Experimental/optional modules appear in Modules, with truthful availability status.

@@ -1,5 +1,11 @@
 name: Companion UI regression
 on:
+  pull_request:
+    paths:
+      - 'companion/src/**'
+      - 'companion/tests/**'
+      - 'companion/scripts/**'
+      - '.github/workflows/companion-ui.yml'
   push:
     branches: [alpha/companion-foundation, design/hybrid-shell-v1]
     paths:
@@ -38,3 +44,4 @@ jobs:
           exit 1
       - name: Test screens, mobile navigation, backup, reload, and restore
         run: node companion/scripts/check-ui.mjs
+

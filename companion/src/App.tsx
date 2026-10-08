@@ -30,7 +30,9 @@ import {
 
 function App() {
   const [state, setState] = useState<AppState>(emptyState());
-  const [loaded, setLoaded] = useState(false);
+  const [loadPhase, setLoadPhase] = useState<'loading' | 'ready' | 'blocked'>('loading');
+  const [loadAttempt, setLoadAttempt] = useState(0);
+  const [loadError, setLoadError] = useState('');
   const [storageStatus, setStorageStatus] = useState<StorageStatus | null>(null);
   const [page, setPage] = useState<Page>('home');
   const [selectedId, setSelectedId] = useState<number>(898);
@@ -45,25 +47,50 @@ function App() {
   const backupInput = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
+    let cancelled = false;
     loadStateWithStatus()
       .then(result => {
+        if (cancelled) return;
         setState(result.state);
         setStorageStatus(result.status);
-        setLoaded(true);
+        setLoadError('');
+        setLoadPhase('ready');
       })
       .catch(error => {
-        setState(emptyState());
-        setLoaded(true);
-        showToast(error instanceof Error ? error.message : 'Could not load local app data.');
+        if (cancelled) return;
+        setLoadError(error instanceof Error ? error.message : 'Could not load local app data.');
+        setLoadPhase('blocked');
       });
-  }, []);
+    return () => { cancelled = true; };
+  }, [loadAttempt]);
 
   useEffect(() => {
-    if (!loaded) return;
+    if (loadPhase !== 'ready') return;
     saveState(state)
       .then(status => setStorageStatus(status))
       .catch(() => showToast('Could not save local app data.'));
-  }, [state, loaded]);
+  }, [state, loadPhase]);
+
+  function retryLoad() {
+    setLoadPhase('loading');
+    setLoadAttempt(attempt => attempt + 1);
+  }
+
+  async function resetForRecovery() {
+    if (!window.confirm('Permanently delete all locally stored Rogue+ account snapshots and history on this device? This cannot be undone. Keep your existing files or backups before resetting.')) return;
+    setBusy(true);
+    try {
+      const status = await clearAccountStorage();
+      setState(emptyState());
+      setStorageStatus(status);
+      setLoadError('');
+      setLoadPhase('ready');
+    } catch {
+      setLoadError('Reset could not finish. Automatic saving is still paused. Close other Rogue+ tabs and retry loading before resetting again.');
+    } finally {
+      setBusy(false);
+    }
+  }
 
   useEffect(() => {
     setVisibleCount(90);
@@ -188,7 +215,24 @@ function App() {
     });
   }, [data, search, dexFilter]);
 
-  if (!loaded) {
+  if (loadPhase === 'blocked') {
+    return (
+      <main className='loading-screen recovery-screen'>
+        <section className='recovery-panel' aria-labelledby='recovery-title'>
+          <h1 id='recovery-title'>Local data needs recovery</h1>
+          <p role='alert'>{loadError}</p>
+          <p>Automatic saving is paused. Rogue+ has not replaced your stored data with an empty account.</p>
+          <p>Close other Rogue+ tabs and retry. If this data came from a newer version, open the matching version. Reset only if you have a backup or deliberately want to discard the local account.</p>
+          <div className='recovery-actions'>
+            <button className='import-button' onClick={retryLoad} disabled={busy}>Retry loading</button>
+            <button onClick={resetForRecovery} disabled={busy}>Reset local account…</button>
+          </div>
+        </section>
+      </main>
+    );
+  }
+
+  if (loadPhase === 'loading') {
     return (
       <div className='loading-screen'>
         <div className='loader' />
@@ -310,3 +354,4 @@ function App() {
 
 
 export default App;
+

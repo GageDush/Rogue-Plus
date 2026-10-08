@@ -8,6 +8,8 @@ Keep #FF6A35 and the approved matte icon. Group information before enlarging eve
 
 Proposed refinements: next actions before the bundled preset on Home; honest preset labels; readable role/readiness notes; explanatory Goals rankings; compact ordered Fusion participants; persistent actionable import/storage errors. Preserve algorithms, reference pins, imported fields and existing actions. New disclosures, filters, sorting and remembered scroll are separately scoped interactions.
 
+S0 adds a narrowly scoped persistent startup-recovery state in the existing dark styling: clear error/reason, paused-autosave explanation, retry and explicitly confirmed destructive reset. This implements failed-load feedback only; it does not adopt the candidate theme or establish redesigned import/restore flows. Recovery controls use at least 44px targets and wrap at 320px. Browser checks do not constitute real-iPhone/Safari release signoff.
+
 ## Candidate v1.1 choices
 
 The supplied package records: balanced playful/premium tone; rounded headings/clean body; moderate geometry; subtle layers/shadows; mostly neutral UI; restrained motion; adaptive density; authentic artwork/modern chrome; subtly rounded headings; humanist body; warm off-white canvas; limited orange; outline icons with filled selection; contextual type colors; quiet borders/elevation; verified milestone celebration; balanced spacing; open sections/selective cards; orange primary/neutral secondary actions; tinted active navigation; numbers/meaningful slim bars; comfortable rows; quick chips and only supported advanced filters; brief success/persistent errors.

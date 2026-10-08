@@ -14,6 +14,8 @@ jobs:
     timeout-minutes: 12
     env:
       ROGUE_PLUS_BASE_URL: https://design-hybrid-shell-v1-rogue-plus.gagedush-bff.workers.dev/
+      # The live preview predates S0; run new recovery checks against CI builds.
+      ROGUE_PLUS_RECOVERY_CHECK: skip
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -26,3 +28,4 @@ jobs:
           cd companion && npx playwright install --with-deps chromium
       - name: Test deployed preview with synthetic state only
         run: node companion/scripts/check-ui.mjs
+

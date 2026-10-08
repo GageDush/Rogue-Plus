@@ -425,37 +425,57 @@
       "scope": "Preserve rejected/corrupt/future local bytes until deliberate recovery.",
       "excludes": "No unrelated features, mechanics changes, storage migration or production deployment.",
       "class": "interaction",
-      "authorization": "pending",
-      "status": "planned",
+      "authorization": "approved",
+      "status": "verified",
       "dependsOn": [],
       "paths": [
         "companion/src/App.tsx",
-        "companion/src/store.ts"
+        "companion/src/store.ts",
+        "companion/src/storage/indexeddb.ts",
+        "companion/src/index.css",
+        "companion/tests/startup-recovery.test.ts",
+        "companion/tests/storage-read-recovery.test.ts",
+        "companion/scripts/check-recovery.mjs",
+        "companion/scripts/check-ui.mjs",
+        ".github/workflows/companion-ui.yml",
+        ".github/workflows/hybrid-preview-browser.yml"
       ],
       "guidance": [
         "docs/DECISIONS.md",
         "docs/ARCHITECTURE.md",
-        "docs/DESIGN.md"
+        "docs/DESIGN.md",
+        "docs/PROJECT_WORKFLOW.md"
       ],
-      "docsReviewed": [],
+      "docsReviewed": [
+        "docs/DECISIONS.md",
+        "docs/ARCHITECTURE.md",
+        "docs/DESIGN.md",
+        "docs/PROJECT_WORKFLOW.md"
+      ],
       "delivery": {
-        "stage": "not_started",
-        "branch": null
+        "stage": "pr_open",
+        "branch": "fix/failed-load-recovery",
+        "pr": "https://github.com/GageDush/Rogue-Plus/pull/6"
       },
       "acceptance": [
         {
           "id": "AC1",
           "description": "Failed startup never autosaves empty state over rejected bytes.",
-          "result": "not_tested",
-          "evidence": []
+          "result": "pass",
+          "evidence": [
+            "project/evidence/S0.md"
+          ]
         },
         {
           "id": "AC2",
           "description": "Persistent recovery and a meaningful synthetic effect-level regression pass.",
-          "result": "not_tested",
-          "evidence": []
+          "result": "pass",
+          "evidence": [
+            "project/evidence/S0.md"
+          ]
         }
-      ]
+      ],
+      "verifiedOn": "2026-10-08"
     },
     {
       "id": "S1",
