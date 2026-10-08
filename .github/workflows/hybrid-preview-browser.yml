@@ -1,0 +1,28 @@
+name: Hybrid preview browser QA
+on:
+  push:
+    branches: [design/hybrid-shell-v1]
+    paths:
+      - '.github/workflows/hybrid-preview-browser.yml'
+      - 'companion/scripts/check-ui.mjs'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  preview-browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    env:
+      ROGUE_PLUS_BASE_URL: https://design-hybrid-shell-v1-rogue-plus.gagedush-bff.workers.dev/
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Install test runner and browser
+        run: |
+          npm --prefix companion install --no-audit --no-fund
+          npm --prefix companion install --no-save --no-package-lock playwright@1.56.1
+          cd companion && npx playwright install --with-deps chromium
+      - name: Test deployed preview with synthetic state only
+        run: node companion/scripts/check-ui.mjs

@@ -2,7 +2,7 @@ import { chromium } from 'playwright';
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 
-const base = 'http://127.0.0.1:4173/';
+const base = (process.env.ROGUE_PLUS_BASE_URL || 'http://127.0.0.1:4173/').replace(/\/?$/, '/');
 const browser = await chromium.launch({ headless: true, args: ['--disable-gpu'] });
 const errors = [];
 const fail = [];
