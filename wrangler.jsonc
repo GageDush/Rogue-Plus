@@ -1,0 +1,8 @@
+{
+  "name": "rogue-plus",
+  "compatibility_date": "2026-10-08",
+  "assets": {
+    "directory": "./companion/dist",
+    "not_found_handling": "single-page-application"
+  }
+}
