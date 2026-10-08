@@ -454,7 +454,7 @@ Shared top/bottom/landscape safe areas in both themes, automated simulated inset
 
 **Acceptance**
 
-- ○ Not tested — Final shared stylesheet reserves top, bottom and landscape side insets without route overflow in both themes.
+- ✓ Pass — Final shared stylesheet reserves top, bottom and landscape side insets without route overflow in both themes. · [project/evidence/U1-SAFE.md](../project/evidence/U1-SAFE.md)
 - ○ Not tested — Physical iPhone installed/Safari portrait and landscape review confirms header and final-row clearance.
 
 **Dependencies:** U1.

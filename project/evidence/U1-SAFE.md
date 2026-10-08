@@ -13,3 +13,17 @@ Automated regression now simulates 59px top/34px bottom portrait insets at 320/3
 ## Delivery
 
 Draft PR #8 on design/profile-candy-overview. Cloudflare branch preview automatically builds this branch with the corrected companion-only build command. Preview is separate from production; no merge authorized or performed.
+
+## Passed checks and preview observation
+
+Implementation commit: 334a5c23a94840003c77e3d9f29b1a2f1a989a0c. Local build/typecheck, module boundaries, repository validator, 15 tracking tests and generated-report freshness passed. GitHub companion baseline, UI regression (including simulated safe-area checks) and tracking all passed:
+
+- https://github.com/GageDush/Rogue-Plus/actions/runs/37861879125
+- https://github.com/GageDush/Rogue-Plus/actions/runs/37861879122
+- https://github.com/GageDush/Rogue-Plus/actions/runs/37861879019
+
+Cloudflare build f3f44bac-539d-41fe-a01d-1400cbe75949 succeeded for that commit. Public preview opened successfully and loaded assets/index-BfLMlHa-.css, matching this build. Desktop browser reports zero native top inset, so this confirms deployed stylesheet and runtime, not physical camera clearance.
+
+Preview: https://design-profile-candy-overview-rogue-plus.gagedush-bff.workers.dev/
+
+AC2 remains not_tested; task remains ready_for_review. Production remains unchanged.

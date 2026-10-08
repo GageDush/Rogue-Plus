@@ -1864,8 +1864,10 @@
         {
           "id": "AC1",
           "description": "Final shared stylesheet reserves top, bottom and landscape side insets without route overflow in both themes.",
-          "result": "not_tested",
-          "evidence": []
+          "result": "pass",
+          "evidence": [
+            "project/evidence/U1-SAFE.md"
+          ]
         },
         {
           "id": "AC2",
