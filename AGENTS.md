@@ -4,7 +4,7 @@
 
 Read this file, docs/STATUS.md, docs/NEXT_TASK.md, docs/DECISIONS.md and the authorized task in project/tasks.json. Then read only relevant architecture/design/reference guidance and changed source. docs/CURRENT_STATE.md is a dated audit, not a live progress source; docs/REDESIGN_PLAN.md is a dated proposal. If the recorded branch baseline changed, review its relevant diff before reusing conclusions.
 
-Current user instructions control scope. Inspected source and actual checks establish implemented behavior; accepted decisions establish product contracts. The pre-chat Rogue+ handoff/repository guidance is the product baseline. The v1.1 design package records a candidate warm/light overhaul; do not infer permission to implement from it. Project tracking was authorized separately. Merge and deployment need separate authorization.
+Current user instructions control scope. Inspected source and actual checks establish implemented behavior; accepted decisions establish product contracts. The pre-chat Rogue+ handoff/repository guidance is the product baseline. The selected warm field-guide Home/Dex direction and U1 light/dark foundation were approved 2026-10-08; see DECISIONS. Approval of a direction does not approve unrelated feature packets. Project tracking was authorized separately. Merge and deployment need separate authorization.
 
 ## Preserve contracts
 

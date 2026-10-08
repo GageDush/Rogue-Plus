@@ -12,11 +12,14 @@ Reviewed 2026-10-08. Product baseline: the pre-chat RoguePlus source library, la
 - DEC-006: Preserve feature/import/domain/storage/reference/UI boundaries. Generate/version public reference data; do not infer mechanics from strategy notes. Public source uses synthetic fixtures; private player data never enters GitHub.
 - DEC-007: User approved project tracking/generation/CI setup with "Go for it" on 2026-10-08. This authorizes the tracking packet, not redesign implementation, feature expansion, merge or deployment. Separate task verification from release status; evidence-backed updates ship in the same PR.
 
-## Visual proposals awaiting redesign direction approval
+## Accepted visual direction
 
-- DES-001: Earlier Rogue+ guidance uses near-black surfaces, precise geometric/system typography and restrained borders. The supplied Design System v1.1 records a warm/light premium direction and 24 selected preferences. It is the candidate design reference; its existence is not permission to implement. The user requested a comparison against the pre-chat Rogue+ baseline and has not authorized redesign code in this session.
-- DES-002: Recommended meeting point: preserve mobile task structure, hybrid density, functional contracts and branding; improve legibility, hierarchy and component consistency. Warm/off-white is the proposed next direction for review, not a silently adopted code change.
-- DES-003: Exact #FBF8F2 canvas, Rubik/Source Sans 3, spacing/radii, shadows and motion measurements remain proposals. Review representative Home/Dex phone states first. Keep existing logo on an intentional dark tile if used on a light canvas; do not recolor/reconstruct it incidentally.
+- DES-001 (accepted 2026-10-08): User selected the first displayed warm field-guide Home/Dex mockup by reattaching it and asking for implementation with light and dark modes from the start. This supersedes the previously pending overall warm/light direction; it does not approve future feature behavior, merge or deployment.
+- DES-002 (accepted): Both modes share layouts, routes, real metrics, algorithms, original artwork and the five-tab navigation. Light uses warm ivory/white/ink; dark uses near-black/slate with readable semantic colors. The matte white/orange R+ remains unchanged on a dark tile. Brand orange fill and text accent are separate for contrast.
+- DES-003 (accepted U1 scope): System-following default, explicit Light/Dark choices under Import / Settings → Appearance, remembered in independent `rogue-plus-appearance-v1` preference. Startup resolves appearance before rendering; OS changes follow live only in System mode. No account-schema change or theme value inside backups. Storage-denied browsers can switch for the session.
+- DES-004 (implementation limit): U1 establishes semantic tokens and a representative shared Home/Dex bridge, not every page-specific redesign. Existing Dex lacks species type fields; do not invent type chips from the generated mockup. Generated counts/scores are illustrative; production retains domain-derived values. Rubik/Source Sans 3 remain preferred font names with system fallbacks; no network font requirement has been introduced. Full font packaging, per-page compositions and physical phone signoff remain separate packets.
+
+Approval source: user message 2026-10-08, “I like this one the best, Could you implement a light mode and dark mode from the start,” with the selected mockup attached. Affects U1 and downstream visual tasks.
 
 ## Historical reconciliation
 

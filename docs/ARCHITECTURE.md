@@ -42,3 +42,7 @@ Blocked startup exposes a persistent recovery screen with retry and explicitly c
 - Mobile uses five primary destinations: Home / Dex / Build / Run / Goals, with secondary navigation in the header and More screen.
 - A "Planned" UI must be clearly labeled; it may not claim a non-existent editor, module or data source is functional.
 
+
+## Implemented appearance boundary (U1)
+
+UI appearance is independent of combined-v2 account persistence. `ui/theme.ts` resolves System/Light/Dark and writes only `rogue-plus-appearance-v1` in localStorage; account imports/backups/reset continue using existing repositories unchanged. `index.html` applies the initial palette before React, then the UI controller handles media-query and cross-tab preference updates. React observes the controller with useSyncExternalStore. Semantic CSS variables serve every route including recovery. Private account loading/autosave phases remain unchanged.

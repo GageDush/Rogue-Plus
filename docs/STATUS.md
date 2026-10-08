@@ -8,7 +8,7 @@
 
 | Verified | In progress | Ready for review | Blocked | Planned |
 | --- | --- | --- | --- | --- |
-| ✓ 3 | ◐ 0 | ◇ 2 | ! 0 | ○ 28 |
+| ✓ 3 | ◐ 0 | ◇ 3 | ! 0 | ○ 27 |
 
 > **Verification is not release.** Code may be checked on a draft branch while production stays unchanged.
 
@@ -26,6 +26,7 @@
 | Guest Play and simulated Damage Preview | ◇ Experimental | separate alpha/play-integration |
 | Multiple profiles, editable Builds and Build-aware Goals | ○ Planned | accepted roadmap |
 | Run imports and optional companion module lifecycle | ○ Planned | accepted roadmap |
+| Light/dark/system appearance foundation | ◐ Partial | design/light-dark-foundation draft |
 
 <details>
 <summary>Capability limits and evidence</summary>
@@ -94,6 +95,14 @@ Informational screens do not establish working capabilities
 
 [docs/CURRENT_STATE.md](../docs/CURRENT_STATE.md)
 
+### Light/dark/system appearance foundation
+
+**◐ Partial** · design/light-dark-foundation draft
+
+Local/browser verified; isolated CI reset checks and full per-page redesign pending; not production released
+
+[project/evidence/U1.md](../project/evidence/U1.md)
+
 </details>
 
 ## What has been checked
@@ -104,12 +113,14 @@ Informational screens do not establish working capabilities
 | **BASE-FOUND** | ◇ Ready for review | pr open |
 | **BASE-SHELL** | ◇ Ready for review | pr open |
 | **S0** | ✓ Verified | pr open |
+| **U1** | ◇ Ready for review | working branch |
 | **DOCS-01** | ✓ Verified | pr open |
 
 - **TRACK-01** — `chore/project-tracking-2026-10-08` · [PR](https://github.com/GageDush/Rogue-Plus/pull/5)
 - **BASE-FOUND** — `alpha/companion-foundation` · [PR](https://github.com/GageDush/Rogue-Plus/pull/2)
 - **BASE-SHELL** — `design/hybrid-shell-v1` · [PR](https://github.com/GageDush/Rogue-Plus/pull/3)
 - **S0** — `fix/failed-load-recovery` · [PR](https://github.com/GageDush/Rogue-Plus/pull/6)
+- **U1** — `design/light-dark-foundation`
 - **DOCS-01** — `chore/project-tracking-2026-10-08` · [PR](https://github.com/GageDush/Rogue-Plus/pull/5)
 
 ## Before release
@@ -173,7 +184,7 @@ Reviewed 2026-10-08; snapshots, not live deployment proof.
 - Cloudflare Workers remains authoritative; historical AppDeploy/Pages proposals are not current configuration.
 - Implementation verification does not prove merge, deployment or production release.
 - Private account screenshots, saves and backups are excluded; use sanitized evidence.
-- Redesign and future feature packets remain pending implementation authorization.
+- Selected warm field-guide direction and U1 light/dark foundation authorized 2026-10-08; other feature packets and production release remain separate.
 
 </details>
 

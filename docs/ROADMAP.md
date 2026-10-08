@@ -8,7 +8,7 @@
 
 | Verified | In progress | Ready for review | Blocked | Planned |
 | --- | --- | --- | --- | --- |
-| ✓ 3 | ◐ 0 | ◇ 2 | ! 0 | ○ 28 |
+| ✓ 3 | ◐ 0 | ◇ 3 | ! 0 | ○ 27 |
 
 > **Product intent and implementation approval are separate.** A planned task is not permission to begin.
 
@@ -166,7 +166,7 @@ Phone-first visual consistency after direction approval.
 | Task | Work packet | State |
 | --- | --- | --- |
 | BASE-SHELL | Review existing canonical hybrid shell | ◇ Ready for review |
-| U1 | Review and establish visual tokens | ○ Planned |
+| U1 | Selected visual foundation with light/dark modes | ◇ Ready for review |
 | U2 | Shell, navigation and authentic branding | ○ Planned |
 | U3 | Home hierarchy and truthful labels | ○ Planned |
 | U4A | Dex rows, search and quick filters | ○ Planned |
@@ -200,22 +200,23 @@ Preserve already implemented draft-branch work; complete remaining release/devic
 </details>
 
 <details>
-<summary>U1 · Review and establish visual tokens</summary>
+<summary>U1 · Selected visual foundation with light/dark modes</summary>
 
-**○ Planned** · presentation · Implementation authorization: **pending**
+**◇ Ready for review** · interaction · Implementation authorization: **approved**
 
-Adopt only approved palette/type choices and deliberately bridge legacy styles.
+Approved warm field-guide foundation; semantic light/dark tokens, system preference, persistent independent appearance settings and representative shared Home/Dex bridge.
 
 **Acceptance**
 
-- ○ Not tested — Selected values and direction approved and recorded.
-- ○ Not tested — Representative 320/390px and desktop states remain legible with no domain/storage diff.
+- ✓ Pass — Selected values and direction approved and recorded. · [project/evidence/U1.md](../project/evidence/U1.md)
+- ✓ Pass — Representative 320/390px and desktop states remain legible with no domain/storage diff. · [project/evidence/U1.md](../project/evidence/U1.md)
+- ○ Not tested — Light/dark/system preference survives reload; system changes respond live, explicit mode overrides OS, blocked preference storage remains usable, and account reset does not clear appearance.
 
 **Dependencies:** S0.
 
 **Excluded:** No unrelated features, mechanics changes, storage migration or production deployment.
 
-**Affected paths:** [companion/src/ui/styles/tokens.css](../companion/src/ui/styles/tokens.css), [companion/src/index.css](../companion/src/index.css)
+**Affected paths:** [companion/src/ui/styles/tokens.css](../companion/src/ui/styles/tokens.css), [companion/src/ui/styles/field-guide.css](../companion/src/ui/styles/field-guide.css), [companion/src/ui/theme.ts](../companion/src/ui/theme.ts), [companion/src/ui/useTheme.ts](../companion/src/ui/useTheme.ts), [companion/public/rogue-mark.png](../companion/public/rogue-mark.png), [companion/src/ui/components/Navigation.tsx](../companion/src/ui/components/Navigation.tsx), [companion/src/App.tsx](../companion/src/App.tsx), [companion/src/main.tsx](../companion/src/main.tsx), [companion/src/features/settings/SettingsPage.tsx](../companion/src/features/settings/SettingsPage.tsx), [companion/src/features/home/HomePage.tsx](../companion/src/features/home/HomePage.tsx), [companion/src/features/dex/DexPage.tsx](../companion/src/features/dex/DexPage.tsx), [companion/index.html](../companion/index.html), [companion/vite.config.ts](../companion/vite.config.ts), [companion/tests/theme.test.ts](../companion/tests/theme.test.ts), [companion/scripts/check-theme.mjs](../companion/scripts/check-theme.mjs), [companion/scripts/check-ui.mjs](../companion/scripts/check-ui.mjs), [.github/workflows/hybrid-preview-browser.yml](../.github/workflows/hybrid-preview-browser.yml)
 
 **Guidance:** [docs/DECISIONS.md](../docs/DECISIONS.md), [docs/ARCHITECTURE.md](../docs/ARCHITECTURE.md), [docs/DESIGN.md](../docs/DESIGN.md)
 

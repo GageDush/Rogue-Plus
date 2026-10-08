@@ -21,13 +21,13 @@ export function NavigationIcon({ icon }: { icon: NavIconId }) {
   return <IconComponent aria-hidden='true' />;
 }
 
-export function Brand() {
+export function Brand({ compact = false }: { compact?: boolean }) {
   return (
-    <div className='brand'>
-      <div className='brand-mark' aria-hidden='true'>R<span>+</span></div>
+    <div className={compact ? 'brand brand-compact' : 'brand'}>
+      <div className='brand-mark' aria-hidden='true'><img src='./rogue-mark.png' alt='' /></div>
       <div className='brand-copy'>
-        <strong>ROGUE<span className='brand-plus'>+</span></strong>
-        <span>POKÉROGUE COMPANION</span>
+        <strong>Rogue+</strong>
+        {!compact && <span>LOCAL COMPANION</span>}
       </div>
     </div>
   );
@@ -40,3 +40,4 @@ export function NavButton({ icon, label, active, onClick }: { icon: ReactNode; l
     </button>
   );
 }
+
