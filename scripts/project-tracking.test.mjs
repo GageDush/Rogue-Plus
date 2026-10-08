@@ -5,6 +5,7 @@ import os from 'node:os';
 import path from 'node:path';
 import { execFileSync } from 'node:child_process';
 import { buildReports, run, trackedFiles, validateProject } from './project-tracking.mjs';
+import { progressIllustration } from './project-illustrations.mjs';
 
 const files = ['AGENTS.md', 'docs/DECISIONS.md', 'src/example.js'];
 const readme = '# Fixture\n\nBefore\n<!-- PROJECT:START -->\nOld\n<!-- PROJECT:END -->\nAfter\n';
@@ -40,6 +41,27 @@ test('one completion refreshes all progress views without claiming deployment', 
   for (const file of ['README.md', 'docs/STATUS.md', 'docs/ROADMAP.md']) assert.match(reports.get(file), /1 \/ 1 tracked tasks verified/);
   assert.match(reports.get('docs/STATUS.md'), /working branch/);
   assert.doesNotMatch(reports.get('docs/NEXT_TASK.md').split('## Dependency-ready tasks')[1].split('## Blockers')[0], /Example task/);
+});
+test('illustrations follow registry counts and retain accessible titles', () => {
+  const p = fixture();
+  const before = progressIllustration(p);
+  const after = progressIllustration(verified(p));
+  assert.match(before, /0 of 1 tracked tasks verified/);
+  assert.match(after, /1 of 1 tracked tasks verified/);
+  assert.notEqual(before, after);
+  assert.match(after, /<title id="title">/);
+  assert.match(after, /not whole-product completion/);
+  assert.equal(after, progressIllustration(p));
+  p.milestones[0].name = 'Names & <tags>';
+  assert.match(progressIllustration(p), /Names &amp; &lt;tags&gt;/);
+});
+test('progress pages keep detail discoverable with explicit status labels', () => {
+  const reports = buildReports(fixture(), files, readme);
+  assert.match(reports.get('docs/ROADMAP.md'), /<details>/);
+  assert.match(reports.get('docs/ROADMAP.md'), /Observable acceptance/);
+  assert.match(reports.get('docs/STATUS.md'), /○ Planned|○ Not tested/);
+  assert.match(reports.get('docs/FILE_MAP.md'), /\[src\/example.js\]\(\.\.\/src\/example.js\)/);
+  assert.match(reports.get('docs/FILE_MAP.md'), /Feature · 1 files/);
 });
 test('verification requires acceptance evidence, results and guidance review', () => {
   const p = verified(); p.tasks[0].acceptance[0].evidence = []; rejects(p, /pass requires evidence/);
@@ -100,7 +122,7 @@ test('Git fixture: staged file map, all stale reports, read-only check and regen
     assert.match(run(root, false), /generation passed/); assert.match(run(root, true), /check passed/);
     const map = fs.readFileSync(path.join(root, 'docs/FILE_MAP.md'), 'utf8');
     assert.doesNotMatch(map, /private-untracked|dependency.js/);
-    for (const file of ['README.md', 'docs/STATUS.md', 'docs/ROADMAP.md', 'docs/NEXT_TASK.md', 'docs/FILE_MAP.md']) {
+    for (const file of ['README.md', 'docs/STATUS.md', 'docs/ROADMAP.md', 'docs/NEXT_TASK.md', 'docs/FILE_MAP.md', 'docs/assets/milestone-progress.svg', 'docs/assets/local-data-flow.svg', 'docs/assets/verification-flow.svg']) {
       const correct = fs.readFileSync(path.join(root, file), 'utf8');
       const stale = file === 'README.md' ? correct.replace('<!-- PROJECT:START -->', '<!-- PROJECT:START -->\nSTALE') : correct + '\nSTALE\n';
       fs.writeFileSync(path.join(root, file), stale);

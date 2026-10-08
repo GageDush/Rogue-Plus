@@ -1611,6 +1611,67 @@
           "evidence": []
         }
       ]
+    },
+    {
+      "id": "DOCS-01",
+      "milestone": "T",
+      "title": "Readable project guides and illustrations",
+      "scope": "Restyle README and generated progress/file-map reports with concise summaries, expandable detail and accurate local SVG diagrams.",
+      "excludes": "Application UI, product theme adoption, domain/storage behavior, merge and deployment.",
+      "class": "documentation",
+      "authorization": "approved",
+      "status": "verified",
+      "dependsOn": [
+        "TRACK-01"
+      ],
+      "paths": [
+        "README.md",
+        "scripts/project-report-layout.mjs",
+        "scripts/project-illustrations.mjs",
+        "docs/assets/rogue-header.svg"
+      ],
+      "guidance": [
+        "AGENTS.md",
+        "docs/PROJECT_WORKFLOW.md",
+        "docs/DECISIONS.md"
+      ],
+      "docsReviewed": [
+        "AGENTS.md",
+        "docs/PROJECT_WORKFLOW.md",
+        "docs/DECISIONS.md"
+      ],
+      "delivery": {
+        "stage": "pr_open",
+        "branch": "chore/project-tracking-2026-10-08",
+        "pr": "https://github.com/GageDush/Rogue-Plus/pull/5"
+      },
+      "acceptance": [
+        {
+          "id": "AC1",
+          "description": "README/status lead with concise summaries and expandable detail; all evidence and original scope remain reachable.",
+          "result": "pass",
+          "evidence": [
+            "project/evidence/DOCS-01.md"
+          ]
+        },
+        {
+          "id": "AC2",
+          "description": "Milestone illustration follows registry counts; local-data and verification diagrams are accurate and readable at phone width.",
+          "result": "pass",
+          "evidence": [
+            "project/evidence/DOCS-01.md"
+          ]
+        },
+        {
+          "id": "AC3",
+          "description": "Generator, tracking guards and stale-image detection pass without application changes.",
+          "result": "pass",
+          "evidence": [
+            "project/evidence/DOCS-01.md"
+          ]
+        }
+      ],
+      "verifiedOn": "2026-10-08"
     }
   ]
 }

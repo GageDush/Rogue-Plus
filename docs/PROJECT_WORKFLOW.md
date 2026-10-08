@@ -2,7 +2,7 @@
 
 ## One editable progress source
 
-`project/tasks.json` owns task status, acceptance results, dependencies, recorded delivery and capability observations. The registry is versioned alongside code. `docs/STATUS.md`, `docs/ROADMAP.md`, `docs/NEXT_TASK.md`, `docs/FILE_MAP.md` and the marked README block are generated views; do not edit them manually.
+`project/tasks.json` owns task status, acceptance results, dependencies, recorded delivery and capability observations. The registry is versioned alongside code. `docs/STATUS.md`, `docs/ROADMAP.md`, `docs/NEXT_TASK.md`, `docs/FILE_MAP.md`, the marked README block and the three progress/data/verification SVGs in docs/assets are generated views; do not edit them manually. The header illustration is a static documentation asset using the unchanged supplied mark.
 
 The registry is an evidence ledger, not a detector of completed features. An AI updates actual results; the generator checks consistency and renders reports. Tests passing cannot prove visual signoff, correct mechanics or deployment parity. URLs and local evidence paths are validated structurally, not authenticated as truthful by the generator.
 
@@ -55,4 +55,6 @@ The project-tracking GitHub Actions workflow runs the Node built-in tests and fr
 
 FILE_MAP uses the Git index (git ls-files), includes tracked configuration and feature files, and never walks node_modules, generated bundles or private untracked data. Add new tracked paths before regenerating. Outputs are deterministic: no current clock time, running branch name or current commit hash is inserted, so generation does not create endless commit churn.
 
-The README and generated Markdown form the initial dashboard. A richer dashboard can later render this same registry without introducing another writable source of status.
+The README and generated Markdown form the initial dashboard. Summary counts and explicit state labels come first; longer evidence, task detail and grouped file inventory use expandable sections. Markdown text retains all information when an SVG cannot render. The milestone graphic shows verified task counts with real task denominators, not estimated whole-product completion. SVG generation is deterministic and offline; --check catches stale illustrations as well as stale Markdown.
+
+Presentation is owned by scripts/project-report-layout.mjs; precise illustrations by scripts/project-illustrations.mjs; schema/guard logic by scripts/project-tracking.mjs. A richer dashboard can later render this same registry without introducing another writable source of status.
