@@ -11,7 +11,8 @@ export default {
       if (request.method !== 'GET' && request.method !== 'HEAD') {
         return new Response('Method not allowed', { status: 405 });
       }
-      const tail = url.pathname.slice(PREFIX.length).replace(/^\\/+/, '');
+      let tail = url.pathname.slice(PREFIX.length);
+      while (tail.startsWith('/')) tail = tail.slice(1);
       if (!tail || tail.includes('..') || !/^[a-zA-Z0-9_\-./%]+$/.test(tail)) {
         return new Response('Invalid image path', { status: 400 });
       }
