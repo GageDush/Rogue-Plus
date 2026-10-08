@@ -304,8 +304,9 @@
         "docs/PROJECT_WORKFLOW.md"
       ],
       "delivery": {
-        "stage": "working_branch",
-        "branch": "chore/project-tracking-2026-10-08"
+        "stage": "pr_open",
+        "branch": "chore/project-tracking-2026-10-08",
+        "pr": "https://github.com/GageDush/Rogue-Plus/pull/5"
       },
       "acceptance": [
         {

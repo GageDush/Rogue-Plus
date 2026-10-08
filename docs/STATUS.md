@@ -51,7 +51,7 @@ Evidence: `docs/CURRENT_STATE.md`.
 
 | Task | Implementation | Delivery | Branch / PR |
 | --- | --- | --- | --- |
-| TRACK-01 | verified | working branch | chore/project-tracking-2026-10-08  |
+| TRACK-01 | verified | pr open | chore/project-tracking-2026-10-08 https://github.com/GageDush/Rogue-Plus/pull/5 |
 | BASE-FOUND | ready for review | pr open | alpha/companion-foundation https://github.com/GageDush/Rogue-Plus/pull/2 |
 | BASE-SHELL | ready for review | pr open | design/hybrid-shell-v1 https://github.com/GageDush/Rogue-Plus/pull/3 |
 
