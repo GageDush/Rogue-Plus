@@ -8,6 +8,15 @@ const browser=await chromium.launch({
   args:['--enable-webgl','--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader']
 });
 const page=await browser.newPage({viewport:{width:1280,height:720},deviceScaleFactor:1});
+// Playwright's open-source Chromium build lacks some H.264 codec declarations.
+// Shim capability detection for boot QA only; real browsers use native support.
+await page.addInitScript(() => {
+ const original = HTMLMediaElement.prototype.canPlayType;
+ HTMLMediaElement.prototype.canPlayType = function(type) {
+   if (/video\\/(mp4|x-m4v)/i.test(type)) return 'probably';
+   return original.call(this,type);
+ };
+});
 const errors=[];
 const badResponses=[];
 page.on('pageerror',e=>errors.push((e.stack || e.message).slice(0,4000)));

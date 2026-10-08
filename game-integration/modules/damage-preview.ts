@@ -28,9 +28,23 @@ export const damagePreviewModule: RoguePlusModule = {
     function render() {
       moves.replaceChildren(); output.textContent = '';
       const scene = findBattleScene(game);
-      const attacker = scene?.getPlayerPokemon?.();
-      const target = scene?.getEnemyPokemon?.() || scene?.getEnemyField?.()[0];
-      if (!attacker || !target) { summary.textContent = 'No active battle. Start a battle and refresh.'; return; }
+      if (!scene?.currentBattle) {
+        summary.textContent = 'No active battle. Start a battle and refresh.';
+        return;
+      }
+      let attacker;
+      let target;
+      try {
+        attacker = scene.getPlayerPokemon?.();
+        target = scene.getEnemyPokemon?.() || scene.getEnemyField?.()[0];
+      } catch {
+        summary.textContent = 'Battle is still initializing. Refresh after both Pokémon appear.';
+        return;
+      }
+      if (!attacker || !target) {
+        summary.textContent = 'No active combatants. Refresh once the turn begins.';
+        return;
+      }
       summary.textContent = pokemonName(attacker) + ' → ' + pokemonName(target);
       const moveList = (attacker.moveset || []).map(x => x.getMove()).filter(Boolean);
       for (const move of moveList) {

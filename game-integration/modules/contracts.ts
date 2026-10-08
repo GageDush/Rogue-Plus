@@ -14,6 +14,7 @@ export interface PokemonLike {
   getAttackDamage?(args: { source: PokemonLike; move: MoveLike; simulated: boolean }): { damage?: number; result?: unknown };
 }
 export interface SceneLike {
+  currentBattle?: unknown;
   getPlayerPokemon?(): PokemonLike | undefined;
   getEnemyPokemon?(): PokemonLike | undefined;
   getEnemyField?(): PokemonLike[];
