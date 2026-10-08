@@ -1,6 +1,6 @@
 import { execFileSync } from 'node:child_process';
 import { existsSync, mkdirSync, cpSync, rmSync, readFileSync } from 'node:fs';
-import { resolve } from 'node:path';
+import { resolve, relative, sep } from 'node:path';
 const root = resolve(import.meta.dirname, '..');
 const companion = resolve(root, 'companion');
 const upstream = resolve(root, 'upstream');
@@ -20,7 +20,16 @@ const dist = resolve(root, 'dist');
 rmSync(dist, { recursive: true, force: true });
 mkdirSync(dist, { recursive: true });
 cpSync(resolve(companion, 'dist'), dist, { recursive: true });
-cpSync(resolve(upstream, 'dist'), resolve(dist, 'play'), { recursive: true });
+const gameDist = resolve(upstream, 'dist');
+cpSync(gameDist, resolve(dist, 'play'), {
+  recursive: true,
+  filter: source => {
+    const rel = relative(gameDist, source);
+    // Exclude 28k immutable images from Worker static-assets limit. A read-only
+    // Worker proxy serves the exact pinned upstream submodule revision instead.
+    return rel !== 'images' && !rel.startsWith('images' + sep);
+  }
+});
 if (!existsSync(resolve(dist, 'index.html')) || !existsSync(resolve(dist, 'play/index.html'))) {
   throw new Error('Combined output does not contain both entry points.');
 }
