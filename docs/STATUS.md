@@ -1,6 +1,7 @@
 # Rogue+ Integration Status
 
-- Baseline: all 49 AppDeploy files preserved in `companion/` on `main` at commit `1bd6260`.
+- Baseline: the sanitized companion source lives on `main`, whose first commit has no previous history.
+- Reference catalog: generated from a pinned upstream revision, not committed as player data.
 - Work branch: `alpha/play-integration`; not deployed or verified in a live game session.
 - Source of truth: `GageDush/Rogue-Plus` (private).
 - Upstream game revision: `e2cbf33b1f33686c63ef8e8c314273b9e5fd287d`.
