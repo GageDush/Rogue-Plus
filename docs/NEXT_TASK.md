@@ -12,13 +12,13 @@
 | --- | --- | --- |
 | BASE-FOUND | Review existing foundation extraction | [Open PR](https://github.com/GageDush/Rogue-Plus/pull/2) |
 | BASE-SHELL | Review existing canonical hybrid shell | [Open PR](https://github.com/GageDush/Rogue-Plus/pull/3) |
-| U1 | Selected visual foundation with light/dark modes | design/light-dark-foundation |
 
 ## Dependency-ready tasks
 
 | Task | Work packet | Implementation approval |
 | --- | --- | --- |
 | S1 | Validate backup payloads deeply | pending |
+| U2 | Shell, navigation and authentic branding | pending |
 | C0 | First narrow companion module contract | pending |
 | I0 | Lock dependencies and reproducible CI | pending |
 | D0 | Public-source and reachable-history review | pending |

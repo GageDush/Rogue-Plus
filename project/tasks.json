@@ -535,7 +535,7 @@
       "excludes": "No unrelated features, mechanics changes, storage migration or production deployment.",
       "class": "interaction",
       "authorization": "approved",
-      "status": "ready_for_review",
+      "status": "verified",
       "dependsOn": [
         "S0"
       ],
@@ -569,8 +569,9 @@
         "docs/DESIGN.md"
       ],
       "delivery": {
-        "stage": "working_branch",
-        "branch": "design/light-dark-foundation"
+        "stage": "pr_open",
+        "branch": "design/light-dark-foundation",
+        "pr": "https://github.com/GageDush/Rogue-Plus/pull/7"
       },
       "acceptance": [
         {
@@ -592,10 +593,13 @@
         {
           "id": "AC3",
           "description": "Light/dark/system preference survives reload; system changes respond live, explicit mode overrides OS, blocked preference storage remains usable, and account reset does not clear appearance.",
-          "result": "not_tested",
-          "evidence": []
+          "result": "pass",
+          "evidence": [
+            "project/evidence/U1.md"
+          ]
         }
-      ]
+      ],
+      "verifiedOn": "2026-10-08"
     },
     {
       "id": "U2",
