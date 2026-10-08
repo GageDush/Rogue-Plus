@@ -9,4 +9,4 @@
 
 ## Git history and public release caution
 
-The original private development history once included exact account statistics, a save filename, and a timestamp. Rewrite all branch histories to new clean roots **before changing visibility**. A branch rewrite does not guarantee GitHub's servers, pull request views, caches, artifacts, or previously cloned copies immediately discard unreachable objects. For strict assurance, publish this sanitized code in a **new repository created with a clean initial history** and retire the old private repository instead.
+The original private development history once included exact account statistics, a save filename, and a timestamp. As of 2026-10-08, active branch refs were rewritten onto a clean root commit, with Alpha on a clean child commit. **The repository remains private.** A branch rewrite does not guarantee GitHub's servers, pull request views, caches, artifacts, or previously cloned copies immediately discard unreachable objects. For strict assurance, publish this sanitized code in a **new repository created with a clean initial history** and retire the old private repository instead.
