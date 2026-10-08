@@ -1,7 +1,7 @@
 name: Companion UI regression
 on:
   push:
-    branches: [alpha/companion-foundation]
+    branches: [alpha/companion-foundation, design/hybrid-shell-v1]
     paths:
       - 'companion/src/**'
       - 'companion/package.json'

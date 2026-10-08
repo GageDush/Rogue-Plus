@@ -24,11 +24,13 @@ npm run dev
 The companion's `predev` and `prebuild` tasks generate the offline starter reference, so **internet access is needed on the first development/build run**, not when a user opens the installed app.
 
 - `main`: companion application and local-first reference generator.
-- `alpha/play-integration`: isolated experimental PokéRogue game bridge and damage preview (not yet a verified playable deployment).
+- `alpha/companion-foundation`: modular screen refactor with passing CI, awaiting user backup restoration and release gates.
+- `design/hybrid-shell-v1`: hybrid shell and canonical Build/Run/Goals navigation (work in progress).
+- `alpha/play-integration`: isolated experimental PokéRogue game bridge and damage preview (separate, user-tested Guest-mode game and Damage Preview proof of concept).
 - `companion/src/presets/`: bundled sample strategies, not imported or private user-created content.
 - `reference-sources.lock.json`: immutable upstream source commit identifiers.
 
-The original [AppDeploy companion](https://pokerogue-command-center-zgi7j4.v2.appdeploy.ai/) remains separately deployed. Cloudflare Pages Git linkage has not yet been verified.
+The original [AppDeploy companion](https://pokerogue-command-center-zgi7j4.v2.appdeploy.ai/) remains separately deployed. Cloudflare Workers hosts the production companion. The unused Pages project is not an authoritative deployment.
 
 ## Privacy and licensing
 

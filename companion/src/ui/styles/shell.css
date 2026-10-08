@@ -1,0 +1,110 @@
+/* Hybrid Rogue+ system — concise analytic shell, visually rich collection screens.
+ * Existing selectors are intentionally reused while the component library migrates. */
+html { scroll-behavior: smooth; }
+body { font-family: var(--font-display); }
+:focus-visible { outline: var(--focus-ring); outline-offset: 2px; }
+.app-shell { min-height: 100vh; background: var(--bg); }
+.topbar {
+  min-height: 78px; padding-inline: clamp(14px, 2.6vw, 32px);
+  background: var(--header);
+}
+.topbar h1 { font-size: clamp(23px, 3vw, 32px); font-weight: 780; line-height: 1.1; }
+.topbar-actions { display: flex; align-items: center; gap: 9px; flex: 0 0 auto; }
+.more-nav-trigger {
+  display: inline-flex; align-items: center; justify-content: center; gap: 7px;
+  min-height: var(--control-min-height); padding: 0 12px; border: 1px solid var(--line-strong);
+  border-radius: var(--radius-control); background: var(--panel); color: var(--text);
+  font-size: 12px; font-weight: 720; cursor: pointer;
+}
+.more-nav-trigger svg { width: 19px; height: 19px; }
+.more-nav-trigger:hover, .more-nav-trigger:focus-visible { border-color: var(--orange); }
+.import-button, .primary, .secondary, .danger { border-radius: var(--radius-control); min-height: var(--control-min-height); }
+.import-button { color: #171411; background: var(--orange); border-color: var(--orange); font-weight: 810; }
+.primary { color: #161411; border-color: var(--orange); }
+.content { width: min(var(--max-content), 100%); padding: clamp(14px, 2.3vw, 30px); }
+.navigation-section-label {
+  display: none; margin: 17px 10px 7px; color: var(--muted-2);
+  font: 750 9px/1.2 var(--font-data); letter-spacing: .1em;
+}
+.navigation-footer { display: none; margin: auto 11px 12px; font: 650 9px/1.4 var(--font-data); color: var(--muted-2); }
+.nav-button { cursor: pointer; }
+.bottom-nav {
+  min-height: 74px; height: calc(66px + env(safe-area-inset-bottom));
+  padding: 4px 5px max(7px, env(safe-area-inset-bottom)); gap: 2px;
+  background: var(--header);
+}
+.bottom-nav .nav-button { border-radius: 8px; color: var(--muted); font-size: 10px; min-width: 0; }
+.bottom-nav .nav-button.active { color: var(--orange); background: var(--panel); }
+.bottom-nav .nav-button.active::before { top: -4px; left: 30%; right: 30%; }
+.bottom-nav .nav-button svg { width: 20px; height: 20px; }
+.feature-intro {
+  background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius-card);
+  padding: 16px 18px; margin-bottom: 17px; border-left: 2px solid var(--orange);
+}
+.feature-intro p { color: var(--muted); font-size: 12px; line-height: 1.58; margin: 7px 0 0; max-width: 74ch; }
+.feature-kicker { font: 780 10px/1.35 var(--font-data); color: var(--orange); letter-spacing: .09em; }
+.feature-status {
+  display: inline-flex; font-size: 9px; font-weight: 750; font-family: var(--font-data);
+  text-transform: uppercase; letter-spacing: .02em; vertical-align: middle;
+  margin-left: 7px; color: var(--muted); border: 1px solid var(--line-strong);
+  border-radius: 5px; padding: 3px 6px;
+}
+.feature-hero {
+  position: relative; overflow: hidden; min-height: 310px;
+  background: var(--panel); border: 1px solid var(--line-strong);
+  border-radius: var(--radius-hero); padding: clamp(22px, 4vw, 42px);
+}
+.feature-hero h2 { font-size: clamp(28px, 5vw, 48px); max-width: 16ch; line-height: 1.08; letter-spacing: -.035em; margin: 18px 0 12px; }
+.feature-hero > p { color: var(--muted); max-width: 61ch; font-size: 14px; line-height: 1.7; margin: 0 0 24px; }
+.feature-hero .feature-disclaimer { position: relative; color: var(--muted); display:flex; align-items:flex-start; gap:8px; font-size:11px; line-height:1.6; margin-top:18px; max-width:65ch; }
+.feature-disclaimer svg { flex: 0 0 auto; width: 17px; height: 17px; color: var(--green); }
+.feature-illustration {
+  position: absolute; right: -65px; top: -50px; opacity: .045; color: var(--text);
+  pointer-events: none; transform: rotate(-16deg);
+}
+.feature-illustration svg { width: clamp(250px, 40vw, 460px); height: auto; }
+.run-facts { display: flex; gap: 9px; flex-wrap:wrap; margin: 22px 0 24px; }
+.run-facts > div { min-width: 165px; padding: 15px; background: var(--header); border: 1px solid var(--line); border-radius: 9px; }
+.run-facts small, .run-facts strong { display: block; }
+.run-facts small { color: var(--muted); font: 700 9px/1.4 var(--font-data); letter-spacing: .05em; }
+.run-facts strong { font-size: 15px; margin-top: 8px; color: var(--text); }
+.feature-external-link { text-decoration: none; display: inline-flex; width: fit-content; }
+.feature-external-link svg { width: 17px; height: 17px; }
+.module-preview { position: relative; display:flex; align-items:flex-start; gap:15px; max-width:580px; border:1px solid var(--line); background:var(--header); border-radius:12px; padding:17px; }
+.module-preview-icon { display:grid; place-items:center; border:1px solid var(--line-strong); border-radius:9px; width:44px; height:44px; color:var(--orange); flex:0 0 auto; }
+.module-preview-icon svg { width: 23px; height: 23px; }
+.module-preview strong { font-size: 15px; }
+.module-preview p { margin: 6px 0; font-size: 11px; line-height:1.55; color:var(--muted); }
+.module-preview a { color: var(--orange); font-size: 12px; }
+.hero-grid { border-radius: var(--radius-card); }
+.kpi { min-height: 116px; }
+.kpi > strong { letter-spacing: -.045em; }
+.pokemon-hero, .team-header-card, .fusion-stage { border-radius: var(--radius-hero); }
+.pokemon-card, .party-card, .more-card { transition: background .15s ease, border-color .15s ease; }
+.pokemon-card:hover, .party-card:hover, .more-card:hover { background: var(--panel2); }
+.pokemon-card:focus-visible, .party-card:focus-visible, .more-card:focus-visible { position:relative; z-index:2; }
+.more-grid { border-radius: var(--radius-card); }
+.more-card h3 { display: flex; align-items: center; flex-wrap: wrap; row-gap: 5px; }
+@media (min-width: 980px) {
+ .app-shell { grid-template-columns: 228px minmax(0, 1fr); }
+ .desktop-sidebar { padding: 14px 9px; overflow-y: auto; }
+ .navigation-section-label, .navigation-footer { display: block; }
+ .desktop-sidebar .nav-button { min-height: 43px; border-radius: 8px; border-left: 0; padding: 0 11px; }
+ .desktop-sidebar .nav-button.active { background: var(--panel2); color: var(--text); box-shadow: inset 3px 0 var(--orange); }
+ .desktop-sidebar .nav-button.active svg { color: var(--orange); }
+ .desktop-sidebar .nav-button:hover:not(.active) { background: var(--panel); color: var(--text); }
+ .topbar-actions .more-nav-trigger { display: none; }
+ .brand { margin-bottom: 8px; }
+}
+@media (max-width: 390px) {
+ .topbar-actions { gap: 5px; }
+ .topbar { padding-inline: 11px; }
+ .more-nav-trigger { padding-inline: 9px; }
+ .more-nav-trigger span { display:none; }
+ .import-button { padding-inline: 9px; }
+ .topbar h1 { font-size: 23px; }
+}
+@media (prefers-reduced-motion: reduce) {
+ html { scroll-behavior: auto; }
+ .pokemon-card, .party-card, .more-card { transition: none; }
+}
