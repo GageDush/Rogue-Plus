@@ -18,6 +18,9 @@ export async function checkTheme(browser, base) {
       await page.getByRole('heading', { name: 'Appearance', exact: true }).waitFor();
     }
     await page.goto(base, { waitUntil: 'domcontentloaded' });
+    // Desktop automation has zero native safe-area values. Simulate camera and
+    // home-indicator insets to catch later CSS overrides; real iOS is separate.
+    if (width < 980) await page.addStyleTag({ content: ':root { --safe-top: 59px; --safe-bottom: 34px; }' });
     await page.getByRole('button', { name: /Try sample view/ }).waitFor();
     assert.equal(await actual(), 'dark');
     await page.emulateMedia({ colorScheme: 'light' });
@@ -53,6 +56,19 @@ export async function checkTheme(browser, base) {
         }
         assert.equal(await actual(), mode.toLowerCase());
         assert.ok(await page.evaluate(() => document.documentElement.scrollWidth) <= width, destination + ' overflows ' + width);
+        if (width < 980) {
+          assert.ok(await page.locator('.topbar').evaluate(el => parseFloat(getComputedStyle(el).paddingTop) >= 71), 'Camera inset lost to stylesheet override');
+          assert.ok(await page.locator('.topbar-copy').evaluate(el => el.getBoundingClientRect().top >= 59), 'Brand enters status area');
+          assert.ok(await page.locator('.bottom-nav').evaluate(el => parseFloat(getComputedStyle(el).paddingBottom) >= 42), 'Home indicator padding missing');
+        }
+      }
+      if (width < 980) {
+        await page.setViewportSize({ width: 844, height: 390 });
+        const landscape = await page.addStyleTag({ content: ':root { --safe-top: 0px; --safe-left: 59px; --safe-right: 59px; --safe-bottom: 21px; }' });
+        assert.ok(await page.locator('.content').evaluate(el => parseFloat(getComputedStyle(el).paddingLeft) >= 83 && parseFloat(getComputedStyle(el).paddingRight) >= 83), 'Landscape camera side clearance missing');
+        assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= 844), 'Landscape overflow');
+        await landscape.evaluate(el => el.remove());
+        await page.setViewportSize({ width, height: 844 });
       }
       await settings();
     }

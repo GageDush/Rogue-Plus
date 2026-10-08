@@ -33,3 +33,7 @@ The dated REDESIGN_PLAN retains the detailed comparison and original packets. Cu
 ## Profile overview follow-up
 
 Use real collection denominators for starters, passives, egg moves and red-shiny starter count (not all-tier count). Share CollectionProgress with Trainer/detail. Red stars accompany plain labels; color alone conveys no meaning. Home candy rows disclose price and available candy and open Pokémon detail. Show three by default, with Show all/Show fewer and two egg ordering options. Every displayed action is candy-affordable from the imported snapshot; egg purchases remain random and capacity is not inferred.
+
+## Device safe areas
+
+The final field-guide stylesheet owns top, bottom and landscape side insets after legacy rules and breakpoints. Edge-to-edge backgrounds remain; header controls, content, navigation, recovery screens and notifications reserve system-control clearance. Tests simulate insets because desktop automation reports zero native values. Physical installed iPhone/Safari portrait, landscape, keyboard and larger-text verification remain pending under U1-SAFE.
