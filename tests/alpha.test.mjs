@@ -34,3 +34,14 @@ test('Node scripts pass syntax checks', () => {
     execFileSync('node', ['--check', resolve(root, 'scripts', file)]);
   }
 });
+
+test('Image proxy is narrowly scoped and immutable', () => {
+  const cfg = JSON.parse(read('wrangler.jsonc'));
+  assert.equal(cfg.assets.directory, './dist');
+  assert.equal(cfg.assets.binding, 'ASSETS');
+  assert.deepEqual(cfg.assets.run_worker_first, ['/play/images/*']);
+  const source = read('worker/asset-proxy.js');
+  assert.match(source, /056a1f408f26a3be4fef243f7462cb43608c7928/);
+  assert.match(source, /method !== 'GET'/);
+  assert.doesNotMatch(source, /savedata|\/auth\//i);
+});
