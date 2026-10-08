@@ -1,7 +1,7 @@
 name: Companion baseline
 on:
   push:
-    branches: [main, alpha/play-integration]
+    branches: [main, alpha/play-integration, alpha/companion-foundation]
   pull_request:
 jobs:
   companion-build:
@@ -15,5 +15,11 @@ jobs:
         run: node scripts/validate-repository.mjs
       - name: Install companion dependencies
         run: npm --prefix companion install --no-audit --no-fund
+      - name: Test local save schemas and import fixture
+        run: npm --prefix companion test
+      - name: Enforce feature import boundaries
+        run: node scripts/check-module-boundaries.mjs
+      - name: Validate TypeScript boundaries
+        run: npm --prefix companion run typecheck
       - name: Build preserved companion
         run: npm --prefix companion run build

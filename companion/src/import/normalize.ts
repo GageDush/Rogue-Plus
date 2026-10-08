@@ -46,7 +46,7 @@ export function normalizeRawSave(raw: RawSave, sourceFile: string): Snapshot {
     const eggCount = eggs.filter(Boolean).length;
     const perfectIvs = ivs.filter(iv => iv === 31).length;
     const natureCount = countBits(natureAttr);
-    const baseRecord = {
+    const baseRecord: PokemonRecord = {
       id: reference.id,
       name: reference.name,
       baseCost: reference.starterCost,
@@ -90,7 +90,7 @@ export function normalizeRawSave(raw: RawSave, sourceFile: string): Snapshot {
       collectionGaps: '',
       source: { seenAttr, caughtAttr, natureAttr, eggMoveMask, abilityMask, passiveMask },
       visual,
-    } satisfies PokemonRecord;
+    };
 
     const planning = derivePlanning(baseRecord);
     baseRecord.nextAction = planning.nextAction;
