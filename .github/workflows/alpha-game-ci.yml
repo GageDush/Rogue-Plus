@@ -1,0 +1,57 @@
+name: Alpha · combined PokéRogue build
+on:
+  push:
+    branches: [alpha/play-integration]
+    paths:
+      - 'game-integration/**'
+      - 'scripts/**'
+      - 'companion/**'
+      - 'upstream.lock.json'
+      - 'package.json'
+      - '.github/workflows/alpha-game-ci.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  build-play:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24.9.0'
+      - name: Install pnpm 10
+        run: npm install -g pnpm@10.34.5
+      - name: Verify privacy and patch scripts
+        run: node scripts/validate-repository.mjs && npm test
+      - name: Check out pinned upstream game and asset/locales submodules
+        run: npm run setup:upstream
+      - name: Install upstream and companion dependencies
+        run: |
+          pnpm --dir upstream install --frozen-lockfile
+          npm --prefix companion install --no-audit --no-fund
+      - name: Apply isolated game and companion patches
+        run: npm run patch
+      - name: Test bridge TypeScript and build combined site
+        run: npm run build
+      - name: Verify combined output paths and required game assets
+        run: |
+          test -s dist/index.html
+          test -s dist/play/index.html
+          test -s dist/play/asset-manifest.json
+          test -s dist/play/index.css
+          test -s dist/play/service-worker.js
+          test -d dist/play/images
+          node scripts/verify-alpha-output.mjs
+          du -sh dist dist/play
+          find dist/play -type f | wc -l
+      - name: Upload build proof (entry files only)
+        uses: actions/upload-artifact@v4
+        with:
+          name: rogue-plus-play-build-proof
+          path: |
+            dist/index.html
+            dist/play/index.html
+            dist/play/asset-manifest.json
+          retention-days: 3
