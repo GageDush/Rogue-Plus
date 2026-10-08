@@ -1,12 +1,14 @@
 import { chromium } from 'playwright';
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
+import { checkRecovery } from './check-recovery.mjs';
 
 const base = (process.env.ROGUE_PLUS_BASE_URL || 'http://127.0.0.1:4173/').replace(/\/?$/, '/');
 const browser = await chromium.launch({ headless: true, args: ['--disable-gpu'] });
 const errors = [];
 const fail = [];
 try {
+  if (process.env.ROGUE_PLUS_RECOVERY_CHECK !== 'skip') await checkRecovery(browser, base);
   const desktop = await browser.newContext({ viewport: { width: 1330, height: 850 }, acceptDownloads: true });
   const page = await desktop.newPage();
   page.on('pageerror', error => errors.push(error.message));
@@ -89,3 +91,4 @@ try {
 } finally {
   await browser.close();
 }
+

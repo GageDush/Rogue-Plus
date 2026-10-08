@@ -41,6 +41,13 @@ img { image-rendering: auto; }
   border-radius: 50%;
   animation: spin .8s linear infinite;
 }
+.recovery-screen { padding: 24px 16px; }
+.recovery-panel { width: min(100%, 560px); color: var(--text); line-height: 1.5; }
+.recovery-panel h1 { font-size: 24px; font-weight: 700; line-height: 1.25; margin-bottom: 16px; }
+.recovery-panel p { overflow-wrap: anywhere; margin-bottom: 12px; }
+.recovery-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 24px; }
+.recovery-actions button { min-height: 44px; padding: 12px 16px; border-radius: 10px; border: 1px solid var(--line); background: var(--panel); }
+.recovery-actions .import-button { background: var(--orange); color: #090d12; }
 .spin { animation: spin .8s linear infinite; }
 @keyframes spin { to { transform: rotate(360deg); } }
 
