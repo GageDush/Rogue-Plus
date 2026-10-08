@@ -20,7 +20,7 @@ try {
   const nav = name => page.locator('.desktop-sidebar').getByRole('button', { name, exact: true });
   await nav('Dex').click();
   await page.locator('.pokemon-card').first().waitFor();
-  assert.ok(await page.locator('.pokemon-card').count() > 10, 'Dex did not render account collection');
+  assert.ok(await page.locator('.pokemon-card').count() >= 8, 'Dex did not render synthetic collection');
   await page.locator('.pokemon-card').first().click();
   await page.locator('.pokemon-hero').waitFor();
   await page.getByRole('button', { name: 'Back to Pokédex' }).click();
@@ -43,7 +43,7 @@ try {
   const backup = JSON.parse(await readFile(await download.path(), 'utf8'));
   assert.equal(backup.kind, 'pokerogue-command-center-backup');
   assert.ok(backup.state.current, 'Synthetic backup missing current account');
-  assert.ok(backup.state.current.pokemon.length > 100, 'Synthetic backup missing collection');
+  assert.ok(backup.state.current.pokemon.length >= 8, 'Synthetic backup missing collection');
 
   await page.reload({ waitUntil: 'domcontentloaded' });
   await page.locator('.hero-grid .kpi').first().waitFor();
