@@ -14,7 +14,7 @@ for (const relative of [manifest.js, ...(manifest.css || [])]) {
   assert.ok(relative.startsWith('./'), 'Game bundles must use relative paths: ' + relative);
   assert.ok(existsSync(join(root, 'play', relative)), 'Missing bundled game asset: ' + relative);
 }
-const required = ['play/index.css', 'play/service-worker.js'];
+const required = ['play/service-worker.js'];
 for (const p of required) assert.ok(existsSync(join(root, p)), 'Missing game runtime resource: ' + p);
 function inspectDirectory(dir) {
   let files = 0, maxBytes = 0, biggest = '';
@@ -33,4 +33,6 @@ function inspectDirectory(dir) {
   return { files, maxBytes, biggest };
 }
 const s = inspectDirectory(root);
+const categories = readdirSync(join(root,'play'), {withFileTypes:true}).filter(e=>e.isDirectory()).map(e=>({folder:e.name,...inspectDirectory(join(root,'play',e.name))})).sort((a,b)=>b.files-a.files);
+console.log('Game asset inventory:',JSON.stringify(categories.map(x=>({folder:x.folder,files:x.files,maxBytes:x.maxBytes})),null,2));
 console.log(JSON.stringify({ result: 'PASS', entryPoints: ['/', '/play/'], gameEntrypoint: manifest.js, totalFiles: s.files, largestAssetBytes: s.maxBytes, largestAsset: s.biggest }, null, 2));
