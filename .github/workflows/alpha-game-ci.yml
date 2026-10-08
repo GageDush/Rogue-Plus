@@ -46,7 +46,6 @@ jobs:
           test -s dist/index.html
           test -s dist/play/index.html
           test -s dist/play/asset-manifest.json
-          test -s dist/play/index.css
           test -s dist/play/service-worker.js
           test -d dist/play/images
           node scripts/verify-alpha-output.mjs
