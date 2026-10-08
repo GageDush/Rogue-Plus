@@ -32,7 +32,10 @@ function inspectDirectory(dir) {
   }
   return { files, maxBytes, biggest };
 }
+assert.ok(!existsSync(join(root, 'play/images')), 'Game images must be served from the immutable proxy rather than included as files.');
 const s = inspectDirectory(root);
+assert.ok(s.files <= 20000, 'Worker Free plan permits at most 20000 static files: ' + s.files);
+assert.ok(s.maxBytes <= 25 * 1024 * 1024, 'Worker individual asset file exceeds 25 MiB');
 const categories = readdirSync(join(root,'play'), {withFileTypes:true}).filter(e=>e.isDirectory()).map(e=>({folder:e.name,...inspectDirectory(join(root,'play',e.name))})).sort((a,b)=>b.files-a.files);
 console.log('Game asset inventory:',JSON.stringify(categories.map(x=>({folder:x.folder,files:x.files,maxBytes:x.maxBytes})),null,2));
 console.log(JSON.stringify({ result: 'PASS', entryPoints: ['/', '/play/'], gameEntrypoint: manifest.js, totalFiles: s.files, largestAssetBytes: s.maxBytes, largestAsset: s.biggest }, null, 2));
