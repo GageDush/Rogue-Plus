@@ -23,6 +23,7 @@ export function TeamsPage({
 
   return (
     <>
+      <div className='feature-intro'><span className='feature-kicker'>PRESET LIBRARY · EDITOR PLANNED</span><p>Explore bundled strategies and see which Pokémon are already available in your current collection. Editable Inventory and rules-legal Sandbox Builds are the next feature.</p></div>
       <div className='team-tabs'>
         {data.teams.map((candidate,index) => (
           <button key={candidate.id} className={index === teamIndex ? 'active' : ''} onClick={() => setTeamIndex(index)}>{teamShortName(candidate)}</button>

@@ -1,7 +1,7 @@
 name: Companion baseline
 on:
   push:
-    branches: [main, alpha/play-integration, alpha/companion-foundation]
+    branches: [main, alpha/play-integration, alpha/companion-foundation, design/hybrid-shell-v1]
   pull_request:
 jobs:
   companion-build:

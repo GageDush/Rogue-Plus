@@ -8,6 +8,7 @@ export function HuntPage({ data, onPokemon }: { data: PokeRogueData | null; onPo
   const account = data.account;
   return (
     <>
+      <div className='feature-intro'><span className='feature-kicker'>CURRENT COLLECTION PRIORITIES</span><p>These rankings use fixed collection rules and bundled strategy presets. Build-aware priorities and custom goals are planned.</p></div>
       <div className='hero-grid compact'>
         <Kpi label='Missing Passives' value={String(account.passivesTotal - account.passivesUnlocked)} note='ACCOUNT-WIDE' tone='gold' />
         <Kpi label='Egg Moves Left' value={String(account.eggMovesTotal - account.eggMovesUnlocked)} note='COLLECTION' tone='blue' />

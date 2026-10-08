@@ -52,7 +52,7 @@ export function DetailPage({ pokemon, data, onTeam }: { pokemon: PokemonRecord |
 
       {used.length > 0 && (
         <section className='section'>
-          <SectionHeading title='Saved strategies' action='Open Teams' onClick={onTeam} />
+          <SectionHeading title='Saved strategies' action='Open Build' onClick={onTeam} />
           <div className='team-usage'>
             {used.map(team => {
               const member = (team.members || []).find(candidate => candidate.starter === pokemon.name);

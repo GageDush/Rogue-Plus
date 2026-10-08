@@ -2,7 +2,7 @@ import { chromium } from 'playwright';
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 
-const base = 'http://127.0.0.1:4173/';
+const base = (process.env.ROGUE_PLUS_BASE_URL || 'http://127.0.0.1:4173/').replace(/\/?$/, '/');
 const browser = await chromium.launch({ headless: true, args: ['--disable-gpu'] });
 const errors = [];
 const fail = [];
@@ -25,15 +25,22 @@ try {
   await page.locator('.pokemon-hero').waitFor();
   await page.getByRole('button', { name: 'Back to Pokédex' }).click();
 
-  await nav('Teams').click();
+  await nav('Build').click();
   await page.locator('.team-header-card').waitFor();
-  await nav('Hunt').click();
+  await nav('Goals').click();
+  await page.locator('.hunt-list').waitFor();
+  await nav('Run').click();
+  await page.getByText('RUNS · PLANNED').waitFor();
+  await nav('Goals').click();
   await page.locator('.hunt-list').waitFor();
   await nav('More').click();
-  await page.getByRole('button', { name: /Trainer/i }).click();
+  await page.locator('.more-grid').getByRole('button', { name: /Trainer/i }).click();
   await page.locator('.progress-list').waitFor();
   await nav('More').click();
-  await page.getByRole('button', { name: /Import \/ Settings/i }).click();
+  await page.locator('.more-grid').getByRole('button', { name: /Modules/i }).click();
+  await page.getByText('MODULE REGISTRY · PLANNED').waitFor();
+  await nav('More').click();
+  await page.locator('.more-grid').getByRole('button', { name: /Import \/ Settings/i }).click();
   await page.locator('.settings-hero').waitFor();
 
   const [download] = await Promise.all([
@@ -63,9 +70,16 @@ try {
   assert.ok(await phone.locator('.hero-grid .kpi').count() >= 4, 'Mobile backup restore did not load');
   await phone.locator('.bottom-nav').getByRole('button', { name: 'Dex', exact: true }).click();
   await phone.locator('.pokemon-card').first().waitFor();
-  await phone.locator('.bottom-nav').getByRole('button', { name: 'Teams', exact: true }).click();
+  await phone.locator('.bottom-nav').getByRole('button', { name: 'Build', exact: true }).click();
   await phone.locator('.team-header-card').waitFor();
-  console.log('PASS: Mobile navigation and cross-profile synthetic backup restore');
+  await phone.locator('.bottom-nav').getByRole('button', { name: 'Run', exact: true }).click();
+  await phone.getByText('RUNS · PLANNED').waitFor();
+  await phone.getByRole('button', { name: 'More navigation' }).click();
+  await phone.locator('.more-grid').getByRole('button', { name: /Import \/ Settings/i }).waitFor();
+  assert.equal(await phone.locator('.bottom-nav .nav-button').count(), 5, 'Mobile navigation must contain five primary destinations');
+  const pageWidth = await phone.evaluate(() => document.documentElement.scrollWidth);
+  assert.ok(pageWidth <= 390, 'Horizontal overflow on iPhone-width viewport: '+pageWidth);
+  console.log('PASS: Mobile navigation, responsive layout and cross-profile synthetic backup restore');
 
   assert.deepEqual(errors, [], 'Unexpected client JS error(s)');
   assert.deepEqual(fail, [], 'Failed application assets');
