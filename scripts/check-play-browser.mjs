@@ -10,7 +10,9 @@ const browser=await chromium.launch({
 const page=await browser.newPage({viewport:{width:1280,height:720},deviceScaleFactor:1});
 const errors=[];
 const badResponses=[];
-page.on('pageerror',e=>errors.push(e.message));
+page.on('pageerror',e=>errors.push((e.stack || e.message).slice(0,4000)));
+page.on('console',m=>{if(m.type()==='error') console.log('BROWSER CONSOLE ERROR:',m.text().slice(0,400));});
+page.on('requestfailed',q=>console.log('BROWSER FAILED REQUEST:',q.url(),q.failure()?.errorText));
 page.on('response',r=>{if(r.status()>=400 && new URL(r.url()).origin===new URL(base).origin)badResponses.push([r.status(),r.url()]);});
 try {
  await page.goto(base+'/play/',{waitUntil:'domcontentloaded',timeout:60000});
@@ -24,7 +26,7 @@ try {
  await page.screenshot({path:'artifacts/play-alpha-smoke.png',animations:'disabled'});
  console.log('PASS: Phaser canvas, Rogue+ extension button, toggle and module panel');
  console.log('GAME PANEL:',output.slice(0,400).replace(/\s+/g,' '));
- console.log('PAGE ERRORS:',JSON.stringify(errors.slice(0,15)));
+ console.log('PAGE ERRORS:',JSON.stringify(errors.slice(0,15),null,2));
  console.log('FAILED SAME-ORIGIN REQUESTS:',JSON.stringify(badResponses.slice(0,20)));
  if(errors.length) throw new Error('Browser runtime errors: '+errors.slice(0,3).join(' | '));
  if(badResponses.some(([status])=>status===404 || status>=500)) throw new Error('Failed assets: '+JSON.stringify(badResponses.slice(0,5)));
