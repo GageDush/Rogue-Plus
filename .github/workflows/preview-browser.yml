@@ -1,0 +1,31 @@
+name: Live Play browser QA
+on:
+  push:
+    branches: [alpha/play-integration]
+    paths:
+      - '.github/workflows/preview-browser.yml'
+      - 'scripts/check-play-browser.mjs'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Install Chromium runner
+        run: npm install --no-save --no-package-lock playwright@1.56.1 && npx playwright install --with-deps chromium
+      - name: Launch actual game preview and test bridge
+        run: node scripts/check-play-browser.mjs
+      - name: Save preview screenshot
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: rogue-plus-play-browser-qa
+          path: artifacts/play-alpha-smoke.png
+          retention-days: 5
+          if-no-files-found: ignore
