@@ -1,10 +1,10 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { ArrowLeft, Check, Home, Import, Menu, RefreshCw, Search, Swords, Target } from 'lucide-react';
+import { ArrowLeft, Check, Import, Menu, RefreshCw } from 'lucide-react';
 import { buildDemoState, decryptAndNormalize, runDecryptSelfTest, type AppState } from './pokerogue';
 import { createPokeRogueData } from './domain/facade';
 import { CANONICAL_TEAM_IDS } from './domain/teams';
-import { pageTitles, type Page, type DexFilter } from './app/navigation';
-import { Brand, NavButton } from './ui/components/Navigation';
+import { isNavigationActive, pageTitles, primaryNavigation, secondaryNavigation, type Page, type DexFilter } from './app/navigation';
+import { Brand, NavButton, NavigationIcon } from './ui/components/Navigation';
 import { HomePage } from './features/home/HomePage';
 import { DexPage } from './features/dex/DexPage';
 import { DetailPage } from './features/dex/DetailPage';
@@ -15,6 +15,8 @@ import { TrainerPage } from './features/trainer/TrainerPage';
 import { ChangesPage } from './features/history/ChangesPage';
 import { MorePage } from './features/more/MorePage';
 import { SettingsPage } from './features/settings/SettingsPage';
+import { RunPage } from './features/runs/RunPage';
+import { ModulesPage } from './features/modules/ModulesPage';
 import {
   clearAccountStorage,
   createBackupText,
@@ -212,18 +214,20 @@ function App() {
         onChange={event => handleBackup(event.target.files?.[0])}
       />
 
-      <aside className='desktop-sidebar'>
+      <aside className='desktop-sidebar' aria-label='Primary and secondary navigation'>
         <Brand />
-        <NavButton icon={<Home />} label='Home' active={page === 'home'} onClick={() => navigate('home')} />
-        <NavButton icon={<Search />} label='Dex' active={page === 'dex' || page === 'detail'} onClick={() => navigate('dex')} />
-        <NavButton icon={<Swords />} label='Teams' active={page === 'teams'} onClick={() => navigate('teams')} />
-        <NavButton icon={<Target />} label='Hunt' active={page === 'hunt'} onClick={() => navigate('hunt')} />
-        <NavButton
-          icon={<Menu />}
-          label='More'
-          active={['more', 'fusion', 'trainer', 'changes', 'settings'].includes(page)}
-          onClick={() => navigate('more')}
-        />
+        <div className='navigation-section-label'>WORKSPACE</div>
+        {primaryNavigation.map(item => (
+          <NavButton key={item.id} icon={<NavigationIcon icon={item.icon} />} label={item.label}
+            active={isNavigationActive(page, item.id)} onClick={() => navigate(item.id)} />
+        ))}
+        <div className='navigation-section-label secondary-label'>LIBRARY & SETTINGS</div>
+        {secondaryNavigation.map(item => (
+          <NavButton key={item.id} icon={<NavigationIcon icon={item.icon} />} label={item.label}
+            active={isNavigationActive(page, item.id)} onClick={() => navigate(item.id)} />
+        ))}
+        <NavButton icon={<Menu />} label='More' active={page === 'more'} onClick={() => navigate('more')} />
+        <div className='navigation-footer'>LOCAL-FIRST · ALPHA</div>
       </aside>
 
       <main className='main'>
@@ -239,10 +243,15 @@ function App() {
               <h1>{pageTitles[page]}</h1>
             </div>
           </div>
+          <div className='topbar-actions'>
+            <button type='button' className='more-nav-trigger' aria-label='More navigation' onClick={() => navigate('more')}>
+              <Menu aria-hidden='true' /> <span>More</span>
+            </button>
           <button className='import-button' onClick={() => saveInput.current?.click()} disabled={busy}>
             {busy ? <RefreshCw className='spin' /> : <Import />}
             <span>{busy ? 'Importing' : 'Import'}</span>
           </button>
+          </div>
         </header>
 
         <div className='content'>
@@ -259,11 +268,13 @@ function App() {
               onMore={() => setVisibleCount(value => value + 90)}
             />
           )}
-          {page === 'detail' && <DetailPage pokemon={selected} data={data} onTeam={() => navigate('teams')} />}
-          {page === 'teams' && <TeamsPage data={data} teamIndex={teamIndex} setTeamIndex={setTeamIndex} onPokemon={openPokemon} />}
-          {page === 'hunt' && <HuntPage data={data} onPokemon={openPokemon} />}
+          {page === 'detail' && <DetailPage pokemon={selected} data={data} onTeam={() => navigate('build')} />}
+          {page === 'build' && <TeamsPage data={data} teamIndex={teamIndex} setTeamIndex={setTeamIndex} onPokemon={openPokemon} />}
+          {page === 'goals' && <HuntPage data={data} onPokemon={openPokemon} />}
           {page === 'fusion' && <FusionPage data={data} />}
           {page === 'trainer' && <TrainerPage data={data} />}
+          {page === 'run' && <RunPage state={state} />}
+          {page === 'modules' && <ModulesPage />}
           {page === 'changes' && <ChangesPage state={state} />}
           {page === 'more' && <MorePage navigate={navigate} />}
           {page === 'settings' && (
@@ -284,12 +295,11 @@ function App() {
           )}
         </div>
 
-        <nav className='bottom-nav'>
-          <NavButton icon={<Home />} label='Home' active={page === 'home'} onClick={() => navigate('home')} />
-          <NavButton icon={<Search />} label='Dex' active={page === 'dex' || page === 'detail'} onClick={() => navigate('dex')} />
-          <NavButton icon={<Swords />} label='Teams' active={page === 'teams'} onClick={() => navigate('teams')} />
-          <NavButton icon={<Target />} label='Hunt' active={page === 'hunt'} onClick={() => navigate('hunt')} />
-          <NavButton icon={<Menu />} label='More' active={['more', 'fusion', 'trainer', 'changes', 'settings'].includes(page)} onClick={() => navigate('more')} />
+        <nav className='bottom-nav' aria-label='Primary navigation'>
+          {primaryNavigation.map(item => (
+            <NavButton key={item.id} icon={<NavigationIcon icon={item.icon} />} label={item.label}
+              active={isNavigationActive(page, item.id)} onClick={() => navigate(item.id)} />
+          ))}
         </nav>
       </main>
 

@@ -1,14 +1,23 @@
-import type { ReactNode } from 'react';
-import { ChevronRight, Database, FlaskConical, History, UserRound } from 'lucide-react';
-import type { Page } from '../../app/navigation';
+import { ChevronRight } from 'lucide-react';
+import { secondaryNavigation, type Page } from '../../app/navigation';
+import { NavigationIcon } from '../../ui/components/Navigation';
 
-export function MorePage({ navigate }: { navigate: (page:Page)=>void }) {
-  const links:Array<[Page,ReactNode,string,string]> = [
-    ['fusion',<FlaskConical />,'Fusion Lab','Versioned fusion recipes and source notes'],
-    ['trainer',<UserRound />,'Trainer','Career stats, vouchers and completion'],
-    ['changes',<History />,'Change Log','Permanent before / after history'],
-    ['settings',<Database />,'Import / Settings','Save import, backups and local storage'],
-  ];
-  return <div className='more-grid'>{links.map(([target,icon,title,note]) => <button key={target} className='more-card' onClick={() => navigate(target)}><div className='more-icon'>{icon}</div><div><h3>{title}</h3><p>{note}</p></div><ChevronRight /></button>)}</div>;
+export function MorePage({ navigate }: { navigate: (page: Page) => void }) {
+  return (
+    <>
+      <div className='feature-intro'><span className='feature-kicker'>ROGUE+ LIBRARY</span><p>Tools, progress history, and local data management. Experimental tools are clearly labeled.</p></div>
+      <div className='more-grid'>
+        {secondaryNavigation.map(item => (
+          <button key={item.id} type='button' className='more-card' onClick={() => navigate(item.id)}>
+            <div className='more-icon'><NavigationIcon icon={item.icon} /></div>
+            <div>
+              <h3>{item.label} {item.status !== 'available' ? <small className='feature-status'>{item.status === 'preview' ? 'Preview' : 'Planned'}</small> : null}</h3>
+              <p>{item.description}</p>
+            </div>
+            <ChevronRight aria-hidden='true' />
+          </button>
+        ))}
+      </div>
+    </>
+  );
 }
-

@@ -83,7 +83,7 @@ export function HomePage({
       </section>
 
       <section className='section'>
-        <SectionHeading title='Current run build' action='Open Teams' onClick={() => onNavigate('teams')} />
+        <SectionHeading title='Current run build' action='Open Build' onClick={() => onNavigate('build')} />
         <div className='team-banner'>
           <div>
             <div className='eyebrow'>{teamModeLabel(team)}</div>
@@ -102,7 +102,7 @@ export function HomePage({
       </section>
 
       <section className='section'>
-        <SectionHeading title='Next actions' action='Ranked list' onClick={() => onNavigate('hunt')} />
+        <SectionHeading title='Next actions' action='Ranked list' onClick={() => onNavigate('goals')} />
         <div className='priority-list'>
           {data.priorities.slice(0, 5).map((pokemon, index) => (
             <button key={pokemon.id} className='priority-row' onClick={() => onPokemon(pokemon.id)}>

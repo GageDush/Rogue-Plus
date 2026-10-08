@@ -25,13 +25,20 @@ try {
   await page.locator('.pokemon-hero').waitFor();
   await page.getByRole('button', { name: 'Back to Pokédex' }).click();
 
-  await nav('Teams').click();
+  await nav('Build').click();
   await page.locator('.team-header-card').waitFor();
-  await nav('Hunt').click();
+  await nav('Goals').click();
+  await page.locator('.hunt-list').waitFor();
+  await nav('Run').click();
+  await page.getByText('RUNS · PLANNED').waitFor();
+  await nav('Goals').click();
   await page.locator('.hunt-list').waitFor();
   await nav('More').click();
   await page.getByRole('button', { name: /Trainer/i }).click();
   await page.locator('.progress-list').waitFor();
+  await nav('More').click();
+  await page.getByRole('button', { name: /Modules/i }).click();
+  await page.getByText('MODULE REGISTRY · PLANNED').waitFor();
   await nav('More').click();
   await page.getByRole('button', { name: /Import \/ Settings/i }).click();
   await page.locator('.settings-hero').waitFor();
@@ -63,8 +70,12 @@ try {
   assert.ok(await phone.locator('.hero-grid .kpi').count() >= 4, 'Mobile backup restore did not load');
   await phone.locator('.bottom-nav').getByRole('button', { name: 'Dex', exact: true }).click();
   await phone.locator('.pokemon-card').first().waitFor();
-  await phone.locator('.bottom-nav').getByRole('button', { name: 'Teams', exact: true }).click();
+  await phone.locator('.bottom-nav').getByRole('button', { name: 'Build', exact: true }).click();
   await phone.locator('.team-header-card').waitFor();
+  await phone.locator('.bottom-nav').getByRole('button', { name: 'Run', exact: true }).click();
+  await phone.getByText('RUNS · PLANNED').waitFor();
+  await phone.getByRole('button', { name: 'More navigation' }).click();
+  await phone.getByRole('button', { name: /Import \/ Settings/i }).waitFor();
   console.log('PASS: Mobile navigation and cross-profile synthetic backup restore');
 
   assert.deepEqual(errors, [], 'Unexpected client JS error(s)');
