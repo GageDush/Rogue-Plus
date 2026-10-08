@@ -24,8 +24,8 @@ export async function checkTheme(browser, base) {
     await page.waitForFunction(() => document.documentElement.dataset.theme === 'light');
     await page.getByRole('button', { name: /Try sample view/ }).click();
     // Stress the real KPI layout with a long synthetic value, without changing domain state.
-    await page.locator('.kpi > strong').nth(2).evaluate(el => { el.textContent = '2,077 / 2,288'; });
-    assert.ok(await page.locator('.kpi > strong').nth(2).evaluate(el => el.scrollWidth <= el.clientWidth), 'Long collection total is clipped');
+    await page.locator('.collection-progress .progress-summary small').nth(2).evaluate(el => { el.textContent = '2,077 / 2,288'; });
+    assert.ok(await page.locator('.collection-progress .progress-summary small').nth(2).evaluate(el => el.scrollWidth <= el.clientWidth), 'Long collection total is clipped');
     await settings();
     for (const mode of ['Dark', 'Light']) {
       await page.getByRole('button', { name: mode, exact: true }).click();
@@ -35,6 +35,18 @@ export async function checkTheme(browser, base) {
       assert.equal(await actual(), mode.toLowerCase());
       for (const destination of ['Home', 'Dex', 'Build', 'Run', 'Goals']) {
         await nav(destination).click();
+        assert.equal(await page.locator('.topbar .import-button').count(), destination === 'Home' ? 1 : 0);
+        if (destination === 'Home') {
+          await page.getByRole('heading', { name: 'Profile overview', exact: true }).waitFor();
+          assert.equal(await page.getByRole('progressbar').count(), 4);
+          assert.equal(await page.locator('.priority-row').filter({ hasText: /Finish egg moves|Unlock egg/ }).count(), 0);
+          const all = page.getByRole('button', { name: /Show all/ });
+          if (await all.count()) await all.click();
+          await page.getByRole('combobox', { name: 'Egg order' }).selectOption('least-progress');
+          await page.getByRole('combobox', { name: 'Egg order' }).selectOption('most-eggs');
+          await page.locator('.priority-row').first().click();
+          await page.getByRole('button', { name: 'Back to Pokédex' }).click();
+        }
         assert.equal(await actual(), mode.toLowerCase());
         assert.ok(await page.evaluate(() => document.documentElement.scrollWidth) <= width, destination + ' overflows ' + width);
       }

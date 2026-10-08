@@ -60,7 +60,7 @@ export function memberMeta(member: CanonicalTeamMember): string {
   const parts: string[] = [];
   if (typeof member.cost === 'number') parts.push(String(member.cost) + ' pts');
   if (typeof member.luck === 'number') parts.push('Luck ' + String(member.luck));
-  if (member.shinyTier) parts.push(member.shinyTier);
+  if (member.shinyTier) parts.push(shinyLabel(member.shinyTier));
   return parts.length ? parts.join(' • ') : 'Source roster member';
 }
 
@@ -97,4 +97,9 @@ export function fusionShortName(recipe: CanonicalFusionRecipe): string {
     case 'ambipom-toucannon': return 'Skill Link';
     default: return recipe.purpose;
   }
+}
+
+
+export function shinyLabel(value: string): string {
+  return value.replace(/\bShiny T1\b/g, 'Yellow shiny').replace(/\bShiny T2\b/g, 'Blue shiny').replace(/\bShiny T3\b/g, 'Red shiny').replace(/\bT1\b/g, 'Yellow shiny').replace(/\bT2\b/g, 'Blue shiny').replace(/\bT3\b/g, 'Red shiny');
 }

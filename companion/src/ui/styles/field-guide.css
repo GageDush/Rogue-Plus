@@ -48,6 +48,17 @@ h1, h2, h3, .kpi > strong { font-family: var(--font-display); }
 .priority-row .pokemon-sprite-component { background: var(--panel2); border-radius: 10px; }
 .priority-copy strong { font-size: 17px; font-weight: 750; overflow-wrap: anywhere; }
 .priority-copy small { font-size: 14px; line-height: 1.4; }
+.collection-progress { gap: 6px; }
+.collection-progress .progress-summary { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 10px; margin: 4px 0; }
+.collection-progress .progress-summary strong { font-size: 26px; color: var(--text); }
+.collection-progress .progress-summary small { font-size: 13px; color: var(--muted); overflow-wrap: anywhere; }
+.collection-track { height: 8px; background: var(--panel3); border-radius: 99px; overflow: hidden; width: 100%; }
+.collection-track > span { display: block; height: 100%; background: currentColor; border-radius: inherit; }
+.candy-explainer { font-size: 14px; line-height: 1.5; color: var(--muted); margin: 8px 0 12px; }
+.egg-sort { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-size: 14px; color: var(--muted); margin: 12px 0; }
+.egg-sort select { min-height: 44px; max-width: 100%; border: 1px solid var(--line-strong); border-radius: 10px; background: var(--panel); color: var(--text); font: inherit; padding: 8px 10px; }
+.red-shiny-star { color: var(--red); }
+.t3-badge.red-shiny-star, .big-shiny.red-shiny-star { color: var(--red); border-color: var(--red); }
 .empty-panel { border: 0; border-radius: 12px; background: var(--accent-soft); padding: 14px; min-height: 76px; }
 .empty-panel strong { font-size: 16px; }
 .empty-panel span { font-size: 14px; }

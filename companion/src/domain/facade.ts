@@ -2,6 +2,7 @@ import { CANONICAL_FUSIONS, FUSION_INHERITANCE_NEEDS_RECHECK } from './fusions';
 import { CANONICAL_TEAMS, getTeamReadiness } from './teams';
 import type { PokemonRecord, Snapshot, TeamReadiness } from './types';
 import type { StorageStatus } from '../storage/types';
+export { getCandyActions, type EggSort } from './candy-actions';
 
 export interface PokeRogueData {
   snapshot: Snapshot;
@@ -48,3 +49,4 @@ export function createPokeRogueData(
     storage,
   };
 }
+

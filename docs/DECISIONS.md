@@ -36,3 +36,13 @@ Approval source and date:
 Affected tasks and guidance:
 
 Routine status or path updates need evidence, not a new product decision. Material architecture/design/scope changes use this record and explicit task authorization.
+
+## Profile and candy refinements (accepted 2026-10-08)
+
+DES-005 supersedes the Command Center label and ubiquitous header Import: Home becomes Profile overview; header Import appears on Home only, with Import / Settings reachable through More on every route. Primary tab labels/routes stay unchanged. Approval: user requested these refinements and authorized implementation. Affects U1-CANDY and later shell/Home packets.
+
+DES-006 supersedes Home score-ranked mixed next actions: show only candy-affordable recommendations, one per species. Choose an affordable passive first, otherwise an affordable next cost reduction, otherwise species eggs for incomplete egg-improvable collection fields. Across species, passives precede reductions and eggs; upgrades sort by candy price then species ID. Eggs sort by available candy budget (default) or least progress, with deterministic ties. Least progress equally considers egg moves, perfect IV slots, natures, hidden ability and red shiny; excludes Classic ribbons/wins and friendship that buying eggs cannot directly complete. No game action, candy spending or snapshot mutation occurs in Rogue+. Existing Goals scores remain unchanged and labeled long-term targets.
+
+Egg costs/discounts are added from the already-pinned official source at e734a202a912cc969409c84111b5ab6a15fc7774, without changing the reference pin. Counts are floor(candy/current hatch-based egg price), not guaranteed unlocks, predicted hatch discounts or purchases against free slots. The normalized snapshot has no egg inventory; UI explicitly excludes capacity and states random outcomes. Imported facts remain dated.
+
+DES-007 replaces large completion ratios with accessible progress bars, a percentage and smaller counts on Home, Trainer completion and Pokémon detail. Unavailable totals show unknown; rounding never reports 100% early. Replace displayed T1/T2/T3 shorthand with yellow/blue/red shiny labels and a red star where appropriate; internal keys and historical source terminology remain unchanged.

@@ -46,3 +46,7 @@ Blocked startup exposes a persistent recovery screen with retry and explicitly c
 ## Implemented appearance boundary (U1)
 
 UI appearance is independent of combined-v2 account persistence. `ui/theme.ts` resolves System/Light/Dark and writes only `rogue-plus-appearance-v1` in localStorage; account imports/backups/reset continue using existing repositories unchanged. `index.html` applies the initial palette before React, then the UI controller handles media-query and cross-tab preference updates. React observes the controller with useSyncExternalStore. Semantic CSS variables serve every route including recovery. Private account loading/autosave phases remain unchanged.
+
+## Candy planning ownership
+
+`domain/candy-actions.ts` supplies pure read-only affordable actions through the domain facade. It owns no purchase or persistence mechanism. `reference/mechanics.v1.json` includes hatch-based egg prices from the unchanged pinned source and provenance. Home owns the local sort/expansion state; legacy Goals scoring remains independent. Shared `ui/components/AppWidgets.tsx` owns accessible completion bars and unavailable-denominator presentation. UI formatters translate historical shiny shorthand without rewriting stored/imported facts.

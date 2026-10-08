@@ -1,10 +1,11 @@
 import { ChevronRight, Database, History, ShieldCheck, Sparkles, Upload } from 'lucide-react';
+import { useState } from 'react';
 import type { Page } from '../../app/navigation';
 import type { AppState } from '../../domain/types';
-import type { PokeRogueData } from '../../domain/facade';
+import { getCandyActions, type EggSort, type PokeRogueData } from '../../domain/facade';
 import { PokemonSprite } from '../../ui/components/PokemonSprite';
 import { TeamMemberSprite } from '../../ui/components/TeamMemberSprite';
-import { ChangeCard, Kpi, SaveMeta, SectionHeading } from '../../ui/components/AppWidgets';
+import { ChangeCard, CollectionProgress, SaveMeta, SectionHeading } from '../../ui/components/AppWidgets';
 import { teamCostText, teamLuckText, teamModeLabel, teamShortName } from '../../ui/view-models';
 
 function EmptyState({ onImport, onDemo }: { onImport: () => void; onDemo: () => void }) {
@@ -54,12 +55,15 @@ export function HomePage({
   onNavigate: (page: Page) => void;
   onPokemon: (id: number) => void;
 }) {
+  const [eggSort, setEggSort] = useState<EggSort>('most-eggs');
+  const [showAll, setShowAll] = useState(false);
   if (!data) {
     return legacyCurrent
       ? <LegacyStateNotice sourceFile={legacyCurrent.sourceFile} onImport={onImport} />
       : <EmptyState onImport={onImport} onDemo={onDemo} />;
   }
   const account = data.account;
+  const candyActions = getCandyActions(data.pokemon, eggSort);
   const changes = data.changes.slice(0, 5);
   const team = data.teams.find(candidate => candidate.id === 'complete-endless-spliced-5850-cheese') || data.teams[0];
   const readiness = data.teamReadiness.find(result => result.teamId === team.id);
@@ -67,25 +71,28 @@ export function HomePage({
   return (
     <>
       <section className='hero-grid'>
-        <Kpi label='Starters' value={account.startersUnlocked + ' / ' + account.startersTotal} note='COLLECTION' tone='green' />
-        <Kpi label='Passives' value={account.passivesUnlocked + ' / ' + account.passivesTotal} note={account.passivesTotal - account.passivesUnlocked + ' REMAIN'} tone='gold' />
-        <Kpi label='Egg Moves' value={account.eggMovesUnlocked.toLocaleString() + ' / ' + account.eggMovesTotal.toLocaleString()} note={account.eggMovesTotal - account.eggMovesUnlocked + ' REMAIN'} tone='blue' />
-        <Kpi label='Red Shiny' value={account.t3Shiny + ' T3'} note={account.allShinyTiers + ' ALL TIERS'} tone='purple' />
+        <CollectionProgress label='Starters' value={account.startersUnlocked} total={account.startersTotal} tone='green' />
+        <CollectionProgress label='Passives' value={account.passivesUnlocked} total={account.passivesTotal} tone='gold' />
+        <CollectionProgress label='Egg moves' value={account.eggMovesUnlocked} total={account.eggMovesTotal} tone='blue' />
+        <CollectionProgress label='★ Red shiny' value={account.t3Shiny} total={account.startersTotal} tone='red' />
       </section>
 
       <section className='section'>
-        <SectionHeading title='Next actions' action='Ranked list' onClick={() => onNavigate('goals')} />
+        <SectionHeading title='Next actions' action={candyActions.length > 3 ? showAll ? 'Show fewer' : 'Show all (' + candyActions.length + ')' : undefined} onClick={() => setShowAll(!showAll)} />
+        <p className='candy-explainer'>Use available candy in PokéRogue: passives first, then starter cost reductions, then eggs. Based on your last import.</p>
+        {candyActions.some(action => action.kind === 'eggs') && <label className='egg-sort'>Egg order <select value={eggSort} onChange={event => setEggSort(event.target.value as EggSort)}><option value='most-eggs'>Most eggs affordable</option><option value='least-progress'>Least collection progress</option></select></label>}
         <div className='priority-list'>
-          {data.priorities.slice(0, 3).map((pokemon, index) => (
+          {(showAll ? candyActions : candyActions.slice(0, 3)).map(({ pokemon, label, cost, eggBudget, kind }, index) => (
             <button key={pokemon.id} className='priority-row' onClick={() => onPokemon(pokemon.id)}>
               <span className='rank'>{index + 1}</span>
               <PokemonSprite pokemon={pokemon} size={46} />
-              <span className='priority-copy'><strong>{pokemon.name}</strong><small>{pokemon.nextAction}</small></span>
-              <span className='score'>{pokemon.priorityScore}</span>
+              <span className='priority-copy'><strong>{pokemon.name}</strong><small>{label}{kind === 'eggs' ? ' · up to ' + eggBudget + ' affordable' : ''}</small><small>{cost} candy{kind === 'eggs' ? ' each' : ''} · {pokemon.candy.toLocaleString()} available</small></span>
               <ChevronRight />
             </button>
           ))}
         </div>
+        {!candyActions.length && <div className='empty-panel'><Database /><div><strong>No affordable candy actions</strong><span>Earn more candy or import a newer save to refresh availability.</span></div></div>}
+        {candyActions.some(action => action.kind === 'eggs') && <p className='candy-explainer'>Eggs may improve moves, IVs, natures, hidden abilities or shinies; no unlock is guaranteed. Budgets use current hatch-based prices and exclude your game's egg-slot limit. One recommendation per Pokémon; nothing is purchased here.</p>}
       </section>
 
       <section className='section'>

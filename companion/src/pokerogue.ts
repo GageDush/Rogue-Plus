@@ -26,7 +26,7 @@ export function buildDemoState(): AppState {
     demoPokemonRow(898, 'Calyrex', 8, { luck: 3, t1: true, t2: true, t3: true, passiveUnlocked: true, eggCount: 4, perfectIvs: 5, ivSpe: 29, costReductions: 2, classicWins: 2 }),
     demoPokemonRow(19, 'Rattata', 1, { luck: 3, t1: true, t2: true, t3: true, passiveUnlocked: true, eggCount: 4, perfectIvs: 6, costReductions: 2, classicWins: 2 }),
     demoPokemonRow(300, 'Skitty', 1, { luck: 3, t1: true, t2: true, t3: true, passiveUnlocked: true, eggCount: 4, perfectIvs: 6, costReductions: 2 }),
-    demoPokemonRow(290, 'Nincada', 4, { luck: 1, t1: true, passiveUnlocked: true, eggCount: 4, perfectIvs: 6, costReductions: 1 }),
+    demoPokemonRow(290, 'Nincada', 4, { candy: 45, luck: 1, t1: true, passiveUnlocked: false, eggCount: 4, perfectIvs: 6, costReductions: 1 }),
     demoPokemonRow(932, 'Nacli', 4, { luck: 3, t1: true, t2: true, t3: true, passiveUnlocked: true, eggCount: 4, perfectIvs: 6, costReductions: 2, classicWins: 2 }),
     demoPokemonRow(425, 'Drifloon', 2, { passiveUnlocked: true, eggCount: 4, perfectIvs: 6, costReductions: 2, classicWins: 2 }),
     demoPokemonRow(190, 'Aipom', 2, { luck: 1, t1: true, passiveUnlocked: true, eggCount: 4, perfectIvs: 5, costReductions: 2, classicWins: 2 }),
@@ -36,7 +36,7 @@ export function buildDemoState(): AppState {
   const account: AccountMetrics = {
     startersUnlocked: 8,
     startersTotal: 8,
-    passivesUnlocked: 8,
+    passivesUnlocked: 7,
     passivesTotal: 8,
     eggMovesUnlocked: 31,
     eggMovesTotal: 32,
@@ -152,3 +152,4 @@ function demoPokemonRow(id: number, name: string, baseCost: number, partial: Par
           : 'Collection polish';
   return p;
 }
+

@@ -245,6 +245,15 @@
       "evidence": [
         "project/evidence/U1.md"
       ]
+    },
+    {
+      "name": "Profile overview and affordable candy actions",
+      "limits": "Source and synthetic browser checks pass; physical iPhone review and production release pending",
+      "evidence": [
+        "project/evidence/U1-CANDY.md"
+      ],
+      "scope": "design/profile-candy-overview draft",
+      "status": "partial"
     }
   ],
   "releaseGates": [
@@ -1734,6 +1743,87 @@
         }
       ],
       "verifiedOn": "2026-10-08"
+    },
+    {
+      "id": "U1-CANDY",
+      "milestone": "B",
+      "title": "Profile overview and actionable candy planning",
+      "scope": "User-approved Home naming/import placement, graphical collection completion, plain shiny labels and affordable candy upgrades plus sorted egg budgets.",
+      "excludes": "No save editing, purchasing, storage migration, score-weight changes, merge or deployment.",
+      "class": "interaction",
+      "authorization": "approved",
+      "status": "ready_for_review",
+      "dependsOn": [
+        "U1"
+      ],
+      "paths": [
+        "companion/src/app/navigation.ts",
+        "companion/src/App.tsx",
+        "companion/src/domain/candy-actions.ts",
+        "companion/src/domain/facade.ts",
+        "companion/src/reference/mechanics.v1.json",
+        "companion/src/features/home/HomePage.tsx",
+        "companion/src/features/dex/DexPage.tsx",
+        "companion/src/features/dex/DetailPage.tsx",
+        "companion/src/features/trainer/TrainerPage.tsx",
+        "companion/src/features/hunt/HuntPage.tsx",
+        "companion/src/features/teams/TeamsPage.tsx",
+        "companion/src/ui/components/AppWidgets.tsx",
+        "companion/src/ui/view-models.ts",
+        "companion/src/ui/styles/field-guide.css",
+        "companion/src/pokerogue.ts",
+        "companion/tests/candy-actions.test.ts",
+        "companion/tests/collection-progress.test.tsx",
+        "companion/scripts/check-theme.mjs",
+        "docs/DECISIONS.md",
+        "docs/DESIGN.md",
+        "docs/ARCHITECTURE.md",
+        "project/evidence/U1-CANDY.md",
+        "design-qa.md",
+        "docs/assets/profile-candy-light.jpg",
+        "docs/assets/profile-candy-dark.jpg",
+        "docs/assets/profile-candy-modes.jpg"
+      ],
+      "guidance": [
+        "docs/DECISIONS.md",
+        "docs/DESIGN.md",
+        "docs/ARCHITECTURE.md"
+      ],
+      "docsReviewed": [
+        "docs/DECISIONS.md",
+        "docs/DESIGN.md",
+        "docs/ARCHITECTURE.md"
+      ],
+      "delivery": {
+        "stage": "working_branch",
+        "branch": "design/profile-candy-overview"
+      },
+      "acceptance": [
+        {
+          "id": "AC1",
+          "description": "Profile overview, Home-only header import and More access on other pages retain navigation/import contracts.",
+          "result": "pass",
+          "evidence": [
+            "project/evidence/U1-CANDY.md"
+          ]
+        },
+        {
+          "id": "AC2",
+          "description": "Only affordable passive/reduction actions and incomplete-species egg budgets; pinned hatch discounts and both deterministic sorts tested with synthetic cases.",
+          "result": "pass",
+          "evidence": [
+            "project/evidence/U1-CANDY.md"
+          ]
+        },
+        {
+          "id": "AC3",
+          "description": "Accessible progress and plain shiny labels work in both modes at mobile/desktop widths without clipping.",
+          "result": "pass",
+          "evidence": [
+            "project/evidence/U1-CANDY.md"
+          ]
+        }
+      ]
     }
   ]
 }

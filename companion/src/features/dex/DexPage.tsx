@@ -30,7 +30,7 @@ export function DexPage({
         {search && <button aria-label='Clear search' onClick={() => setSearch('')}><X /></button>}
       </div>
       <div className='filter-row'>
-        {([['all','All'],['missing','Missing'],['t3','T3'],['passive','Passive'],['team','Team'],['iv','IVs']] as Array<[DexFilter,string]>).map(([id,label]) => (
+        {([['all','All'],['missing','Missing'],['t3','★ Red shiny'],['passive','Passive'],['team','Team'],['iv','IVs']] as Array<[DexFilter,string]>).map(([id,label]) => (
           <button key={id} aria-pressed={filter === id} className={filter === id ? 'filter active' : 'filter'} onClick={() => setFilter(id)}>{label}</button>
         ))}
       </div>
@@ -47,7 +47,7 @@ function PokemonCard({ pokemon, onClick }: { pokemon: PokemonRecord; onClick: ()
     <button className='pokemon-card' onClick={onClick}>
       <div className='sprite-wrap'>
         <PokemonSprite pokemon={pokemon} size={57} />
-        {pokemon.t3 && <span className='t3-badge'>T3</span>}
+        {pokemon.t3 && <span className='t3-badge red-shiny-star' aria-label='Red shiny'>★</span>}
       </div>
       <div className='pokemon-main'>
         <strong>{pokemon.name}</strong>
@@ -56,7 +56,7 @@ function PokemonCard({ pokemon, onClick }: { pokemon: PokemonRecord; onClick: ()
       </div>
       <div className='pokemon-status'>
         <span className={pokemon.passiveUnlocked ? 'status complete' : 'status missing'}>{pokemon.passiveUnlocked ? 'Passive unlocked' : 'Passive missing'}</span>
-        <span className={pokemon.t3 ? 'status t3' : 'status subtle'}>{pokemon.t3 ? 'T3 shiny' : 'No T3 shiny'}</span>
+        <span className={pokemon.t3 ? 'status t3' : 'status subtle'}>{pokemon.t3 ? '★ Red shiny' : 'No red shiny'}</span>
       </div>
       <ChevronRight />
     </button>

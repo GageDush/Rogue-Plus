@@ -3,7 +3,7 @@ import { STARTER_BY_NAME } from '../../reference';
 import type { PokeRogueData } from '../../domain/facade';
 import { TeamMemberSprite } from '../../ui/components/TeamMemberSprite';
 import { EmptyInline } from '../../ui/components/AppWidgets';
-import { memberConfig, memberMeta, memberMoves, memberRunNotes, teamCostText, teamLuckText, teamModeLabel, teamShortName, teamSummary } from '../../ui/view-models';
+import { memberConfig, memberMeta, shinyLabel, memberMoves, memberRunNotes, teamCostText, teamLuckText, teamModeLabel, teamShortName, teamSummary } from '../../ui/view-models';
 
 export function TeamsPage({
   data,
@@ -101,7 +101,7 @@ export function TeamsPage({
                     <div className='build-detail'>
                       <strong>ACCOUNT CHECK</strong>
                       <span>
-                        {memberReadiness.accountChecks.length ? memberReadiness.accountChecks.join(' • ') : 'No positive account checks'}
+                        {memberReadiness.accountChecks.length ? memberReadiness.accountChecks.map(shinyLabel).join(' • ') : 'No positive account checks'}
                         {memberReadiness.unverifiedInRunRequirements.length ? ' | In-run: ' + memberReadiness.unverifiedInRunRequirements.join(', ') : ''}
                       </span>
                     </div>
@@ -123,4 +123,5 @@ export function TeamsPage({
     </>
   );
 }
+
 

@@ -288,10 +288,10 @@ function App() {
             <button type='button' className='more-nav-trigger' aria-label='More navigation' onClick={() => navigate('more')}>
               <Menu aria-hidden='true' /> <span>More</span>
             </button>
-          <button className='import-button' onClick={() => saveInput.current?.click()} disabled={busy}>
+          {page === 'home' && <button className='import-button' onClick={() => saveInput.current?.click()} disabled={busy}>
             {busy ? <RefreshCw className='spin' /> : <Import />}
             <span>{busy ? 'Importing' : 'Import'}</span>
-          </button>
+          </button>}
           </div>
         </header>
 
