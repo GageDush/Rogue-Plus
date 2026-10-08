@@ -103,13 +103,13 @@ Informational screens do not establish working capabilities
 | **TRACK-01** | ✓ Verified | pr open |
 | **BASE-FOUND** | ◇ Ready for review | pr open |
 | **BASE-SHELL** | ◇ Ready for review | pr open |
-| **S0** | ✓ Verified | working branch |
+| **S0** | ✓ Verified | pr open |
 | **DOCS-01** | ✓ Verified | pr open |
 
 - **TRACK-01** — `chore/project-tracking-2026-10-08` · [PR](https://github.com/GageDush/Rogue-Plus/pull/5)
 - **BASE-FOUND** — `alpha/companion-foundation` · [PR](https://github.com/GageDush/Rogue-Plus/pull/2)
 - **BASE-SHELL** — `design/hybrid-shell-v1` · [PR](https://github.com/GageDush/Rogue-Plus/pull/3)
-- **S0** — `fix/failed-load-recovery`
+- **S0** — `fix/failed-load-recovery` · [PR](https://github.com/GageDush/Rogue-Plus/pull/6)
 - **DOCS-01** — `chore/project-tracking-2026-10-08` · [PR](https://github.com/GageDush/Rogue-Plus/pull/5)
 
 ## Before release

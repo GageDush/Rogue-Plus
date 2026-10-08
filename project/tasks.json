@@ -453,8 +453,9 @@
         "docs/PROJECT_WORKFLOW.md"
       ],
       "delivery": {
-        "stage": "working_branch",
-        "branch": "fix/failed-load-recovery"
+        "stage": "pr_open",
+        "branch": "fix/failed-load-recovery",
+        "pr": "https://github.com/GageDush/Rogue-Plus/pull/6"
       },
       "acceptance": [
         {
