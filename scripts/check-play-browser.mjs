@@ -38,7 +38,7 @@ try {
  console.log('PAGE ERRORS:',JSON.stringify(errors.slice(0,15),null,2));
  console.log('FAILED SAME-ORIGIN REQUESTS:',JSON.stringify(badResponses.slice(0,20)));
  if(errors.length) throw new Error('Browser runtime errors: '+errors.slice(0,3).join(' | '));
- if(badResponses.some(([status])=>status===404 || status>=500)) throw new Error('Failed assets: '+JSON.stringify(badResponses.slice(0,5)));
+ if(badResponses.length) throw new Error('Failed assets: '+JSON.stringify(badResponses.slice(0,5)));
 } finally {
  await browser.close();
 }

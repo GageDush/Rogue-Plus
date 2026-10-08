@@ -27,6 +27,11 @@ for (const sheet of manifest.css || []) await check('/play/' + sheet.slice(2), '
 await check('/play/service-worker.js', 'javascript');
 const locale = JSON.parse((await check('/play/locales/en/menu.json', 'application/json')).toString());
 assert.ok(Object.keys(locale).length > 3, 'Missing English game locale data');
+for (const image of ['logo.png','logo_fake.png','snow.png']) {
+  await check('/play/images//' + image, 'image/png', bytes => {
+    assert.equal(bytes.subarray(0,8).toString('hex'), '89504e470d0a1a0a');
+  });
+}
 await check('/play/images/arenas/abyss_a.png', 'image/png', bytes => {
  assert.equal(bytes.subarray(0,8).toString('hex'), '89504e470d0a1a0a');
 });
