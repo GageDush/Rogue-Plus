@@ -1,5 +1,7 @@
 # Rogue+ current state
 
+This is dated audit evidence. Ongoing task progress and delivery are generated in [STATUS.md](STATUS.md) from project/tasks.json. Scope/decision corrections are recorded in [DECISIONS.md](DECISIONS.md); this historical snapshot does not grant redesign authorization.
+
 Audit date: 2026-10-08. Status: audit and plan complete; redesign not started. This is a dated source/interaction snapshot, not a claim every deployed byte matches a Git commit. Read AGENTS.md for scope and authority and REDESIGN_PLAN.md for proposed work.
 
 ## Verified repository and branch stack

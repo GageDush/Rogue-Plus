@@ -1,0 +1,1677 @@
+{
+  "schemaVersion": 1,
+  "name": "Rogue+",
+  "reviewedOn": "2026-10-08",
+  "activeTask": null,
+  "milestones": [
+    {
+      "id": "T",
+      "name": "Project tracking",
+      "goal": "One evidence-backed registry and generated project views."
+    },
+    {
+      "id": "A",
+      "name": "Foundation release candidate",
+      "goal": "Preserve working behavior and establish safe recovery."
+    },
+    {
+      "id": "B",
+      "name": "Hybrid visual redesign",
+      "goal": "Phone-first visual consistency after direction approval."
+    },
+    {
+      "id": "C",
+      "name": "Module contracts",
+      "goal": "Narrow typed capabilities for real modules; no general plugin backend."
+    },
+    {
+      "id": "D",
+      "name": "Privacy and source quality",
+      "goal": "Reproducible builds, public-source review and validated-release mirrors."
+    },
+    {
+      "id": "E",
+      "name": "Independent local storage",
+      "goal": "Profiles, RunState and reusable UserContent with recovery."
+    },
+    {
+      "id": "F",
+      "name": "Build editor",
+      "goal": "Shared Inventory/Sandbox schema, rules legality and individual portability."
+    },
+    {
+      "id": "G",
+      "name": "Intelligent Goals",
+      "goal": "Explainable active-profile/Build recommendations."
+    },
+    {
+      "id": "H",
+      "name": "Offline alpha release",
+      "goal": "Tested caching, backup recovery, device review and controlled rollout."
+    },
+    {
+      "id": "I",
+      "name": "Runs and optional Play",
+      "goal": "Independent session import and a version-pinned read-only bridge."
+    },
+    {
+      "id": "J",
+      "name": "Advanced modules",
+      "goal": "Independently scoped source-validated extensions."
+    }
+  ],
+  "baseline": [
+    {
+      "branch": "main",
+      "sha": "1fe923af979466cfa4d785127a69d9e3ae6edf9d",
+      "role": "Recorded production source baseline; exact deployed byte parity unproven"
+    },
+    {
+      "branch": "alpha/companion-foundation",
+      "sha": "ccd258e3bf1b7606c7f04cb38cf1dea560ff94ea",
+      "role": "Draft PR #2; feature extraction and safeguards"
+    },
+    {
+      "branch": "design/hybrid-shell-v1",
+      "sha": "1a823e422fc3c41439c3ba66d66ef6eec1b52cc3",
+      "role": "Draft PR #3; existing companion shell"
+    },
+    {
+      "branch": "alpha/play-integration",
+      "sha": "6f4992b5532bcf5074f9bd9e9728fbabb0e4ec53",
+      "role": "Draft PR #1; isolated Guest game prototype"
+    },
+    {
+      "branch": "docs/redesign-audit-2026-10-08",
+      "sha": "3bc88de2ae01c3227e57f1851103f0115df5634c",
+      "role": "Parent documentation audit; no redesign code"
+    }
+  ],
+  "owners": [
+    {
+      "prefix": "project/",
+      "owner": "Development ledger",
+      "rule": "No private player state; one registry for current progress"
+    },
+    {
+      "prefix": "scripts/",
+      "owner": "Build and verification tooling",
+      "rule": "Deterministic scripts; do not import runtime feature components"
+    },
+    {
+      "prefix": ".github/",
+      "owner": "CI automation",
+      "rule": "Read-only checks unless a separately approved release needs more"
+    },
+    {
+      "prefix": "docs/",
+      "owner": "Project guidance",
+      "rule": "Accepted decisions versus generated progress versus dated evidence"
+    },
+    {
+      "prefix": "companion/src/app/",
+      "owner": "App composition",
+      "rule": "Canonical navigation/config; controlled capabilities"
+    },
+    {
+      "prefix": "companion/src/features/",
+      "owner": "Feature UI",
+      "rule": "No cross-feature imports; consume domain/repository contracts"
+    },
+    {
+      "prefix": "companion/src/domain/",
+      "owner": "Pure domain",
+      "rule": "No React, storage or network I/O"
+    },
+    {
+      "prefix": "companion/src/import/",
+      "owner": "Local import",
+      "rule": "Read-only validation and normalization; no save upload/write-back"
+    },
+    {
+      "prefix": "companion/src/storage/",
+      "owner": "Local persistence",
+      "rule": "Versioned schemas/recovery; preserve ownership boundaries"
+    },
+    {
+      "prefix": "companion/src/ui/",
+      "owner": "Shared UI",
+      "rule": "Tokens and primitives; no feature imports"
+    },
+    {
+      "prefix": "companion/src/reference/",
+      "owner": "Pinned public references",
+      "rule": "Generated inputs and versioned supported mechanics"
+    },
+    {
+      "prefix": "companion/src/presets/",
+      "owner": "Bundled examples",
+      "rule": "Reference strategies, not personal or active-run state"
+    },
+    {
+      "prefix": "companion/src/architecture/",
+      "owner": "Historical audits",
+      "rule": "Dated evidence, not ongoing completion authority"
+    },
+    {
+      "prefix": "companion/tests/",
+      "owner": "Companion checks",
+      "rule": "Generic fixtures only"
+    },
+    {
+      "prefix": "companion/public/",
+      "owner": "Static/PWA assets",
+      "rule": "Separate caches from private state"
+    }
+  ],
+  "capabilities": [
+    {
+      "name": "Local account import, Dex/detail and Trainer",
+      "status": "working",
+      "scope": "main / hybrid",
+      "limits": "Read-only account analysis; no profile manager or save-write-back",
+      "evidence": [
+        "docs/CURRENT_STATE.md"
+      ]
+    },
+    {
+      "name": "Presets and derived collection priorities",
+      "status": "partial",
+      "scope": "main / hybrid",
+      "limits": "Read-only examples and fixed rankings; no editable personal Builds",
+      "evidence": [
+        "docs/CURRENT_STATE.md"
+      ]
+    },
+    {
+      "name": "Snapshot/history and local backups",
+      "status": "working",
+      "scope": "main / hybrid",
+      "limits": "Combined v2; real-user isolated restore and stronger validation pending",
+      "evidence": [
+        "docs/CURRENT_STATE.md"
+      ]
+    },
+    {
+      "name": "Extracted UI and canonical five-tab shell",
+      "status": "partial",
+      "scope": "foundation / hybrid",
+      "limits": "Draft branch work; overhaul not implemented or production released",
+      "evidence": [
+        "docs/CURRENT_STATE.md"
+      ]
+    },
+    {
+      "name": "Installed offline companion",
+      "status": "partial",
+      "scope": "main / hybrid",
+      "limits": "Service-worker scaffolding; cold start/update guarantees not established",
+      "evidence": [
+        "docs/CURRENT_STATE.md"
+      ]
+    },
+    {
+      "name": "Guest Play and simulated Damage Preview",
+      "status": "experimental",
+      "scope": "separate alpha/play-integration",
+      "limits": "Not companion runtime; no proven full damage ranges",
+      "evidence": [
+        "docs/CURRENT_STATE.md"
+      ]
+    },
+    {
+      "name": "Multiple profiles, editable Builds and Build-aware Goals",
+      "status": "planned",
+      "scope": "accepted roadmap",
+      "limits": "UserContent and profile ownership not yet implemented",
+      "evidence": [
+        "docs/CURRENT_STATE.md"
+      ]
+    },
+    {
+      "name": "Run imports and optional companion module lifecycle",
+      "status": "planned",
+      "scope": "accepted roadmap",
+      "limits": "Informational screens do not establish working capabilities",
+      "evidence": [
+        "docs/CURRENT_STATE.md"
+      ]
+    }
+  ],
+  "releaseGates": [
+    {
+      "name": "Isolated restoration of actual user backup",
+      "result": "not_tested",
+      "evidence": []
+    },
+    {
+      "name": "Failed-load preservation and strict nested backup validation",
+      "result": "not_tested",
+      "evidence": []
+    },
+    {
+      "name": "Public content/history privacy review",
+      "result": "not_tested",
+      "evidence": []
+    },
+    {
+      "name": "Offline cold start and safe cache updates",
+      "result": "not_tested",
+      "evidence": []
+    },
+    {
+      "name": "Real phone/desktop interaction signoff",
+      "result": "not_tested",
+      "evidence": []
+    },
+    {
+      "name": "Explicit merge and production rollout approval",
+      "result": "not_tested",
+      "evidence": []
+    }
+  ],
+  "notes": [
+    "Cloudflare Workers remains authoritative; historical AppDeploy/Pages proposals are not current configuration.",
+    "Implementation verification does not prove merge, deployment or production release.",
+    "Private account screenshots, saves and backups are excluded; use sanitized evidence.",
+    "Redesign and future feature packets remain pending implementation authorization."
+  ],
+  "tasks": [
+    {
+      "id": "TRACK-01",
+      "milestone": "T",
+      "title": "Project registry, generated reports and CI",
+      "scope": "Establish one task registry, completion discipline and deterministic generated project views.",
+      "excludes": "Application UI, runtime, game references, private state, branch merges and deployments.",
+      "class": "infrastructure",
+      "authorization": "approved",
+      "status": "verified",
+      "dependsOn": [],
+      "paths": [
+        "project/tasks.json",
+        "scripts/project-tracking.mjs",
+        "scripts/project-tracking.test.mjs",
+        ".github/workflows/project-tracking.yml"
+      ],
+      "guidance": [
+        "AGENTS.md",
+        "docs/DECISIONS.md",
+        "docs/PROJECT_WORKFLOW.md"
+      ],
+      "docsReviewed": [
+        "AGENTS.md",
+        "docs/DECISIONS.md",
+        "docs/PROJECT_WORKFLOW.md"
+      ],
+      "delivery": {
+        "stage": "pr_open",
+        "branch": "chore/project-tracking-2026-10-08",
+        "pr": "https://github.com/GageDush/Rogue-Plus/pull/5"
+      },
+      "acceptance": [
+        {
+          "id": "AC1",
+          "description": "Task updates regenerate status, roadmap, next task, README and tracked file inventory.",
+          "result": "pass",
+          "evidence": [
+            "project/evidence/TRACK-01.md"
+          ]
+        },
+        {
+          "id": "AC2",
+          "description": "Invalid completion, dependencies and stale reports fail; isolated fixture proves safe deterministic regeneration.",
+          "result": "pass",
+          "evidence": [
+            "project/evidence/TRACK-01.md"
+          ]
+        },
+        {
+          "id": "AC3",
+          "description": "Accepted guidance is preserved; tracking workflow is read-only and needs no app dependency install.",
+          "result": "pass",
+          "evidence": [
+            "project/evidence/TRACK-01.md"
+          ]
+        }
+      ],
+      "verifiedOn": "2026-10-08"
+    },
+    {
+      "id": "BASE-FOUND",
+      "milestone": "A",
+      "title": "Review existing foundation extraction",
+      "scope": "Preserve already implemented draft-branch work; complete remaining release/device review without calling it deployed.",
+      "excludes": "No unrelated features, mechanics changes, storage migration or production deployment.",
+      "class": "infrastructure",
+      "authorization": "approved",
+      "status": "ready_for_review",
+      "dependsOn": [],
+      "paths": [
+        "docs/CURRENT_STATE.md"
+      ],
+      "guidance": [
+        "docs/CURRENT_STATE.md",
+        "docs/COMPANION_FOUNDATION.md",
+        "docs/DECISIONS.md"
+      ],
+      "docsReviewed": [],
+      "delivery": {
+        "stage": "pr_open",
+        "branch": "alpha/companion-foundation",
+        "pr": "https://github.com/GageDush/Rogue-Plus/pull/2"
+      },
+      "acceptance": [
+        {
+          "id": "AC1",
+          "description": "Existing source/CI evidence recorded with limitations.",
+          "result": "pass",
+          "evidence": [
+            "docs/CURRENT_STATE.md"
+          ]
+        },
+        {
+          "id": "AC2",
+          "description": "Required device, recovery and release review completed.",
+          "result": "not_tested",
+          "evidence": []
+        }
+      ]
+    },
+    {
+      "id": "BASE-SHELL",
+      "milestone": "B",
+      "title": "Review existing canonical hybrid shell",
+      "scope": "Preserve already implemented draft-branch work; complete remaining release/device review without calling it deployed.",
+      "excludes": "No unrelated features, mechanics changes, storage migration or production deployment.",
+      "class": "infrastructure",
+      "authorization": "approved",
+      "status": "ready_for_review",
+      "dependsOn": [],
+      "paths": [
+        "docs/CURRENT_STATE.md"
+      ],
+      "guidance": [
+        "docs/CURRENT_STATE.md",
+        "docs/COMPANION_FOUNDATION.md",
+        "docs/DECISIONS.md"
+      ],
+      "docsReviewed": [],
+      "delivery": {
+        "stage": "pr_open",
+        "branch": "design/hybrid-shell-v1",
+        "pr": "https://github.com/GageDush/Rogue-Plus/pull/3"
+      },
+      "acceptance": [
+        {
+          "id": "AC1",
+          "description": "Existing source/CI evidence recorded with limitations.",
+          "result": "pass",
+          "evidence": [
+            "docs/CURRENT_STATE.md"
+          ]
+        },
+        {
+          "id": "AC2",
+          "description": "Required device, recovery and release review completed.",
+          "result": "not_tested",
+          "evidence": []
+        }
+      ]
+    },
+    {
+      "id": "S0",
+      "milestone": "A",
+      "title": "Guard failed-load recovery",
+      "scope": "Preserve rejected/corrupt/future local bytes until deliberate recovery.",
+      "excludes": "No unrelated features, mechanics changes, storage migration or production deployment.",
+      "class": "interaction",
+      "authorization": "pending",
+      "status": "planned",
+      "dependsOn": [],
+      "paths": [
+        "companion/src/App.tsx",
+        "companion/src/store.ts"
+      ],
+      "guidance": [
+        "docs/DECISIONS.md",
+        "docs/ARCHITECTURE.md",
+        "docs/DESIGN.md"
+      ],
+      "docsReviewed": [],
+      "delivery": {
+        "stage": "not_started",
+        "branch": null
+      },
+      "acceptance": [
+        {
+          "id": "AC1",
+          "description": "Failed startup never autosaves empty state over rejected bytes.",
+          "result": "not_tested",
+          "evidence": []
+        },
+        {
+          "id": "AC2",
+          "description": "Persistent recovery and a meaningful synthetic effect-level regression pass.",
+          "result": "not_tested",
+          "evidence": []
+        }
+      ]
+    },
+    {
+      "id": "S1",
+      "milestone": "A",
+      "title": "Validate backup payloads deeply",
+      "scope": "Reject malformed nested/future backup values before replacement.",
+      "excludes": "No unrelated features, mechanics changes, storage migration or production deployment.",
+      "class": "data",
+      "authorization": "pending",
+      "status": "planned",
+      "dependsOn": [
+        "S0"
+      ],
+      "paths": [
+        "companion/src/storage/schema.ts",
+        "companion/tests/storage-safety.test.ts"
+      ],
+      "guidance": [
+        "docs/DECISIONS.md",
+        "docs/ARCHITECTURE.md",
+        "docs/DESIGN.md"
+      ],
+      "docsReviewed": [],
+      "delivery": {
+        "stage": "not_started",
+        "branch": null
+      },
+      "acceptance": [
+        {
+          "id": "AC1",
+          "description": "Malformed nested payload cannot replace current state.",
+          "result": "not_tested",
+          "evidence": []
+        },
+        {
+          "id": "AC2",
+          "description": "Supported versioned/legacy backup round trips pass.",
+          "result": "not_tested",
+          "evidence": []
+        }
+      ]
+    },
+    {
+      "id": "U1",
+      "milestone": "B",
+      "title": "Review and establish visual tokens",
+      "scope": "Adopt only approved palette/type choices and deliberately bridge legacy styles.",
+      "excludes": "No unrelated features, mechanics changes, storage migration or production deployment.",
+      "class": "presentation",
+      "authorization": "pending",
+      "status": "planned",
+      "dependsOn": [
+        "S0"
+      ],
+      "paths": [
+        "companion/src/ui/styles/tokens.css",
+        "companion/src/index.css"
+      ],
+      "guidance": [
+        "docs/DECISIONS.md",
+        "docs/ARCHITECTURE.md",
+        "docs/DESIGN.md"
+      ],
+      "docsReviewed": [],
+      "delivery": {
+        "stage": "not_started",
+        "branch": null
+      },
+      "acceptance": [
+        {
+          "id": "AC1",
+          "description": "Selected values and direction approved and recorded.",
+          "result": "not_tested",
+          "evidence": []
+        },
+        {
+          "id": "AC2",
+          "description": "Representative 320/390px and desktop states remain legible with no domain/storage diff.",
+          "result": "not_tested",
+          "evidence": []
+        }
+      ]
+    },
+    {
+      "id": "U2",
+      "milestone": "B",
+      "title": "Shell, navigation and authentic branding",
+      "scope": "Preserve destinations; implement approved shared navigation and brand treatment.",
+      "excludes": "No unrelated features, mechanics changes, storage migration or production deployment.",
+      "class": "presentation",
+      "authorization": "pending",
+      "status": "planned",
+      "dependsOn": [
+        "U1"
+      ],
+      "paths": [
+        "companion/src/ui/components/Navigation.tsx",
+        "companion/src/ui/styles/shell.css"
+      ],
+      "guidance": [
+        "docs/DECISIONS.md",
+        "docs/ARCHITECTURE.md",
+        "docs/DESIGN.md"
+      ],
+      "docsReviewed": [],
+      "delivery": {
+        "stage": "not_started",
+        "branch": null
+      },
+      "acceptance": [
+        {
+          "id": "AC1",
+          "description": "All primary/secondary destinations and detail selection stay correct.",
+          "result": "not_tested",
+          "evidence": []
+        },
+        {
+          "id": "AC2",
+          "description": "Phone safe areas, desktop focus and original logo proportions verified.",
+          "result": "not_tested",
+          "evidence": []
+        }
+      ]
+    },
+    {
+      "id": "U3",
+      "milestone": "B",
+      "title": "Home hierarchy and truthful labels",
+      "scope": "Restyle the existing screen behavior with phone-first hierarchy and honest provenance.",
+      "excludes": "No unrelated features, mechanics changes, storage migration or production deployment.",
+      "class": "presentation",
+      "authorization": "pending",
+      "status": "planned",
+      "dependsOn": [
+        "U1",
+        "U2"
+      ],
+      "paths": [
+        "companion/src/features/home/HomePage.tsx"
+      ],
+      "guidance": [
+        "docs/DECISIONS.md",
+        "docs/ARCHITECTURE.md",
+        "docs/DESIGN.md"
+      ],
+      "docsReviewed": [],
+      "delivery": {
+        "stage": "not_started",
+        "branch": null
+      },
+      "acceptance": [
+        {
+          "id": "AC1",
+          "description": "Existing metrics/deltas preserved; fixed preset and all-three-shiny-tier meanings labeled clearly.",
+          "result": "not_tested",
+          "evidence": []
+        },
+        {
+          "id": "AC2",
+          "description": "Next actions prominent, sample status persistent, baseline honest; matched phone captures verified.",
+          "result": "not_tested",
+          "evidence": []
+        }
+      ]
+    },
+    {
+      "id": "U4A",
+      "milestone": "B",
+      "title": "Dex rows, search and quick filters",
+      "scope": "Restyle the existing screen behavior with phone-first hierarchy and honest provenance.",
+      "excludes": "No unrelated features, mechanics changes, storage migration or production deployment.",
+      "class": "presentation",
+      "authorization": "pending",
+      "status": "planned",
+      "dependsOn": [
+        "U1",
+        "U2"
+      ],
+      "paths": [
+        "companion/src/features/dex/DexPage.tsx"
+      ],
+      "guidance": [
+        "docs/DECISIONS.md",
+        "docs/ARCHITECTURE.md",
+        "docs/DESIGN.md"
+      ],
+      "docsReviewed": [],
+      "delivery": {
+        "stage": "not_started",
+        "branch": null
+      },
+      "acceptance": [
+        {
+          "id": "AC1",
+          "description": "Same query matching, six filters and 90-item reveal preserved.",
+          "result": "not_tested",
+          "evidence": []
+        },
+        {
+          "id": "AC2",
+          "description": "Long names/statuses and empty results readable; query retained after detail round trip.",
+          "result": "not_tested",
+          "evidence": []
+        }
+      ]
+    },
+    {
+      "id": "U4B",
+      "milestone": "B",
+      "title": "Pokemon detail composition",
+      "scope": "Restyle the existing screen behavior with phone-first hierarchy and honest provenance.",
+      "excludes": "No unrelated features, mechanics changes, storage migration or production deployment.",
+      "class": "presentation",
+      "authorization": "pending",
+      "status": "planned",
+      "dependsOn": [
+        "U4A"
+      ],
+      "paths": [
+        "companion/src/features/dex/DetailPage.tsx"
+      ],
+      "guidance": [
+        "docs/DECISIONS.md",
+        "docs/ARCHITECTURE.md",
+        "docs/DESIGN.md"
+      ],
+      "docsReviewed": [],
+      "delivery": {
+        "stage": "not_started",
+        "branch": null
+      },
+      "acceptance": [
+        {
+          "id": "AC1",
+          "description": "Existing facts/actions and asset fallback remain reachable.",
+          "result": "not_tested",
+          "evidence": []
+        },
+        {
+          "id": "AC2",
+          "description": "IV/progression groups and bundled strategy references readable at phone widths.",
+          "result": "not_tested",
+          "evidence": []
+        }
+      ]
+    },
+    {
+      "id": "U5",
+      "milestone": "B",
+      "title": "Preset Build viewer",
+      "scope": "Restyle the existing screen behavior with phone-first hierarchy and honest provenance.",
+      "excludes": "No unrelated features, mechanics changes, storage migration or production deployment.",
+      "class": "presentation",
+      "authorization": "pending",
+      "status": "planned",
+      "dependsOn": [
+        "U1",
+        "U2",
+        "U4B"
+      ],
+      "paths": [
+        "companion/src/features/teams/TeamsPage.tsx"
+      ],
+      "guidance": [
+        "docs/DECISIONS.md",
+        "docs/ARCHITECTURE.md",
+        "docs/DESIGN.md"
+      ],
+      "docsReviewed": [],
+      "delivery": {
+        "stage": "not_started",
+        "branch": null
+      },
+      "acceptance": [
+        {
+          "id": "AC1",
+          "description": "Six-member overview, points/luck and target checks unchanged.",
+          "result": "not_tested",
+          "evidence": []
+        },
+        {
+          "id": "AC2",
+          "description": "Readable readiness notes and in-run uncertainty; editor remains marked planned.",
+          "result": "not_tested",
+          "evidence": []
+        }
+      ]
+    },
+    {
+      "id": "U6",
+      "milestone": "B",
+      "title": "Goals ranking presentation",
+      "scope": "Restyle the existing screen behavior with phone-first hierarchy and honest provenance.",
+      "excludes": "No unrelated features, mechanics changes, storage migration or production deployment.",
+      "class": "presentation",
+      "authorization": "pending",
+      "status": "planned",
+      "dependsOn": [
+        "U1",
+        "U2",
+        "U4A"
+      ],
+      "paths": [
+        "companion/src/features/hunt/HuntPage.tsx"
+      ],
+      "guidance": [
+        "docs/DECISIONS.md",
+        "docs/ARCHITECTURE.md",
+        "docs/DESIGN.md"
+      ],
+      "docsReviewed": [],
+      "delivery": {
+        "stage": "not_started",
+        "branch": null
+      },
+      "acceptance": [
+        {
+          "id": "AC1",
+          "description": "Same score weights, ordering and 80-item bound; derived score labeled.",
+          "result": "not_tested",
+          "evidence": []
+        },
+        {
+          "id": "AC2",
+          "description": "Action/reason and supported cost context readable; no invented tiers or filters.",
+          "result": "not_tested",
+          "evidence": []
+        }
+      ]
+    },
+    {
+      "id": "U7A",
+      "milestone": "B",
+      "title": "Trainer and History",
+      "scope": "Restyle the existing screen behavior with phone-first hierarchy and honest provenance.",
+      "excludes": "No unrelated features, mechanics changes, storage migration or production deployment.",
+      "class": "presentation",
+      "authorization": "pending",
+      "status": "planned",
+      "dependsOn": [
+        "U1",
+        "U2"
+      ],
+      "paths": [
+        "companion/src/features/trainer/TrainerPage.tsx",
+        "companion/src/features/history/ChangesPage.tsx"
+      ],
+      "guidance": [
+        "docs/DECISIONS.md",
+        "docs/ARCHITECTURE.md",
+        "docs/DESIGN.md"
+      ],
+      "docsReviewed": [],
+      "delivery": {
+        "stage": "not_started",
+        "branch": null
+      },
+      "acceptance": [
+        {
+          "id": "AC1",
+          "description": "Numeric totals/bounded progress remain correct and readable.",
+          "result": "not_tested",
+          "evidence": []
+        },
+        {
+          "id": "AC2",
+          "description": "History before/after/source context preserved; first import remains a baseline.",
+          "result": "not_tested",
+          "evidence": []
+        }
+      ]
+    },
+    {
+      "id": "U7B",
+      "milestone": "B",
+      "title": "Fusion, More and planned screens",
+      "scope": "Restyle the existing screen behavior with phone-first hierarchy and honest provenance.",
+      "excludes": "No unrelated features, mechanics changes, storage migration or production deployment.",
+      "class": "presentation",
+      "authorization": "pending",
+      "status": "planned",
+      "dependsOn": [
+        "U2",
+        "U5"
+      ],
+      "paths": [
+        "companion/src/features/fusion/FusionPage.tsx",
+        "companion/src/features/more/MorePage.tsx",
+        "companion/src/features/runs/RunPage.tsx",
+        "companion/src/features/modules/ModulesPage.tsx"
+      ],
+      "guidance": [
+        "docs/DECISIONS.md",
+        "docs/ARCHITECTURE.md",
+        "docs/DESIGN.md"
+      ],
+      "docsReviewed": [],
+      "delivery": {
+        "stage": "not_started",
+        "branch": null
+      },
+      "acceptance": [
+        {
+          "id": "AC1",
+          "description": "Compact first/second identities, source status and version-sensitive caveats preserved.",
+          "result": "not_tested",
+          "evidence": []
+        },
+        {
+          "id": "AC2",
+          "description": "Scrolling tabs discoverable; More links and Run/Modules planned status truthful.",
+          "result": "not_tested",
+          "evidence": []
+        }
+      ]
+    },
+    {
+      "id": "U8",
+      "milestone": "B",
+      "title": "Settings and persistent recovery feedback",
+      "scope": "Restyle the existing screen behavior with phone-first hierarchy and honest provenance.",
+      "excludes": "No unrelated features, mechanics changes, storage migration or production deployment.",
+      "class": "presentation",
+      "authorization": "pending",
+      "status": "planned",
+      "dependsOn": [
+        "S0",
+        "S1",
+        "U1"
+      ],
+      "paths": [
+        "companion/src/features/settings/SettingsPage.tsx"
+      ],
+      "guidance": [
+        "docs/DECISIONS.md",
+        "docs/ARCHITECTURE.md",
+        "docs/DESIGN.md"
+      ],
+      "docsReviewed": [],
+      "delivery": {
+        "stage": "not_started",
+        "branch": null
+      },
+      "acceptance": [
+        {
+          "id": "AC1",
+          "description": "Import/export/restore/clear remain reachable with explicit consequences.",
+          "result": "not_tested",
+          "evidence": []
+        },
+        {
+          "id": "AC2",
+          "description": "Actionable errors persist; isolated synthetic backup smoke passes.",
+          "result": "not_tested",
+          "evidence": []
+        }
+      ]
+    },
+    {
+      "id": "C0",
+      "milestone": "C",
+      "title": "First narrow companion module contract",
+      "scope": "Define typed capabilities/lifecycle for a real independently scoped module.",
+      "excludes": "No unrelated features, mechanics changes, storage migration or production deployment.",
+      "class": "feature",
+      "authorization": "pending",
+      "status": "planned",
+      "dependsOn": [],
+      "paths": [
+        "companion/src/app/navigation.ts",
+        "docs/ARCHITECTURE.md"
+      ],
+      "guidance": [
+        "docs/DECISIONS.md",
+        "docs/ARCHITECTURE.md",
+        "docs/DESIGN.md"
+      ],
+      "docsReviewed": [],
+      "delivery": {
+        "stage": "not_started",
+        "branch": null
+      },
+      "acceptance": [
+        {
+          "id": "AC1",
+          "description": "Module declares identity/version/dependencies and limited capabilities.",
+          "result": "not_tested",
+          "evidence": []
+        },
+        {
+          "id": "AC2",
+          "description": "Boundary tests reject cross-feature/global-storage coupling.",
+          "result": "not_tested",
+          "evidence": []
+        }
+      ]
+    },
+    {
+      "id": "I0",
+      "milestone": "D",
+      "title": "Lock dependencies and reproducible CI",
+      "scope": "Introduce reviewed lock and clean install without unrelated upgrades.",
+      "excludes": "No unrelated features, mechanics changes, storage migration or production deployment.",
+      "class": "infrastructure",
+      "authorization": "pending",
+      "status": "planned",
+      "dependsOn": [],
+      "paths": [
+        "companion/package.json",
+        ".github/workflows/companion-ci.yml"
+      ],
+      "guidance": [
+        "docs/DECISIONS.md",
+        "docs/ARCHITECTURE.md",
+        "docs/DESIGN.md"
+      ],
+      "docsReviewed": [],
+      "delivery": {
+        "stage": "not_started",
+        "branch": null
+      },
+      "acceptance": [
+        {
+          "id": "AC1",
+          "description": "Reviewed lock committed and clean npm ci succeeds.",
+          "result": "not_tested",
+          "evidence": []
+        },
+        {
+          "id": "AC2",
+          "description": "Existing typecheck/test/build pass at supported Node version.",
+          "result": "not_tested",
+          "evidence": []
+        }
+      ]
+    },
+    {
+      "id": "D0",
+      "milestone": "D",
+      "title": "Public-source and reachable-history review",
+      "scope": "Review code, fixtures, docs, history and artifacts for private data.",
+      "excludes": "No unrelated features, mechanics changes, storage migration or production deployment.",
+      "class": "infrastructure",
+      "authorization": "pending",
+      "status": "planned",
+      "dependsOn": [],
+      "paths": [
+        "scripts/validate-repository.mjs",
+        "docs/PRIVACY.md"
+      ],
+      "guidance": [
+        "docs/DECISIONS.md",
+        "docs/ARCHITECTURE.md",
+        "docs/DESIGN.md"
+      ],
+      "docsReviewed": [],
+      "delivery": {
+        "stage": "not_started",
+        "branch": null
+      },
+      "acceptance": [
+        {
+          "id": "AC1",
+          "description": "Review findings recorded without publishing sensitive values.",
+          "result": "not_tested",
+          "evidence": []
+        },
+        {
+          "id": "AC2",
+          "description": "Source/log/artifact checks pass; limitations explicitly documented.",
+          "result": "not_tested",
+          "evidence": []
+        }
+      ]
+    },
+    {
+      "id": "D1",
+      "milestone": "D",
+      "title": "Validated-release source mirror",
+      "scope": "Mirror only reviewed release source to the reserve repository.",
+      "excludes": "No unrelated features, mechanics changes, storage migration or production deployment.",
+      "class": "infrastructure",
+      "authorization": "pending",
+      "status": "planned",
+      "dependsOn": [
+        "D0",
+        "R0"
+      ],
+      "paths": [
+        "docs/CLOUDFLARE_SETUP.md"
+      ],
+      "guidance": [
+        "docs/DECISIONS.md",
+        "docs/ARCHITECTURE.md",
+        "docs/DESIGN.md"
+      ],
+      "docsReviewed": [],
+      "delivery": {
+        "stage": "not_started",
+        "branch": null
+      },
+      "acceptance": [
+        {
+          "id": "AC1",
+          "description": "Synthetic dry run mirrors source only and excludes private backups.",
+          "result": "not_tested",
+          "evidence": []
+        },
+        {
+          "id": "AC2",
+          "description": "Validated tagged release gate and rollback/source identity documented.",
+          "result": "not_tested",
+          "evidence": []
+        }
+      ]
+    },
+    {
+      "id": "V0",
+      "milestone": "E",
+      "title": "Profile/Run/UserContent schema contracts",
+      "scope": "Define independent ownership before migrating actual browser state.",
+      "excludes": "No unrelated features, mechanics changes, storage migration or production deployment.",
+      "class": "data",
+      "authorization": "pending",
+      "status": "planned",
+      "dependsOn": [
+        "S0",
+        "S1"
+      ],
+      "paths": [
+        "companion/src/storage/types.ts",
+        "companion/src/domain/types.ts"
+      ],
+      "guidance": [
+        "docs/DECISIONS.md",
+        "docs/ARCHITECTURE.md",
+        "docs/DESIGN.md"
+      ],
+      "docsReviewed": [],
+      "delivery": {
+        "stage": "not_started",
+        "branch": null
+      },
+      "acceptance": [
+        {
+          "id": "AC1",
+          "description": "Profile account/run ownership and reusable Build ownership explicit.",
+          "result": "not_tested",
+          "evidence": []
+        },
+        {
+          "id": "AC2",
+          "description": "Versioned contracts and scoped deletion/backup boundaries reviewed.",
+          "result": "not_tested",
+          "evidence": []
+        }
+      ]
+    },
+    {
+      "id": "V1",
+      "milestone": "E",
+      "title": "Reversible storage migration",
+      "scope": "Implement separate repositories with validated old-state recovery.",
+      "excludes": "No unrelated features, mechanics changes, storage migration or production deployment.",
+      "class": "data",
+      "authorization": "pending",
+      "status": "planned",
+      "dependsOn": [
+        "V0"
+      ],
+      "paths": [
+        "companion/src/storage/indexeddb.ts",
+        "companion/src/storage/schema.ts",
+        "companion/src/store.ts"
+      ],
+      "guidance": [
+        "docs/DECISIONS.md",
+        "docs/ARCHITECTURE.md",
+        "docs/DESIGN.md"
+      ],
+      "docsReviewed": [],
+      "delivery": {
+        "stage": "not_started",
+        "branch": null
+      },
+      "acceptance": [
+        {
+          "id": "AC1",
+          "description": "Legacy backup, interrupted migration and rollback preserve original data.",
+          "result": "not_tested",
+          "evidence": []
+        },
+        {
+          "id": "AC2",
+          "description": "Account import/reset cannot delete cross-profile UserContent; isolated real backup review completed.",
+          "result": "not_tested",
+          "evidence": []
+        }
+      ]
+    },
+    {
+      "id": "V2",
+      "milestone": "E",
+      "title": "Multiple profile selection and histories",
+      "scope": "Expose independent accounts over verified repositories.",
+      "excludes": "No unrelated features, mechanics changes, storage migration or production deployment.",
+      "class": "feature",
+      "authorization": "pending",
+      "status": "planned",
+      "dependsOn": [
+        "V1"
+      ],
+      "paths": [
+        "companion/src/App.tsx",
+        "companion/src/features/settings/SettingsPage.tsx"
+      ],
+      "guidance": [
+        "docs/DECISIONS.md",
+        "docs/ARCHITECTURE.md",
+        "docs/DESIGN.md"
+      ],
+      "docsReviewed": [],
+      "delivery": {
+        "stage": "not_started",
+        "branch": null
+      },
+      "acceptance": [
+        {
+          "id": "AC1",
+          "description": "Profiles retain independent snapshots with no silent merge.",
+          "result": "not_tested",
+          "evidence": []
+        },
+        {
+          "id": "AC2",
+          "description": "Build reuse and ownership checks switch with active profile without copying Builds.",
+          "result": "not_tested",
+          "evidence": []
+        }
+      ]
+    },
+    {
+      "id": "REF0",
+      "milestone": "F",
+      "title": "Rules-legal Build reference coverage",
+      "scope": "Expand pinned forms/moves/options/rules needed by the editor.",
+      "excludes": "No unrelated features, mechanics changes, storage migration or production deployment.",
+      "class": "data",
+      "authorization": "pending",
+      "status": "planned",
+      "dependsOn": [],
+      "paths": [
+        "scripts/generate-game-references.mjs",
+        "reference-sources.lock.json"
+      ],
+      "guidance": [
+        "docs/DECISIONS.md",
+        "docs/ARCHITECTURE.md",
+        "docs/DESIGN.md"
+      ],
+      "docsReviewed": [],
+      "delivery": {
+        "stage": "not_started",
+        "branch": null
+      },
+      "acceptance": [
+        {
+          "id": "AC1",
+          "description": "Supported rules/options generated with pinned provenance.",
+          "result": "not_tested",
+          "evidence": []
+        },
+        {
+          "id": "AC2",
+          "description": "Illegal/unsupported combinations identified; reference parity checks pass.",
+          "result": "not_tested",
+          "evidence": []
+        }
+      ]
+    },
+    {
+      "id": "B0",
+      "milestone": "F",
+      "title": "Shared Build schema and legality",
+      "scope": "Define same Inventory/Sandbox Build with immutable source presets.",
+      "excludes": "No unrelated features, mechanics changes, storage migration or production deployment.",
+      "class": "feature",
+      "authorization": "pending",
+      "status": "planned",
+      "dependsOn": [
+        "V0",
+        "REF0"
+      ],
+      "paths": [
+        "companion/src/domain/types.ts",
+        "companion/src/domain/teams.ts"
+      ],
+      "guidance": [
+        "docs/DECISIONS.md",
+        "docs/ARCHITECTURE.md",
+        "docs/DESIGN.md"
+      ],
+      "docsReviewed": [],
+      "delivery": {
+        "stage": "not_started",
+        "branch": null
+      },
+      "acceptance": [
+        {
+          "id": "AC1",
+          "description": "Six-slot configuration and rules constraints validated.",
+          "result": "not_tested",
+          "evidence": []
+        },
+        {
+          "id": "AC2",
+          "description": "Inventory availability differs from hypothetical unlocks without mutating account facts.",
+          "result": "not_tested",
+          "evidence": []
+        }
+      ]
+    },
+    {
+      "id": "B1",
+      "milestone": "F",
+      "title": "Editable saved Builds",
+      "scope": "Add create/edit/clone/save/duplicate/delete over UserContent.",
+      "excludes": "No unrelated features, mechanics changes, storage migration or production deployment.",
+      "class": "feature",
+      "authorization": "pending",
+      "status": "planned",
+      "dependsOn": [
+        "B0",
+        "V1",
+        "V2"
+      ],
+      "paths": [
+        "companion/src/features/teams/TeamsPage.tsx",
+        "companion/src/storage/types.ts"
+      ],
+      "guidance": [
+        "docs/DECISIONS.md",
+        "docs/ARCHITECTURE.md",
+        "docs/DESIGN.md"
+      ],
+      "docsReviewed": [],
+      "delivery": {
+        "stage": "not_started",
+        "branch": null
+      },
+      "acceptance": [
+        {
+          "id": "AC1",
+          "description": "Six editable slots, cost/luck and legality operate in both modes.",
+          "result": "not_tested",
+          "evidence": []
+        },
+        {
+          "id": "AC2",
+          "description": "Profile switches/import/reset preserve user-created Builds; presets immutable.",
+          "result": "not_tested",
+          "evidence": []
+        }
+      ]
+    },
+    {
+      "id": "B2",
+      "milestone": "F",
+      "title": "Individual Build portability",
+      "scope": "Versioned JSON and copy/paste codes independent of account identity.",
+      "excludes": "No unrelated features, mechanics changes, storage migration or production deployment.",
+      "class": "feature",
+      "authorization": "pending",
+      "status": "planned",
+      "dependsOn": [
+        "B1"
+      ],
+      "paths": [
+        "companion/src/domain/teams.ts",
+        "companion/src/features/teams/TeamsPage.tsx"
+      ],
+      "guidance": [
+        "docs/DECISIONS.md",
+        "docs/ARCHITECTURE.md",
+        "docs/DESIGN.md"
+      ],
+      "docsReviewed": [],
+      "delivery": {
+        "stage": "not_started",
+        "branch": null
+      },
+      "acceptance": [
+        {
+          "id": "AC1",
+          "description": "Validated single-Build JSON/code round trip with malformed inputs rejected.",
+          "result": "not_tested",
+          "evidence": []
+        },
+        {
+          "id": "AC2",
+          "description": "No private account fields; share URLs remain deferred.",
+          "result": "not_tested",
+          "evidence": []
+        }
+      ]
+    },
+    {
+      "id": "G0",
+      "milestone": "G",
+      "title": "Build-aware Goals",
+      "scope": "Explain active-profile Build gaps without mutating imported records.",
+      "excludes": "No unrelated features, mechanics changes, storage migration or production deployment.",
+      "class": "feature",
+      "authorization": "pending",
+      "status": "planned",
+      "dependsOn": [
+        "B1"
+      ],
+      "paths": [
+        "companion/src/domain/priorities.ts",
+        "companion/src/features/hunt/HuntPage.tsx"
+      ],
+      "guidance": [
+        "docs/DECISIONS.md",
+        "docs/ARCHITECTURE.md",
+        "docs/DESIGN.md"
+      ],
+      "docsReviewed": [],
+      "delivery": {
+        "stage": "not_started",
+        "branch": null
+      },
+      "acceptance": [
+        {
+          "id": "AC1",
+          "description": "Deterministic recommendations explain deficits and supported costs.",
+          "result": "not_tested",
+          "evidence": []
+        },
+        {
+          "id": "AC2",
+          "description": "Profile/Build changes update derived priorities with no imported-state writes.",
+          "result": "not_tested",
+          "evidence": []
+        }
+      ]
+    },
+    {
+      "id": "O0",
+      "milestone": "H",
+      "title": "Offline caches and controlled updates",
+      "scope": "Make core assets and update behavior coherent after setup.",
+      "excludes": "No unrelated features, mechanics changes, storage migration or production deployment.",
+      "class": "infrastructure",
+      "authorization": "pending",
+      "status": "planned",
+      "dependsOn": [],
+      "paths": [
+        "companion/public/sw.js",
+        "companion/public/manifest.webmanifest"
+      ],
+      "guidance": [
+        "docs/DECISIONS.md",
+        "docs/ARCHITECTURE.md",
+        "docs/DESIGN.md"
+      ],
+      "docsReviewed": [],
+      "delivery": {
+        "stage": "not_started",
+        "branch": null
+      },
+      "acceptance": [
+        {
+          "id": "AC1",
+          "description": "Required shell/data/font/art assets work offline after warming.",
+          "result": "not_tested",
+          "evidence": []
+        },
+        {
+          "id": "AC2",
+          "description": "Old/new cache upgrades, interruption and rollback checked; user state preserved.",
+          "result": "not_tested",
+          "evidence": []
+        }
+      ]
+    },
+    {
+      "id": "R0",
+      "milestone": "H",
+      "title": "Alpha release verification and approval",
+      "scope": "Collect privacy, restore, phone/desktop, offline and rollback evidence.",
+      "excludes": "No unrelated features, mechanics changes, storage migration or production deployment.",
+      "class": "infrastructure",
+      "authorization": "pending",
+      "status": "planned",
+      "dependsOn": [
+        "S0",
+        "S1",
+        "I0",
+        "D0",
+        "O0"
+      ],
+      "paths": [
+        "docs/PRIVACY.md",
+        "docs/CLOUDFLARE_SETUP.md"
+      ],
+      "guidance": [
+        "docs/DECISIONS.md",
+        "docs/ARCHITECTURE.md",
+        "docs/DESIGN.md"
+      ],
+      "docsReviewed": [],
+      "delivery": {
+        "stage": "not_started",
+        "branch": null
+      },
+      "acceptance": [
+        {
+          "id": "AC1",
+          "description": "Selected packet checks, isolated real backup and device review pass.",
+          "result": "not_tested",
+          "evidence": []
+        },
+        {
+          "id": "AC2",
+          "description": "Approved rollout records release/deployed SHA and rollback; no implicit deployment.",
+          "result": "not_tested",
+          "evidence": []
+        }
+      ]
+    },
+    {
+      "id": "P0",
+      "milestone": "I",
+      "title": "Independent Run session import",
+      "scope": "Separate SYSTEM/SESSION/profile/run provenance and storage.",
+      "excludes": "No unrelated features, mechanics changes, storage migration or production deployment.",
+      "class": "feature",
+      "authorization": "pending",
+      "status": "planned",
+      "dependsOn": [
+        "V1",
+        "V2"
+      ],
+      "paths": [
+        "companion/src/features/runs/RunPage.tsx",
+        "companion/src/storage/types.ts"
+      ],
+      "guidance": [
+        "docs/DECISIONS.md",
+        "docs/ARCHITECTURE.md",
+        "docs/DESIGN.md"
+      ],
+      "docsReviewed": [],
+      "delivery": {
+        "stage": "not_started",
+        "branch": null
+      },
+      "acceptance": [
+        {
+          "id": "AC1",
+          "description": "Run import does not replace account facts or personal Builds.",
+          "result": "not_tested",
+          "evidence": []
+        },
+        {
+          "id": "AC2",
+          "description": "Versioned session model distinguishes Guest and official source; no upload/write-back.",
+          "result": "not_tested",
+          "evidence": []
+        }
+      ]
+    },
+    {
+      "id": "P1",
+      "milestone": "I",
+      "title": "Pinned optional Play adapter",
+      "scope": "Preserve separate Guest experiment; transport local read-only observations.",
+      "excludes": "No unrelated features, mechanics changes, storage migration or production deployment.",
+      "class": "feature",
+      "authorization": "pending",
+      "status": "planned",
+      "dependsOn": [
+        "P0",
+        "C0"
+      ],
+      "paths": [
+        "companion/src/app/config.ts",
+        "docs/ARCHITECTURE.md"
+      ],
+      "guidance": [
+        "docs/DECISIONS.md",
+        "docs/ARCHITECTURE.md",
+        "docs/DESIGN.md"
+      ],
+      "docsReviewed": [],
+      "delivery": {
+        "stage": "not_started",
+        "branch": null
+      },
+      "acceptance": [
+        {
+          "id": "AC1",
+          "description": "Game/reference compatibility declared and bridge regression-tested.",
+          "result": "not_tested",
+          "evidence": []
+        },
+        {
+          "id": "AC2",
+          "description": "No save-upload API or write-back; offline companion runs independently.",
+          "result": "not_tested",
+          "evidence": []
+        }
+      ]
+    },
+    {
+      "id": "M0",
+      "milestone": "J",
+      "title": "First advanced verified module",
+      "scope": "Choose one module and define its source-validated mechanics and limits before implementation.",
+      "excludes": "No unrelated features, mechanics changes, storage migration or production deployment.",
+      "class": "feature",
+      "authorization": "pending",
+      "status": "planned",
+      "dependsOn": [
+        "C0"
+      ],
+      "paths": [
+        "docs/ARCHITECTURE.md",
+        "docs/DATA_SOURCES.md"
+      ],
+      "guidance": [
+        "docs/DECISIONS.md",
+        "docs/ARCHITECTURE.md",
+        "docs/DESIGN.md"
+      ],
+      "docsReviewed": [],
+      "delivery": {
+        "stage": "not_started",
+        "branch": null
+      },
+      "acceptance": [
+        {
+          "id": "AC1",
+          "description": "Specific capability, reference revision and uncertainty contract approved.",
+          "result": "not_tested",
+          "evidence": []
+        },
+        {
+          "id": "AC2",
+          "description": "Independent regression tests establish results; single simulation not presented as full ranges.",
+          "result": "not_tested",
+          "evidence": []
+        }
+      ]
+    },
+    {
+      "id": "DOCS-01",
+      "milestone": "T",
+      "title": "Readable project guides and illustrations",
+      "scope": "Restyle README and generated progress/file-map reports with concise summaries, expandable detail and accurate local SVG diagrams.",
+      "excludes": "Application UI, product theme adoption, domain/storage behavior, merge and deployment.",
+      "class": "documentation",
+      "authorization": "approved",
+      "status": "verified",
+      "dependsOn": [
+        "TRACK-01"
+      ],
+      "paths": [
+        "README.md",
+        "scripts/project-report-layout.mjs",
+        "scripts/project-illustrations.mjs",
+        "docs/assets/rogue-header.svg"
+      ],
+      "guidance": [
+        "AGENTS.md",
+        "docs/PROJECT_WORKFLOW.md",
+        "docs/DECISIONS.md"
+      ],
+      "docsReviewed": [
+        "AGENTS.md",
+        "docs/PROJECT_WORKFLOW.md",
+        "docs/DECISIONS.md"
+      ],
+      "delivery": {
+        "stage": "pr_open",
+        "branch": "chore/project-tracking-2026-10-08",
+        "pr": "https://github.com/GageDush/Rogue-Plus/pull/5"
+      },
+      "acceptance": [
+        {
+          "id": "AC1",
+          "description": "README/status lead with concise summaries and expandable detail; all evidence and original scope remain reachable.",
+          "result": "pass",
+          "evidence": [
+            "project/evidence/DOCS-01.md"
+          ]
+        },
+        {
+          "id": "AC2",
+          "description": "Milestone illustration follows registry counts; local-data and verification diagrams are accurate and readable at phone width.",
+          "result": "pass",
+          "evidence": [
+            "project/evidence/DOCS-01.md"
+          ]
+        },
+        {
+          "id": "AC3",
+          "description": "Generator, tracking guards and stale-image detection pass without application changes.",
+          "result": "pass",
+          "evidence": [
+            "project/evidence/DOCS-01.md"
+          ]
+        }
+      ],
+      "verifiedOn": "2026-10-08"
+    }
+  ]
+}

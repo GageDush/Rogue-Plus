@@ -1,0 +1,20 @@
+name: Project tracking
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  project-tracking:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Test tracking and completion guards
+        run: node --test scripts/project-tracking.test.mjs
+      - name: Validate registry and generated documentation freshness
+        run: node scripts/project-tracking.mjs --check

@@ -1,5 +1,9 @@
 # Rogue+ target architecture
 
+## Development tracking ownership
+
+project/tasks.json owns ongoing task state and evidence; scripts/project-tracking.mjs generates STATUS, ROADMAP, NEXT_TASK, FILE_MAP and the README progress block. DECISIONS owns accepted contracts and pending changes. CURRENT_STATE and earlier companion architecture JSON audits are dated evidence. No generator changes application schemas or accepts design decisions automatically. Local read-only analysis and Rogue+ backup/restore remain in scope; re-encryption, modified game-save export and uploads to PokéRogue are excluded.
+
 ## Immutable boundaries
 - `reference/`: version-pinned public PokéRogue starter/mechanics data. Offline bundle.
 - `import/`: decrypts and validates a user-supplied file locally; discards trainer-secret fields before normalizing.
@@ -31,3 +35,4 @@ Legacy combined schema-v2 state must remain recoverable until v3 import validati
 - Shared typography, radius, spacing, neutral panels, and orange accent via tokens; feature components cannot create their own inconsistent palette.
 - Mobile uses five primary destinations: Home / Dex / Build / Run / Goals, with secondary navigation in the header and More screen.
 - A "Planned" UI must be clearly labeled; it may not claim a non-existent editor, module or data source is functional.
+
