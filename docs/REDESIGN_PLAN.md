@@ -103,7 +103,7 @@ S0/S1 are release safety work, not excuses to bundle storage v3 into the redesig
 3. Approved white logo versus light canvas: use authentic mark in a small dark tile. No new logo variant is needed to start.
 4. Package offers no new rendered app mockup. Its PDF is a process illustration. Exact typography/token adoption should receive one representative Home/Dex review, not an unreviewed wholesale rewrite.
 5. Storage startup risk and incomplete backup validation block safe rollout; they do not block documentation or visual specification.
-6. Actual user backup restore, mobile visual pass, offline updates, full asset variants, history hygiene and exact deploy-SHA parity remain unverified.
+6. Actual user backup restore, interactive mobile signoff, offline updates, full asset variants, history hygiene and exact deploy-SHA parity remain unverified. User-supplied phone images have now been reviewed.
 7. Companion and Play pin different game commits; integrating them requires a compatibility contract, not silent unification.
 
 No unanswered product question blocks the proposed existing-feature redesign. The remaining required decision is approval of the warm/light direction and first packet scope. Recommend starting S0, then U1/U2 with S1 and I0 in separate changes. Keep deeper feature work on hold.
@@ -116,3 +116,15 @@ Class: presentation / interaction / feature / data.
 Preserve: explicit working actions and contracts.
 Deliver: small implementation diff, relevant checks, matched-state mobile/desktop screenshots, updated status.
 Stop: before merge/production unless separately authorized; do not absorb adjacent unfinished features.
+
+## Mobile-first refinement from supplied phone views
+
+Mobile-first is a confirmed requirement. Design each packet at phone width first, then adapt to larger screens. Preserve the existing five-tab task structure, useful stat grids and party overview.
+
+- U3: put actionable recommendations ahead of the bundled preset; correct Current run build and ALL TIERS labels without changing calculations.
+- U4a/U6: improve legible name, reason and status hierarchy within the existing list behavior. Sticky controls, disclosure, grouping or new list navigation require an explicitly scoped interaction change; they are proposals, not existing functionality.
+- U5: retain the six-member roster overview, make role/readiness notes readable and remove unnecessary repetition. Optional disclosures need separate interaction acceptance.
+- U7a: retain numeric progress and meaningful bars.
+- U7b: reduce Fusion participant-panel height, preserve first/second semantics and source-owned status, and verify a discoverable scrolling tab strip.
+
+Each selected packet needs matched phone states at 320px and 390px, long-name/wrapping checks and a real phone interaction review before release. The supplied full-page images establish current visual structure; they do not prove viewport fit, touch behavior or safe-area correctness. No implementation has started.
