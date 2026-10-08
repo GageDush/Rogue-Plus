@@ -10,7 +10,8 @@
     "prebuild": "node ../scripts/generate-game-references.mjs",
     "predev": "node ../scripts/generate-game-references.mjs",
     "pretest": "node ../scripts/generate-game-references.mjs",
-    "test": "vitest run"
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "crypto-js": "^4.2.0",

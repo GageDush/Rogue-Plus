@@ -17,5 +17,7 @@ jobs:
         run: npm --prefix companion install --no-audit --no-fund
       - name: Test local save schemas and import fixture
         run: npm --prefix companion test
+      - name: Validate TypeScript boundaries
+        run: npm --prefix companion run typecheck
       - name: Build preserved companion
         run: npm --prefix companion run build
