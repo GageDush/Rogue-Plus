@@ -1,7 +1,7 @@
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { resolve, dirname } from 'node:path';
 import { createHash } from 'node:crypto';
-import { enumValues, speciesEntries, extractSpecies, applyRoots, applyAbilities, extractMoves, applyLearnsets, visit, syntax, literal } from './dex-reference-extractor.mjs';
+import { enumValues, speciesEntries, extractSpecies, applyRoots, applyAbilities, extractMoves, applyLearnsets, applySelectionFacts, visit, syntax, literal, known } from './dex-reference-extractor.mjs';
 const root = resolve(import.meta.dirname,'..');
 // Gitlink at the unchanged game revision; do not use the locales moving branch.
 export const localeCommit = '0696f674f631b47f208f5d687b427ed3e7cd81b0';
@@ -43,6 +43,10 @@ export async function generateDexReferences() {
   const moveNames=JSON.parse(await source('pagefaultgames/pokerogue-locales',localeCommit,'en/move.json'));
   const moves=extractMoves(moveText,enums,moveNames);
   applyLearnsets(species,entries,enums,moves,eggText,constants);
+  const selectionPaths=['src/enums/dex-attr.ts','src/enums/ability-attr.ts','src/enums/passive.ts','src/ui/utils/starter-select-ui-utils.ts','src/ui/handlers/starter-select-ui-handler.ts'];
+  const [dexText,abilityText,passiveText]=await Promise.all(selectionPaths.map(path=>source(lock.game.repository,lock.game.commit,path)));
+  paths.push(...selectionPaths);
+  const selectionRules=applySelectionFacts(species,entries,enums,dexText,abilityText,passiveText);
   const expectedIds = [...enums.SpeciesId.values()].filter(id => id > 0);
   if (expectedIds.length !== species.length || expectedIds.some(id => !species.some(s => s.id === id))) throw Error('Incomplete species declaration coverage');
   const types = [...enums.PokemonType].filter(([,id]) => id >= 0).map(([key,id]) => ({key,id,name:key[0]+key.slice(1).toLowerCase()}));
@@ -52,8 +56,9 @@ export async function generateDexReferences() {
     coverage:{species:{status:'complete',count:species.length,boundary:'Every non-NONE SpeciesId declaration and explicit PokemonForm at the pinned game revision.'},
       roots:{status:'complete',count:species.length,boundary:'Explicit starter associations and declared evolution/form-change links; no evolution eligibility claims.'},
       abilities:{status:'partial',count:abilities.length,boundary:'Named ability IDs and all declared per-form ordinary/hidden slots and passives, including index-zero passive fallback. Official unnamed ABILITY_314/ABILITY_317 placeholders excluded.'},
-      moves:{status:'complete',count:moves.length,boundary:'Every non-NONE MoveId declaration, ordered egg slots with explicit root source (including Pikachu→Pichu), and base plus form-key level moves; not current starter availability.'}, selection:pending('Starter compatibility packet pending.')},
-    species,types,abilities,moves};
+      moves:{status:'complete',count:moves.length,boundary:'Every non-NONE MoveId declaration, ordered egg slots with explicit root source (including Pikachu→Pichu), and base plus form-key level moves; not current starter availability.'},
+      selection:{status:'complete',count:species.filter(s=>s.originalStarterCost.value!==null).length,boundary:selectionRules.boundary}},
+    species,types,abilities,moves,selectionRules:known(selectionRules)};
   const output = resolve(root,'companion/src/reference/generated/dex-reference.v1.json');
   await mkdir(dirname(output),{recursive:true});
   await writeFile(output,JSON.stringify(pack,null,2)+'\n');

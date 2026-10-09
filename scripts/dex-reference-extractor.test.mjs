@@ -58,7 +58,7 @@ test('pinned pack covers declarations, generations, regional and special forms',
   assert.equal(species('ALOLA_VULPIX').forms.value[0].types.value[0],14);
   assert.equal(species('CHARIZARD').forms.value.find(f=>f.key==='mega-x').baseStatTotal.value,634);
   assert.equal(species('MIRAIDON').generation.value,9);
-  assert.equal(pack.coverage.selection.status,'unavailable');
+  assert.equal(pack.coverage.selection.status,'complete');
 });
 test('ability slots preserve NONE, duplicates and absent hidden slots without ownership',()=>{
   const abilityEnums={...enums,AbilityId:new Map([['NONE',0],['TEST',1],['ABILITY_314',314]])};
@@ -123,5 +123,14 @@ test('pinned move facts include fixed/variable power, egg inheritance and form l
   assert.ok(pika.find(f=>f.key==='partner').levelMoves.value.some(m=>m.moveId===move('ZIPPY_ZAP').id));
   assert.equal(pika.find(f=>f.key==='').levelMoves.value.some(m=>m.moveId===move('ZIPPY_ZAP').id),false);
   assert.ok(get('VENUSAUR').forms.value[0].levelMoves.value.some(m=>m.level===0));
-  assert.equal(pack.coverage.moves.status,'complete');assert.equal(pack.coverage.selection.status,'unavailable');
+  assert.equal(pack.coverage.moves.status,'complete');assert.equal(pack.coverage.selection.status,'complete');
+});
+test('pinned form selection facts preserve explicit eligibility and obtainability separately',()=>{
+  const pack=JSON.parse(readFileSync(new URL('../companion/src/reference/generated/dex-reference.v1.json',import.meta.url)));
+  const get=key=>pack.species.find(s=>s.key===key);
+  assert.equal(get('BULBASAUR').forms.value[0].starterSelectable.value,true);
+  assert.equal(get('CHARIZARD').forms.value.find(f=>f.key==='mega-x').starterSelectable.value,false);
+  assert.equal(get('PIKACHU').forms.value.find(f=>f.key==='partner').starterSelectable.value,true);
+  assert.equal(pack.selectionRules.value.defaultFormBit,'128');
+  assert.equal(pack.coverage.selection.count,572);
 });

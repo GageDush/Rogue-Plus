@@ -10,7 +10,7 @@ const coverage = { status: 'unavailable', count: 0, boundary: 'Synthetic test on
 function fixture(): DexReferencePack {
   return { schemaVersion: 1, referenceVersion: 'synthetic-v1', provenance: { repository: 'synthetic/source', commit: 'a'.repeat(40), paths: ['fixture.ts'] },
     coverage: { species: { ...coverage, status: 'partial', count: 1 }, roots: coverage, abilities: coverage, moves: coverage, selection: coverage },
-    species: [species], types: [], abilities: [], moves: [] };
+    species: [species], types: [], abilities: [], moves: [], selectionRules: unavailable('Synthetic test only') };
 }
 it('separates unavailable coverage from known absence and a zero reference fact', () => {
   const ref = createDexReferenceIndex(fixture());

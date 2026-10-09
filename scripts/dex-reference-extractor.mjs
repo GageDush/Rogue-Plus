@@ -27,6 +27,7 @@ export function fields(node) {
 export function literal(node, enums = {}, constants = {}) {
   if (!node) throw Error('Missing required source value');
   if (ts.isNumericLiteral(node)) return Number(node.text);
+  if (ts.isBigIntLiteral(node)) return BigInt(node.text.replace(/n$/, ''));
   if (ts.isStringLiteral(node)) return node.text;
   if (node.kind === ts.SyntaxKind.TrueKeyword) return true;
   if (node.kind === ts.SyntaxKind.FalseKeyword) return false;
@@ -204,6 +205,7 @@ function variableObject(text,name) {
   if(declarations.length!==1)throw Error('Missing/duplicate table: '+name);
   let expression=declarations[0].initializer;
   while(expression && (ts.isSatisfiesExpression(expression)||ts.isAsExpression(expression)||ts.isParenthesizedExpression(expression)))expression=expression.expression;
+  if(expression && ts.isCallExpression(expression) && expression.expression.getText()==='Object.freeze' && expression.arguments.length===1)expression=expression.arguments[0];
   return expression;
 }
 export function extractMoves(text,enums,names) {
@@ -262,4 +264,28 @@ export function applyLearnsets(species,entries,enums,moves,eggText,constants) {
     record.eggMoveSourceId=known(owner);
     record.eggMoveIds=known(literal(eggTable.get(owner),enums));
   }
+}
+
+export function applySelectionFacts(species,entries,enums,dexText,abilityText,passiveText) {
+  const dex=fields(variableObject(dexText,'DexAttr')),ability=fields(variableObject(abilityText,'AbilityAttr'));
+  const passives=enumValues(passiveText,'Passive');
+  const flags={first:literal(ability.get('ABILITY_1')),second:literal(ability.get('ABILITY_2')),hidden:literal(ability.get('ABILITY_HIDDEN'))};
+  const passiveFlags={unlocked:passives.get('UNLOCKED'),enabled:passives.get('ENABLED')};
+  const defaultFormBit=literal(dex.get('DEFAULT_FORM')).toString();
+  if(defaultFormBit!=='128'||JSON.stringify(flags)!=='{"first":1,"second":2,"hidden":4}'||passiveFlags.unlocked!==1||passiveFlags.enabled!==2)throw Error('Review changed ownership flag semantics');
+  const byId=new Map(species.map(s=>[s.id,s]));
+  for(const {key,data} of entries){
+    const record=byId.get(enums.SpeciesId.get(key));
+    formConstructors(data).forEach((form,index)=>{
+      const base=form===data;
+      const formKey=base?'':literal(form.get('formKey'),enums);
+      const selectable=base?true:form.has('isStarterSelectable')?literal(form.get('isStarterSelectable'),enums):!formKey;
+      const unobtainable=form.has('isUnobtainable')?literal(form.get('isUnobtainable'),enums):false;
+      if(typeof selectable!=='boolean'||typeof unobtainable!=='boolean')throw Error('Invalid form eligibility flags');
+      record.forms.value[index].starterSelectable=known(selectable);
+      record.forms.value[index].obtainable=known(!unobtainable);
+    });
+    if(record.originalStarterCost.value!==null&&!record.forms.value.some(f=>f.starterSelectable.value&&f.obtainable.value))throw Error('No eligible starter form: '+key);
+  }
+  return {defaultFormBit,abilityFlags:flags,passiveFlags,minimumLevel:1,maximumLevel:5,boundary:'Standard starter selection at the pinned revision. Active challenges/Fresh Start are not modeled by an account export.'};
 }

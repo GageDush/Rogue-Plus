@@ -91,6 +91,15 @@ export interface DexReferencePack {
   readonly types: readonly NamedReference[];
   readonly abilities: readonly NamedReference[];
   readonly moves: readonly DexMoveReference[];
+  readonly selectionRules: ReferenceValue<StarterSelectionRules>;
+}
+export interface StarterSelectionRules {
+  readonly defaultFormBit: string;
+  readonly abilityFlags: { readonly first: number; readonly second: number; readonly hidden: number };
+  readonly passiveFlags: { readonly unlocked: number; readonly enabled: number };
+  readonly minimumLevel: number;
+  readonly maximumLevel: number;
+  readonly boundary: string;
 }
 
 /** Index a build-generated, typed pack. Runtime downloaded-pack validation is a later task. */
