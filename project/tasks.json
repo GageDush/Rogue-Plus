@@ -1940,7 +1940,7 @@
       "excludes": "No storage/mechanics/import/cache overhaul, route migration, merge or production deployment.",
       "class": "interaction",
       "authorization": "approved",
-      "status": "ready_for_review",
+      "status": "verified",
       "dependsOn": [
         "U1-POLISH"
       ],
@@ -1953,17 +1953,21 @@
         "companion/scripts/check-ui.mjs",
         "docs/DESIGN.md",
         "docs/DECISIONS.md",
-        "project/evidence/U1-MENU.md"
+        "project/evidence/U1-MENU.md",
+        "docs/ARCHITECTURE.md",
+        "docs/CURRENT_STATE.md"
       ],
       "guidance": [
         "docs/DESIGN.md",
         "docs/DECISIONS.md",
-        "docs/ARCHITECTURE.md"
+        "docs/ARCHITECTURE.md",
+        "docs/CURRENT_STATE.md"
       ],
       "docsReviewed": [
         "docs/DESIGN.md",
         "docs/DECISIONS.md",
-        "docs/ARCHITECTURE.md"
+        "docs/ARCHITECTURE.md",
+        "docs/CURRENT_STATE.md"
       ],
       "delivery": {
         "stage": "pr_open",
@@ -1974,16 +1978,21 @@
         {
           "id": "AC1",
           "description": "Menu opens over the current page; toggle/outside/Escape dismissals preserve page/search/scroll; destinations close overlay and navigate.",
-          "result": "not_tested",
-          "evidence": []
+          "result": "pass",
+          "evidence": [
+            "project/evidence/U1-MENU.md"
+          ]
         },
         {
           "id": "AC2",
           "description": "Both themes at 320/390/desktop and short landscape retain visible controls, safe areas and single search focus styling.",
-          "result": "not_tested",
-          "evidence": []
+          "result": "pass",
+          "evidence": [
+            "project/evidence/U1-MENU.md"
+          ]
         }
-      ]
+      ],
+      "verifiedOn": "2026-10-08"
     }
   ]
 }

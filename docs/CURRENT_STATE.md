@@ -157,3 +157,7 @@ Preserve the five-tab navigation, two-by-two metric grids, six-member roster ove
 | Fusion | Tall participant panels contain substantial empty space; recipe tabs extend beyond the visible right edge | Compact paired identities, preserve first/second order and caveats; make horizontal tab scrolling discoverable |
 
 Screenshot review closes the missing phone-image evidence gap. Keyboard, touch interaction, safe-area behavior, tab scrolling, offline updates and actual-user backup restoration remain unverified. Do not publish these private-account screenshots in the public repository.
+
+## More navigation update — 2026-10-08
+
+On the design/profile-candy-overview branch, More opens a shared nonmodal pop-out instead of replacing the current feature. Dismissal preserves page state; choosing a destination uses existing navigation. The older More screen described in the audit remains a compatibility component. Short phone landscape uses compact header and bottom navigation, retaining safe-area padding. Native keyboard and physical iPhone interaction still require device review; this branch update does not establish production parity. See project/evidence/U1-MENU.md.

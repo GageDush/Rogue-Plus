@@ -39,7 +39,7 @@ Blocked startup exposes a persistent recovery screen with retry and explicitly c
 ## UI design
 - Hybrid: Home/Trainer/Goals compact analytic surfaces; Dex/Build/Run use richer visual hierarchy and Pokémon imagery.
 - Shared typography, radius, spacing, neutral panels, and orange accent via tokens; feature components cannot create their own inconsistent palette.
-- Mobile uses five primary destinations: Home / Dex / Build / Run / Goals, with secondary navigation in the header and More screen.
+- Mobile uses five primary destinations: Home / Dex / Build / Run / Goals, with secondary navigation in a slim More pop-out triggered from the header. App owns the open state; the shared MorePopover leaves the current feature mounted and dismisses on repeated toggle, outside pointer, Escape or focus leaving. Legacy MorePage remains an internal compatibility screen.
 - A "Planned" UI must be clearly labeled; it may not claim a non-existent editor, module or data source is functional.
 
 
