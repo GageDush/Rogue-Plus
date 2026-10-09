@@ -1,4 +1,4 @@
-import type { DexReferencePack, DexSpeciesReference, ReferenceValue } from '../reference/dex-contract';
+import type { DexReferencePack, DexSpeciesReference, NamedReference, ReferenceValue } from '../reference/dex-contract';
 import type { PokemonSourceFields } from './types';
 
 export type OptionAvailability = 'available' | 'locked' | 'unknown';
@@ -52,6 +52,7 @@ export function getStarterSelection(
   pack: DexReferencePack,
   ownership?: Partial<PokemonSourceFields> | null,
   compatible = true,
+  lookups?: {moves: ReadonlyMap<number, NamedReference>; abilities: ReadonlyMap<number, NamedReference>},
 ): StarterSelection {
   const rules = value(pack.selectionRules);
   const result: StarterSelection = { starterId: species.id, isStarter: value(species.originalStarterCost) != null,
@@ -63,8 +64,8 @@ export function getStarterSelection(
   else if (!source) result.limitation = 'No imported ownership for this starter; availability is unknown.';
   const attr = caught(source?.caughtAttr);
   const abilityMask = mask(source?.abilityMask, 7), eggMask = mask(source?.eggMoveMask, 15), passiveMask = mask(source?.passiveMask, 3);
-  const moves = new Map(pack.moves.map(move => [move.id, move]));
-  const abilities = new Map(pack.abilities.map(ability => [ability.id, ability]));
+  const moves = lookups?.moves ?? new Map(pack.moves.map(move => [move.id, move]));
+  const abilities = lookups?.abilities ?? new Map(pack.abilities.map(ability => [ability.id, ability]));
   for (const form of species.forms.value) {
     const eligible = value(form.starterSelectable), obtainable = value(form.obtainable);
     const formAvailability = eligible === false || obtainable === false ? 'ineligible'

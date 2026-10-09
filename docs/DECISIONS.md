@@ -70,3 +70,7 @@ User explicitly requested Reserve candy for upgrades. Planned reserve covers mis
 ## DEX-003 — Reference update target (2026-10-09)
 
 User accepted versioned reference-update direction with “Sounds good.” Future bundled fallback plus validated cached packs, atomic activation and rollback replaces bundled-only target, not current runtime. Official released-revision detection, trust/schema compatibility and reviewed publication must be designed before implementation; automatic publication and historical rules selector remain proposals. No executable downloads or account-state mutation. Affects DEX-UPDATES; implementation/release authorization remains separate.
+
+## DEX-004 — Reference UI integration authorization (2026-10-09)
+
+User explicitly approved publishing existing commits and continuing packets 7–8 “including ui integration,” with publication after validation. Packet 8 exposes the populated reference catalog, type/generation controls, base-stat sorting and detail facts, related-starter navigation, and plain-text available/possible option matches from DEX-001. This does not authorize expression grammar, candy reserve, runtime reference updates, merge or production deployment. Account/storage contracts and source pins remain unchanged.

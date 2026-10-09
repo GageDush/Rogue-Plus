@@ -45,3 +45,14 @@ jobs:
       - name: Test screens, mobile navigation, backup, reload, and restore
         run: node companion/scripts/check-ui.mjs
 
+      - name: Start isolated source fixture server for Dex interactions
+        run: |
+          (cd companion && ./node_modules/.bin/vite --host 127.0.0.1 --port 4174 > /tmp/rogue-dex-fixtures.log 2>&1) &
+          for i in $(seq 1 40); do
+            if curl -fsS http://127.0.0.1:4174/ > /dev/null; then exit 0; fi
+            sleep 1
+          done
+          cat /tmp/rogue-dex-fixtures.log
+          exit 1
+      - name: Test Dex drafts, reference forms, option states and detail round trips
+        run: node companion/scripts/check-dex-reference.mjs

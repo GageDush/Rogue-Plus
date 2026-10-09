@@ -26,7 +26,8 @@
 | D0 | Public-source and reachable-history review | pending |
 | REF0 | Rules-legal Build reference coverage | pending |
 | O0 | Offline caches and controlled updates | pending |
-| DEX-REF-INTEGRATE | Reference facade integration and closure | approved |
+| DEX-SEARCH | Advanced search and available-option matching | pending |
+| DEX-CANDY | Verified candy eligibility and reserve budgets | pending |
 
 > Dependency-ready does not mean authorized. Select an approved packet, record it as in_progress, and set activeTask.
 

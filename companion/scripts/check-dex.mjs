@@ -51,7 +51,9 @@ export async function checkDex(browser, base, captures) {
       const collected = await cards.count();
       await button('All Pokémon').click();
       assert.ok(await cards.count() >= collected);
-      assert.ok(await page.getByText('Locked', { exact: true }).count() > 0, 'All scope must label locked starters');
+      await search.fill('Nincada');
+      assert.ok(await page.getByText('Locked', { exact: true }).count() > 0, 'All scope must label imported locked starters');
+      await search.fill('');
       await button('Filters').click();
       const panel = page.getByRole('dialog', { name: 'Filters' });
       await panel.getByRole('checkbox', { name: 'Red shiny owned' }).check();

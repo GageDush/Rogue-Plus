@@ -2,7 +2,8 @@ import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } fr
 import { ArrowLeft, Check, Import, Menu, RefreshCw } from 'lucide-react';
 import { buildDemoState, decryptAndNormalize, runDecryptSelfTest, type AppState } from './pokerogue';
 import { createPokeRogueData } from './domain/facade';
-import { defaultDexQuery, queryDex, type DexQuery } from './domain/dex-query';
+import { defaultDexQuery, queryDexEntries, type DexQuery } from './domain/dex-query';
+import { createDexCatalog } from './domain/dex-catalog';
 import { isNavigationActive, pageTitles, primaryNavigation, secondaryNavigation, type Page } from './app/navigation';
 import { Brand, NavButton, NavigationIcon } from './ui/components/Navigation';
 import { MorePopover } from './ui/components/MorePopover';
@@ -202,7 +203,7 @@ function App() {
 
   function openPokemon(id: number) {
     if (page === 'dex') dexReturn.current = { top: window.scrollY, id };
-    else dexReturn.current = null;
+    else if (page !== 'detail') dexReturn.current = null;
     setSelectedId(id);
     navigate('detail');
   }
@@ -213,9 +214,10 @@ function App() {
     () => current && !legacyCurrent ? createPokeRogueData(current, storageStatus) : null,
     [current, legacyCurrent, storageStatus]
   );
-  const selected = data?.pokemonById.get(selectedId) || data?.pokemon[0] || null;
-
-  const filteredPokemon = useMemo(() => queryDex(data?.pokemon ?? [], dexQuery), [data, dexQuery]);
+  const guestDex = useMemo(() => createDexCatalog(null), []);
+  const dex = data?.dex ?? guestDex;
+  const selected = dex.find(entry=>entry.id===selectedId) ?? null;
+  const filteredPokemon = useMemo(() => queryDexEntries(dex, dexQuery), [dex, dexQuery]);
   useLayoutEffect(() => {
     if (page !== 'dex' || !dexReturn.current) return;
     const { top, id } = dexReturn.current;
@@ -324,7 +326,7 @@ function App() {
               onMore={() => setVisibleCount(value => value + 90)}
             />
           )}
-          {page === 'detail' && <DetailPage pokemon={selected} data={data} onTeam={() => navigate('build')} />}
+          {page === 'detail' && <DetailPage entry={selected} data={data} onTeam={() => navigate('build')} onPokemon={openPokemon} />}
           {page === 'build' && <TeamsPage data={data} teamIndex={teamIndex} setTeamIndex={setTeamIndex} onPokemon={openPokemon} />}
           {page === 'goals' && <HuntPage data={data} onPokemon={openPokemon} />}
           {page === 'fusion' && <FusionPage data={data} />}

@@ -261,3 +261,27 @@ button:focus-visible, input:focus-visible { outline: var(--focus-ring); }
 @container (min-width: 840px) { .dex-browser .dex-grid { grid-template-columns: repeat(6, minmax(0, 1fr)); } }
 @container (min-width: 980px) { .dex-browser .dex-grid { grid-template-columns: repeat(7, minmax(0, 1fr)); } }
 @container (min-width: 1120px) { .dex-browser .dex-grid { grid-template-columns: repeat(8, minmax(0, 1fr)); } }
+
+.dex-checkbox-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 8px; }
+.dex-panel .dex-checkbox-grid label { margin: 2px 0; overflow-wrap: anywhere; }
+.dex-reference-line, .dex-match { color: var(--muted); }
+.dex-form-label { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-bottom: 16px; }
+.dex-form-label select { min-width: 0; max-width: 100%; min-height: 44px; padding: 8px; background: var(--panel); color: var(--text); border: 1px solid var(--line-strong); border-radius: 8px; font: inherit; }
+.dex-reference-detail { overflow-wrap: anywhere; }
+.dex-related { display: flex; flex-wrap: wrap; gap: 8px; }
+.dex-related button { min-height: 44px; padding: 8px 12px; border: 1px solid var(--line-strong); background: var(--panel); color: var(--text); border-radius: 8px; font: inherit; }
+.dex-option-group h3 { margin: 20px 0 8px; }
+.dex-option-group ul { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); padding: 0; list-style: none; gap: 8px; }
+.dex-option-group li { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; min-width: 0; padding: 12px; border: 1px solid var(--line); border-radius: 10px; }
+.dex-option-group li strong { flex: 1 1 120px; }
+.dex-option-group li small { width: 100%; color: var(--muted); }
+.dex-availability { font-size: 13px; text-transform: capitalize; }
+.dex-availability-available { color: var(--green); }
+.dex-availability-locked, .dex-availability-unknown { color: var(--muted); }
+/* Public detail facts need readable labels and a shrinking title column on phones. */
+.pokemon-hero { grid-template-columns: 118px minmax(0, 1fr); }
+.hero-copy { min-width: 0; }
+.hero-copy h2 { overflow-wrap: anywhere; font-size: clamp(20px, 5vw, 29px); line-height: 1.15; }
+.hero-copy .tag-row span, .dex-reference-detail .tag-row span { font-family: inherit; font-size: 14px; line-height: 1.4; overflow-wrap: anywhere; }
+.dex-reference-detail .iv-grid span { font-size: 12px; }
+.dex-reference-detail .iv-grid strong { font-size: 18px; }

@@ -2132,11 +2132,11 @@
       "id": "DEX-REF",
       "milestone": "B",
       "title": "Pinned Dex reference coverage",
-      "scope": "Parent acceptance for seven authorized reference packets; complete only after their pinned coverage, selection compatibility and facade integration are verified. Artwork verification is tracked separately as ART-VERIFY.",
+      "scope": "Parent acceptance for seven authorized reference packets, including explicitly authorized facade/UI integration; all pinned coverage, standard selection compatibility and scoped UI checks verified. Artwork verification is tracked separately as ART-VERIFY.",
       "excludes": "No unrelated features, private data publication, save writeback, merge or production deployment.",
       "class": "data",
       "authorization": "approved",
-      "status": "planned",
+      "status": "verified",
       "dependsOn": [
         "U4A",
         "DEX-REF-INTEGRATE"
@@ -2149,25 +2149,35 @@
         "docs/DEX_HANDOFF.md",
         "docs/ARCHITECTURE.md"
       ],
-      "docsReviewed": [],
+      "docsReviewed": [
+        "docs/DECISIONS.md",
+        "docs/DEX_HANDOFF.md",
+        "docs/ARCHITECTURE.md"
+      ],
       "delivery": {
-        "stage": "not_started",
-        "branch": null
+        "stage": "pr_open",
+        "branch": "design/profile-candy-overview",
+        "pr": "https://github.com/GageDush/Rogue-Plus/pull/8"
       },
       "acceptance": [
         {
           "id": "AC1",
           "description": "Scoped behavior and source/version provenance verified with meaningful synthetic boundary cases; criteria refined before implementation.",
-          "result": "not_tested",
-          "evidence": []
+          "result": "pass",
+          "evidence": [
+            "project/evidence/DEX-REF-INTEGRATE.md"
+          ]
         },
         {
           "id": "AC2",
           "description": "Affected consumers and guidance reviewed; compatibility and unavailable-data behavior verified without unrelated regressions.",
-          "result": "not_tested",
-          "evidence": []
+          "result": "pass",
+          "evidence": [
+            "project/evidence/DEX-REF-INTEGRATE.md"
+          ]
         }
-      ]
+      ],
+      "verifiedOn": "2026-10-09"
     },
     {
       "id": "DEX-SEARCH",
@@ -2654,8 +2664,9 @@
         "docs/ARCHITECTURE.md"
       ],
       "delivery": {
-        "stage": "working_branch",
-        "branch": "design/profile-candy-overview"
+        "stage": "pr_open",
+        "branch": "design/profile-candy-overview",
+        "pr": "https://github.com/GageDush/Rogue-Plus/pull/8"
       },
       "acceptance": [
         {
@@ -2681,41 +2692,68 @@
       "id": "DEX-REF-INTEGRATE",
       "milestone": "B",
       "title": "Reference facade integration and closure",
-      "scope": "Expose validated lookups ready for DEX-SEARCH and verify existing consumers and coverage.",
-      "excludes": "No search parser/UI expansion, candy reservation/pricing changes, reference updates, storage migration, private data, merge or production deployment.",
-      "class": "data",
+      "scope": "Expose validated reference lookups and integrate expanded public facts/standard starter option states into Dex cards and detail while preserving account data and query/detail round trips. User explicitly authorized UI integration on 2026-10-09.",
+      "excludes": "No expression grammar, candy reservation/pricing changes, reference updates, storage migration, private data, merge or production deployment.",
+      "class": "feature",
       "authorization": "approved",
-      "status": "planned",
+      "status": "verified",
       "dependsOn": [
         "DEX-REF-SELECTION"
       ],
       "paths": [
-        "companion/src/domain/facade.ts"
+        "companion/src/reference/index.ts",
+        "companion/src/domain/dex-catalog.ts",
+        "companion/src/domain/facade.ts",
+        "companion/src/domain/starter-selection.ts",
+        "companion/src/domain/dex-query.ts",
+        "companion/src/features/dex/DexPage.tsx",
+        "companion/src/features/dex/DetailPage.tsx",
+        "companion/src/App.tsx",
+        "companion/src/ui/styles/field-guide.css",
+        "companion/tests/dex-catalog.test.tsx",
+        "companion/scripts/check-dex.mjs",
+        "companion/scripts/check-dex-reference.mjs",
+        ".github/workflows/companion-ui.yml",
+        "project/evidence/DEX-REF-INTEGRATE.md"
       ],
       "guidance": [
         "docs/DEX_HANDOFF.md",
         "docs/DATA_SOURCES.md",
-        "docs/ARCHITECTURE.md"
+        "docs/ARCHITECTURE.md",
+        "docs/DESIGN.md",
+        "docs/DECISIONS.md"
       ],
-      "docsReviewed": [],
+      "docsReviewed": [
+        "docs/DEX_HANDOFF.md",
+        "docs/DATA_SOURCES.md",
+        "docs/ARCHITECTURE.md",
+        "docs/DESIGN.md",
+        "docs/DECISIONS.md"
+      ],
       "delivery": {
-        "stage": "not_started",
-        "branch": null
+        "stage": "pr_open",
+        "branch": "design/profile-candy-overview",
+        "pr": "https://github.com/GageDush/Rogue-Plus/pull/8"
       },
       "acceptance": [
         {
           "id": "AC1",
-          "description": "Packet scope and official pinned provenance verified with meaningful positive, negative and unavailable-data cases.",
-          "result": "not_tested",
-          "evidence": []
+          "description": "Pinned catalog/facade and UI expose reference forms/types/generation/base stats/roots plus named standard starter option states, keeping account ownership/history/storage separate; positive/negative/unknown synthetic cases pass.",
+          "result": "pass",
+          "evidence": [
+            "project/evidence/DEX-REF-INTEGRATE.md"
+          ]
         },
         {
           "id": "AC2",
-          "description": "Affected consumers and guidance reviewed; applicable application, browser and tracking checks pass with honest limits.",
-          "result": "not_tested",
-          "evidence": []
+          "description": "Reference controls and plain-text available/possible matches preserve draft/detail contracts; phone/desktop/both-theme integration and shared consumer checks pass; affected guidance and tracking are updated with limits.",
+          "result": "pass",
+          "evidence": [
+            "project/evidence/DEX-REF-INTEGRATE.md"
+          ]
         }
-      ]
+      ],
+      "verifiedOn": "2026-10-09"
     }
   ]
 }
