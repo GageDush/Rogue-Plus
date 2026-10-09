@@ -1,5 +1,7 @@
 import {readFile,writeFile,mkdir} from 'node:fs/promises';
 import {dirname,resolve} from 'node:path';
+import { pathToFileURL } from 'node:url';
+import { generateDexReferences } from './generate-dex-references.mjs';
 const root=resolve(import.meta.dirname,'..');
 const lock=JSON.parse(await readFile(resolve(root,'reference-sources.lock.json'),'utf8'));
 const ref=lock.game.commit;
@@ -52,8 +54,11 @@ export async function generate(){
  if(starters.length<500||starters.length>900||new Set(starters.map(s=>s.id)).size!==starters.length)throw Error('Invalid upstream starter dataset: '+starters.length);
  return {schemaVersion:1,referenceVersion:'upstream-'+ref.slice(0,12),count:starters.length,provenance:{repository:lock.game.repository,commit:ref},starters};
 }
+if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1])).href) {
 const data=await generate();
 const out=resolve(root,'companion/src/reference/generated/starter-roots.v1.json');
 await mkdir(dirname(out),{recursive:true});
 await writeFile(out,JSON.stringify(data,null,2)+'\n');
 console.log('Generated '+data.count+' offline starter records from '+ref);
+await generateDexReferences();
+}

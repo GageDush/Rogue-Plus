@@ -245,33 +245,54 @@
       "evidence": [
         "project/evidence/U1.md"
       ]
+    },
+    {
+      "name": "Profile overview and affordable candy actions",
+      "limits": "Source and synthetic browser checks pass; physical iPhone review and production release pending",
+      "evidence": [
+        "project/evidence/U1-CANDY.md"
+      ],
+      "scope": "design/profile-candy-overview draft",
+      "status": "partial"
     }
   ],
   "releaseGates": [
     {
       "name": "Isolated restoration of actual user backup",
       "result": "not_tested",
-      "evidence": []
+      "evidence": [
+        "project/evidence/RELEASE-AUDIT-2026-10-09.md"
+      ]
     },
     {
       "name": "Failed-load preservation and strict nested backup validation",
-      "result": "not_tested",
-      "evidence": []
+      "result": "pass",
+      "evidence": [
+        "project/evidence/S0.md",
+        "project/evidence/S1.md"
+      ]
     },
     {
       "name": "Public content/history privacy review",
       "result": "not_tested",
-      "evidence": []
+      "evidence": [
+        "project/evidence/RELEASE-AUDIT-2026-10-09.md"
+      ]
     },
     {
       "name": "Offline cold start and safe cache updates",
-      "result": "not_tested",
-      "evidence": []
+      "result": "pass",
+      "evidence": [
+        "project/evidence/O0.md"
+      ]
     },
     {
       "name": "Real phone/desktop interaction signoff",
-      "result": "not_tested",
-      "evidence": []
+      "result": "pass",
+      "evidence": [
+        "project/evidence/U1-SAFE.md",
+        "project/evidence/RELEASE-AUDIT-2026-10-09.md"
+      ]
     },
     {
       "name": "Explicit merge and production rollout approval",
@@ -283,7 +304,8 @@
     "Cloudflare Workers remains authoritative; historical AppDeploy/Pages proposals are not current configuration.",
     "Implementation verification does not prove merge, deployment or production release.",
     "Private account screenshots, saves and backups are excluded; use sanitized evidence.",
-    "Selected warm field-guide direction and U1 light/dark foundation authorized 2026-10-08; other feature packets and production release remain separate."
+    "Selected warm field-guide direction and U1 light/dark foundation authorized 2026-10-08; other feature packets and production release remain separate.",
+    "2026-10-09: User explicitly requested continuing packets 3\u20136 on GPT-6.1 Medium; this supersedes the previous High recommendation pause. All eight packets remain authorized."
   ],
   "tasks": [
     {
@@ -493,39 +515,52 @@
       "scope": "Reject malformed nested/future backup values before replacement.",
       "excludes": "No unrelated features, mechanics changes, storage migration or production deployment.",
       "class": "data",
-      "authorization": "pending",
-      "status": "planned",
+      "authorization": "approved",
+      "status": "verified",
       "dependsOn": [
         "S0"
       ],
       "paths": [
         "companion/src/storage/schema.ts",
-        "companion/tests/storage-safety.test.ts"
+        "companion/tests/storage-safety.test.ts",
+        "companion/src/storage/validate-state.ts",
+        "companion/tests/startup-recovery.test.ts",
+        "project/evidence/S1.md"
       ],
       "guidance": [
         "docs/DECISIONS.md",
         "docs/ARCHITECTURE.md",
         "docs/DESIGN.md"
       ],
-      "docsReviewed": [],
+      "docsReviewed": [
+        "docs/DECISIONS.md",
+        "docs/ARCHITECTURE.md",
+        "docs/DESIGN.md"
+      ],
       "delivery": {
-        "stage": "not_started",
-        "branch": null
+        "stage": "pr_open",
+        "branch": "design/profile-candy-overview",
+        "pr": "https://github.com/GageDush/Rogue-Plus/pull/8"
       },
       "acceptance": [
         {
           "id": "AC1",
           "description": "Malformed nested payload cannot replace current state.",
-          "result": "not_tested",
-          "evidence": []
+          "result": "pass",
+          "evidence": [
+            "project/evidence/S1.md"
+          ]
         },
         {
           "id": "AC2",
           "description": "Supported versioned/legacy backup round trips pass.",
-          "result": "not_tested",
-          "evidence": []
+          "result": "pass",
+          "evidence": [
+            "project/evidence/S1.md"
+          ]
         }
-      ]
+      ],
+      "verifiedOn": "2026-10-09"
     },
     {
       "id": "U1",
@@ -605,7 +640,7 @@
       "id": "U2",
       "milestone": "B",
       "title": "Shell, navigation and authentic branding",
-      "scope": "Preserve destinations; implement approved shared navigation and brand treatment.",
+      "scope": "Review remaining shared navigation, responsive/focus states and phone behavior beyond U1/U1-CANDY; reuse existing brand and Home-only header Import without repeating them.",
       "excludes": "No unrelated features, mechanics changes, storage migration or production deployment.",
       "class": "presentation",
       "authorization": "pending",
@@ -646,7 +681,7 @@
       "id": "U3",
       "milestone": "B",
       "title": "Home hierarchy and truthful labels",
-      "scope": "Restyle the existing screen behavior with phone-first hierarchy and honest provenance.",
+      "scope": "Polish remaining Home change-summary, preset and empty/partial states; retain Profile overview, candy-only actions and progress bars established by U1-CANDY.",
       "excludes": "No unrelated features, mechanics changes, storage migration or production deployment.",
       "class": "presentation",
       "authorization": "pending",
@@ -686,43 +721,60 @@
     {
       "id": "U4A",
       "milestone": "B",
-      "title": "Dex rows, search and quick filters",
-      "scope": "Restyle the existing screen behavior with phone-first hierarchy and honest provenance.",
+      "title": "Dex Grid/List, scope and filter/sort foundations",
+      "scope": "Default three-column mobile Grid and width-responsive desktop up to eight; optional List, Collected/All scope and filter/sort access using supported imported fields. Preserve detail round-trip state.",
       "excludes": "No unrelated features, mechanics changes, storage migration or production deployment.",
-      "class": "presentation",
-      "authorization": "pending",
-      "status": "planned",
+      "class": "interaction",
+      "authorization": "approved",
+      "status": "verified",
       "dependsOn": [
-        "U1",
-        "U2"
+        "U1-NAVFIT"
       ],
       "paths": [
-        "companion/src/features/dex/DexPage.tsx"
+        "companion/src/features/dex/DexPage.tsx",
+        "companion/src/domain/dex-query.ts",
+        "companion/src/App.tsx",
+        "companion/src/ui/styles/field-guide.css",
+        "companion/tests/dex-query.test.ts",
+        "companion/scripts/check-dex.mjs",
+        "companion/scripts/check-theme.mjs"
       ],
       "guidance": [
         "docs/DECISIONS.md",
+        "docs/DEX_HANDOFF.md",
         "docs/ARCHITECTURE.md",
         "docs/DESIGN.md"
       ],
-      "docsReviewed": [],
+      "docsReviewed": [
+        "docs/DECISIONS.md",
+        "docs/DEX_HANDOFF.md",
+        "docs/ARCHITECTURE.md",
+        "docs/DESIGN.md"
+      ],
       "delivery": {
-        "stage": "not_started",
-        "branch": null
+        "stage": "pr_open",
+        "branch": "design/profile-candy-overview",
+        "pr": "https://github.com/GageDush/Rogue-Plus/pull/8"
       },
       "acceptance": [
         {
           "id": "AC1",
-          "description": "Same query matching, six filters and 90-item reveal preserved.",
-          "result": "not_tested",
-          "evidence": []
+          "description": "Grid/List, default Collected scope, supported filter/sort controls and Advanced access work at 320/390 and desktop widths in both themes; unsupported reference fields are not fabricated.",
+          "result": "pass",
+          "evidence": [
+            "project/evidence/U4A.md"
+          ]
         },
         {
           "id": "AC2",
           "description": "Long names/statuses and empty results readable; query retained after detail round trip.",
-          "result": "not_tested",
-          "evidence": []
+          "result": "pass",
+          "evidence": [
+            "project/evidence/U4A.md"
+          ]
         }
-      ]
+      ],
+      "verifiedOn": "2026-10-09"
     },
     {
       "id": "U4B",
@@ -1061,35 +1113,44 @@
       "scope": "Review code, fixtures, docs, history and artifacts for private data.",
       "excludes": "No unrelated features, mechanics changes, storage migration or production deployment.",
       "class": "infrastructure",
-      "authorization": "pending",
-      "status": "planned",
+      "authorization": "approved",
+      "status": "ready_for_review",
       "dependsOn": [],
       "paths": [
         "scripts/validate-repository.mjs",
-        "docs/PRIVACY.md"
+        "docs/PRIVACY.md",
+        "project/evidence/RELEASE-AUDIT-2026-10-09.md"
       ],
       "guidance": [
         "docs/DECISIONS.md",
         "docs/ARCHITECTURE.md",
         "docs/DESIGN.md"
       ],
-      "docsReviewed": [],
+      "docsReviewed": [
+        "docs/DECISIONS.md",
+        "docs/ARCHITECTURE.md",
+        "docs/DESIGN.md"
+      ],
       "delivery": {
-        "stage": "not_started",
-        "branch": null
+        "stage": "working_branch",
+        "branch": "design/profile-candy-overview"
       },
       "acceptance": [
         {
           "id": "AC1",
           "description": "Review findings recorded without publishing sensitive values.",
-          "result": "not_tested",
-          "evidence": []
+          "result": "pass",
+          "evidence": [
+            "project/evidence/RELEASE-AUDIT-2026-10-09.md"
+          ]
         },
         {
           "id": "AC2",
           "description": "Source/log/artifact checks pass; limitations explicitly documented.",
           "result": "not_tested",
-          "evidence": []
+          "evidence": [
+            "project/evidence/RELEASE-AUDIT-2026-10-09.md"
+          ]
         }
       ]
     },
@@ -1472,37 +1533,62 @@
       "scope": "Make core assets and update behavior coherent after setup.",
       "excludes": "No unrelated features, mechanics changes, storage migration or production deployment.",
       "class": "infrastructure",
-      "authorization": "pending",
-      "status": "planned",
+      "authorization": "approved",
+      "status": "verified",
       "dependsOn": [],
       "paths": [
         "companion/public/sw.js",
-        "companion/public/manifest.webmanifest"
+        "companion/public/manifest.webmanifest",
+        "companion/scripts/offline-build.mjs",
+        "companion/scripts/offline-lifecycle.check.mjs",
+        "companion/scripts/check-offline.mjs",
+        "companion/scripts/check-ui.mjs",
+        "companion/src/main.tsx",
+        "companion/vite.config.ts",
+        "companion/src/storage/validate-state.ts",
+        "companion/tests/storage-safety.test.ts",
+        ".github/workflows/companion-ci.yml",
+        ".github/workflows/companion-ui.yml",
+        "project/evidence/O0.md",
+        "docs/DEX_HANDOFF.md",
+        "project/evidence/RELEASE-AUDIT-2026-10-09.md"
       ],
       "guidance": [
         "docs/DECISIONS.md",
         "docs/ARCHITECTURE.md",
-        "docs/DESIGN.md"
+        "docs/DESIGN.md",
+        "docs/DEX_HANDOFF.md"
       ],
-      "docsReviewed": [],
+      "docsReviewed": [
+        "docs/DECISIONS.md",
+        "docs/ARCHITECTURE.md",
+        "docs/DESIGN.md",
+        "docs/DEX_HANDOFF.md"
+      ],
       "delivery": {
-        "stage": "not_started",
-        "branch": null
+        "stage": "pr_open",
+        "branch": "design/profile-candy-overview",
+        "pr": "https://github.com/GageDush/Rogue-Plus/pull/8"
       },
       "acceptance": [
         {
           "id": "AC1",
           "description": "Required shell/data/font/art assets work offline after warming.",
-          "result": "not_tested",
-          "evidence": []
+          "result": "pass",
+          "evidence": [
+            "project/evidence/O0.md"
+          ]
         },
         {
           "id": "AC2",
           "description": "Old/new cache upgrades, interruption and rollback checked; user state preserved.",
-          "result": "not_tested",
-          "evidence": []
+          "result": "pass",
+          "evidence": [
+            "project/evidence/O0.md"
+          ]
         }
-      ]
+      ],
+      "verifiedOn": "2026-10-09"
     },
     {
       "id": "R0",
@@ -1734,6 +1820,1007 @@
         }
       ],
       "verifiedOn": "2026-10-08"
+    },
+    {
+      "id": "U1-CANDY",
+      "milestone": "B",
+      "title": "Profile overview and actionable candy planning",
+      "scope": "User-approved Home naming/import placement, graphical collection completion, plain shiny labels and affordable candy upgrades plus sorted egg budgets.",
+      "excludes": "No save editing, purchasing, storage migration, score-weight changes, merge or deployment.",
+      "class": "interaction",
+      "authorization": "approved",
+      "status": "verified",
+      "dependsOn": [
+        "U1"
+      ],
+      "paths": [
+        "companion/src/app/navigation.ts",
+        "companion/src/App.tsx",
+        "companion/src/domain/candy-actions.ts",
+        "companion/src/domain/facade.ts",
+        "companion/src/reference/mechanics.v1.json",
+        "companion/src/features/home/HomePage.tsx",
+        "companion/src/features/dex/DexPage.tsx",
+        "companion/src/features/dex/DetailPage.tsx",
+        "companion/src/features/trainer/TrainerPage.tsx",
+        "companion/src/features/hunt/HuntPage.tsx",
+        "companion/src/features/teams/TeamsPage.tsx",
+        "companion/src/ui/components/AppWidgets.tsx",
+        "companion/src/ui/view-models.ts",
+        "companion/src/ui/styles/field-guide.css",
+        "companion/src/pokerogue.ts",
+        "companion/tests/candy-actions.test.ts",
+        "companion/tests/collection-progress.test.tsx",
+        "companion/scripts/check-theme.mjs",
+        "docs/DECISIONS.md",
+        "docs/DESIGN.md",
+        "docs/ARCHITECTURE.md",
+        "project/evidence/U1-CANDY.md",
+        "design-qa.md",
+        "docs/assets/profile-candy-light.jpg",
+        "docs/assets/profile-candy-dark.jpg",
+        "docs/assets/profile-candy-modes.jpg"
+      ],
+      "guidance": [
+        "docs/DECISIONS.md",
+        "docs/DESIGN.md",
+        "docs/ARCHITECTURE.md"
+      ],
+      "docsReviewed": [
+        "docs/DECISIONS.md",
+        "docs/DESIGN.md",
+        "docs/ARCHITECTURE.md"
+      ],
+      "delivery": {
+        "stage": "pr_open",
+        "branch": "design/profile-candy-overview",
+        "pr": "https://github.com/GageDush/Rogue-Plus/pull/8"
+      },
+      "acceptance": [
+        {
+          "id": "AC1",
+          "description": "Profile overview, Home-only header import and More access on other pages retain navigation/import contracts.",
+          "result": "pass",
+          "evidence": [
+            "project/evidence/U1-CANDY.md"
+          ]
+        },
+        {
+          "id": "AC2",
+          "description": "Only affordable passive/reduction actions and incomplete-species egg budgets; pinned hatch discounts and both deterministic sorts tested with synthetic cases.",
+          "result": "pass",
+          "evidence": [
+            "project/evidence/U1-CANDY.md"
+          ]
+        },
+        {
+          "id": "AC3",
+          "description": "Accessible progress and plain shiny labels work in both modes at mobile/desktop widths without clipping.",
+          "result": "pass",
+          "evidence": [
+            "project/evidence/U1-CANDY.md"
+          ]
+        }
+      ],
+      "verifiedOn": "2026-10-08"
+    },
+    {
+      "id": "U1-SAFE",
+      "milestone": "B",
+      "title": "Device safe areas and installed header clearance",
+      "scope": "Shared top/bottom/landscape safe areas in both themes, automated simulated inset regression and preview delivery.",
+      "excludes": "No candy view, feature typography, data/schema changes, merge or production deployment.",
+      "class": "interaction",
+      "authorization": "approved",
+      "status": "verified",
+      "dependsOn": [
+        "U1"
+      ],
+      "paths": [
+        "companion/src/ui/styles/field-guide.css",
+        "companion/scripts/check-theme.mjs",
+        "docs/DESIGN.md",
+        "project/evidence/U1-SAFE.md",
+        "docs/DEX_HANDOFF.md"
+      ],
+      "guidance": [
+        "docs/DESIGN.md",
+        "docs/DECISIONS.md",
+        "docs/ARCHITECTURE.md",
+        "docs/DEX_HANDOFF.md"
+      ],
+      "docsReviewed": [
+        "docs/DESIGN.md",
+        "docs/DECISIONS.md",
+        "docs/ARCHITECTURE.md",
+        "docs/DEX_HANDOFF.md"
+      ],
+      "delivery": {
+        "stage": "pr_open",
+        "branch": "design/profile-candy-overview",
+        "pr": "https://github.com/GageDush/Rogue-Plus/pull/8"
+      },
+      "acceptance": [
+        {
+          "id": "AC1",
+          "description": "Final shared stylesheet reserves top, bottom and landscape side insets without route overflow in both themes.",
+          "result": "pass",
+          "evidence": [
+            "project/evidence/U1-SAFE.md"
+          ]
+        },
+        {
+          "id": "AC2",
+          "description": "Physical iPhone installed/Safari portrait and landscape review confirms header and final-row clearance.",
+          "result": "pass",
+          "evidence": [
+            "project/evidence/U1-SAFE.md"
+          ]
+        }
+      ],
+      "verifiedOn": "2026-10-09"
+    },
+    {
+      "id": "U1-POLISH",
+      "milestone": "B",
+      "title": "Bounded candy browsing and visible phone filters",
+      "scope": "Review mk2 phone screenshots; bounded expandable Home candy list with search/kind filters and batches, visible wrapping Dex/strategy tabs.",
+      "excludes": "No mechanics/ranking/storage changes, new routes, settings restructure, merge or production deployment.",
+      "class": "interaction",
+      "authorization": "approved",
+      "status": "verified",
+      "dependsOn": [
+        "U1-CANDY"
+      ],
+      "paths": [
+        "companion/src/features/home/HomePage.tsx",
+        "companion/src/ui/styles/field-guide.css",
+        "companion/scripts/check-theme.mjs",
+        "docs/DESIGN.md",
+        "docs/DECISIONS.md",
+        "project/evidence/U1-POLISH.md"
+      ],
+      "guidance": [
+        "docs/DESIGN.md",
+        "docs/DECISIONS.md",
+        "docs/ARCHITECTURE.md"
+      ],
+      "docsReviewed": [
+        "docs/DESIGN.md",
+        "docs/DECISIONS.md",
+        "docs/ARCHITECTURE.md"
+      ],
+      "delivery": {
+        "stage": "pr_open",
+        "branch": "design/profile-candy-overview",
+        "pr": "https://github.com/GageDush/Rogue-Plus/pull/8"
+      },
+      "acceptance": [
+        {
+          "id": "AC1",
+          "description": "Candy search/category/expansion/reset retain deterministic affordable domain actions with bounded rows.",
+          "result": "pass",
+          "evidence": [
+            "project/evidence/U1-POLISH.md"
+          ]
+        },
+        {
+          "id": "AC2",
+          "description": "Both themes and 320/390/desktop layouts, wrapped tabs and safe-area regressions pass.",
+          "result": "pass",
+          "evidence": [
+            "project/evidence/U1-POLISH.md"
+          ]
+        }
+      ],
+      "verifiedOn": "2026-10-08"
+    },
+    {
+      "id": "U1-MENU",
+      "milestone": "B",
+      "title": "Dismissible More pop-out and short-screen polish",
+      "scope": "Slim More overlay preserving mounted page/search/scroll on dismissal; repeated toggle/outside/Escape close; compact short-phone layout and single search focus outline.",
+      "excludes": "No storage/mechanics/import/cache overhaul, route migration, merge or production deployment.",
+      "class": "interaction",
+      "authorization": "approved",
+      "status": "verified",
+      "dependsOn": [
+        "U1-POLISH"
+      ],
+      "paths": [
+        "companion/src/App.tsx",
+        "companion/src/ui/components/MorePopover.tsx",
+        "companion/src/ui/styles/field-guide.css",
+        "companion/src/features/dex/DexPage.tsx",
+        "companion/scripts/check-theme.mjs",
+        "companion/scripts/check-ui.mjs",
+        "docs/DESIGN.md",
+        "docs/DECISIONS.md",
+        "project/evidence/U1-MENU.md",
+        "docs/ARCHITECTURE.md",
+        "docs/CURRENT_STATE.md"
+      ],
+      "guidance": [
+        "docs/DESIGN.md",
+        "docs/DECISIONS.md",
+        "docs/ARCHITECTURE.md",
+        "docs/CURRENT_STATE.md"
+      ],
+      "docsReviewed": [
+        "docs/DESIGN.md",
+        "docs/DECISIONS.md",
+        "docs/ARCHITECTURE.md",
+        "docs/CURRENT_STATE.md"
+      ],
+      "delivery": {
+        "stage": "pr_open",
+        "branch": "design/profile-candy-overview",
+        "pr": "https://github.com/GageDush/Rogue-Plus/pull/8"
+      },
+      "acceptance": [
+        {
+          "id": "AC1",
+          "description": "Menu opens over the current page; toggle/outside/Escape dismissals preserve page/search/scroll; destinations close overlay and navigate.",
+          "result": "pass",
+          "evidence": [
+            "project/evidence/U1-MENU.md"
+          ]
+        },
+        {
+          "id": "AC2",
+          "description": "Both themes at 320/390/desktop and short landscape retain visible controls, safe areas and single search focus styling.",
+          "result": "pass",
+          "evidence": [
+            "project/evidence/U1-MENU.md"
+          ]
+        }
+      ],
+      "verifiedOn": "2026-10-08"
+    },
+    {
+      "id": "U1-NAVFIT",
+      "milestone": "B",
+      "title": "Height-aware desktop navigation and adjacent More",
+      "scope": "Tall desktop sidebar exposes every destination; short desktop sidebar collapses secondary options into an adjacent, bounded More panel. Record user phone keyboard evidence.",
+      "excludes": "No storage/mechanics/import/cache overhaul, route migration, merge or production deployment.",
+      "class": "interaction",
+      "authorization": "approved",
+      "status": "verified",
+      "verifiedOn": "2026-10-09",
+      "dependsOn": [
+        "U1-MENU"
+      ],
+      "paths": [
+        "companion/src/App.tsx",
+        "companion/src/ui/components/MorePopover.tsx",
+        "companion/src/ui/styles/field-guide.css",
+        "companion/scripts/check-theme.mjs",
+        "companion/scripts/check-ui.mjs",
+        "docs/DESIGN.md",
+        "docs/DECISIONS.md",
+        "project/evidence/U1-NAVFIT.md",
+        "docs/ARCHITECTURE.md",
+        "docs/CURRENT_STATE.md",
+        "project/evidence/U1-SAFE.md"
+      ],
+      "guidance": [
+        "docs/DESIGN.md",
+        "docs/DECISIONS.md",
+        "docs/ARCHITECTURE.md",
+        "docs/CURRENT_STATE.md"
+      ],
+      "docsReviewed": [
+        "docs/DESIGN.md",
+        "docs/DECISIONS.md",
+        "docs/ARCHITECTURE.md",
+        "docs/CURRENT_STATE.md"
+      ],
+      "delivery": {
+        "stage": "pr_open",
+        "branch": "design/profile-candy-overview",
+        "pr": "https://github.com/GageDush/Rogue-Plus/pull/8"
+      },
+      "acceptance": [
+        {
+          "id": "AC1",
+          "description": "Tall desktop shows all destinations without More; shorter desktop shows More beside its trigger, bounded within viewport, with dismissal preserving page state.",
+          "result": "pass",
+          "evidence": [
+            "project/evidence/U1-NAVFIT.md"
+          ]
+        },
+        {
+          "id": "AC2",
+          "description": "Both themes, 320/390 phones, short landscape and desktop resizing retain navigation and existing storage/import behavior.",
+          "result": "pass",
+          "evidence": [
+            "project/evidence/U1-NAVFIT.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "DEX-DOC",
+      "milestone": "B",
+      "title": "Dex decisions and new-context handoff",
+      "scope": "Record accepted Dex direction, data provenance and staged implementation plan; refresh generated tracking.",
+      "excludes": "No application edits, feature implementation, merge or deployment.",
+      "class": "documentation",
+      "authorization": "approved",
+      "status": "verified",
+      "dependsOn": [
+        "U1-NAVFIT"
+      ],
+      "paths": [
+        "docs/DEX_HANDOFF.md",
+        "docs/DECISIONS.md",
+        "AGENTS.md",
+        "project/tasks.json",
+        "project/evidence/DEX-DOC.md"
+      ],
+      "guidance": [
+        "docs/DECISIONS.md",
+        "docs/DEX_HANDOFF.md",
+        "docs/PROJECT_WORKFLOW.md"
+      ],
+      "docsReviewed": [
+        "docs/DECISIONS.md",
+        "docs/DEX_HANDOFF.md",
+        "docs/PROJECT_WORKFLOW.md"
+      ],
+      "delivery": {
+        "stage": "pr_open",
+        "branch": "design/profile-candy-overview",
+        "pr": "https://github.com/GageDush/Rogue-Plus/pull/8"
+      },
+      "acceptance": [
+        {
+          "id": "AC1",
+          "description": "Accepted requirements separated from proposed syntax and future reference-update architecture; baseline and first packet documented.",
+          "result": "pass",
+          "evidence": [
+            "project/evidence/DEX-DOC.md"
+          ]
+        },
+        {
+          "id": "AC2",
+          "description": "Tracking generation, built-in tests and freshness pass; no application files changed by this packet.",
+          "result": "pass",
+          "evidence": [
+            "project/evidence/DEX-DOC.md"
+          ]
+        }
+      ],
+      "verifiedOn": "2026-10-09"
+    },
+    {
+      "id": "DEX-REF",
+      "milestone": "B",
+      "title": "Pinned Dex reference coverage",
+      "scope": "Parent acceptance for seven authorized reference packets, including explicitly authorized facade/UI integration; all pinned coverage, standard selection compatibility and scoped UI checks verified. Artwork verification is tracked separately as ART-VERIFY.",
+      "excludes": "No unrelated features, private data publication, save writeback, merge or production deployment.",
+      "class": "data",
+      "authorization": "approved",
+      "status": "verified",
+      "dependsOn": [
+        "U4A",
+        "DEX-REF-INTEGRATE"
+      ],
+      "paths": [
+        "docs/DEX_HANDOFF.md"
+      ],
+      "guidance": [
+        "docs/DECISIONS.md",
+        "docs/DEX_HANDOFF.md",
+        "docs/ARCHITECTURE.md"
+      ],
+      "docsReviewed": [
+        "docs/DECISIONS.md",
+        "docs/DEX_HANDOFF.md",
+        "docs/ARCHITECTURE.md"
+      ],
+      "delivery": {
+        "stage": "pr_open",
+        "branch": "design/profile-candy-overview",
+        "pr": "https://github.com/GageDush/Rogue-Plus/pull/8"
+      },
+      "acceptance": [
+        {
+          "id": "AC1",
+          "description": "Scoped behavior and source/version provenance verified with meaningful synthetic boundary cases; criteria refined before implementation.",
+          "result": "pass",
+          "evidence": [
+            "project/evidence/DEX-REF-INTEGRATE.md"
+          ]
+        },
+        {
+          "id": "AC2",
+          "description": "Affected consumers and guidance reviewed; compatibility and unavailable-data behavior verified without unrelated regressions.",
+          "result": "pass",
+          "evidence": [
+            "project/evidence/DEX-REF-INTEGRATE.md"
+          ]
+        }
+      ],
+      "verifiedOn": "2026-10-09"
+    },
+    {
+      "id": "DEX-SEARCH",
+      "milestone": "B",
+      "title": "Advanced search and available-option matching",
+      "scope": "Implement the scoped packet described in docs/DEX_HANDOFF.md; record actual coverage and compatibility evidence.",
+      "excludes": "No unrelated features, private data publication, save writeback, merge or production deployment.",
+      "class": "feature",
+      "authorization": "pending",
+      "status": "planned",
+      "dependsOn": [
+        "DEX-REF"
+      ],
+      "paths": [
+        "docs/DEX_HANDOFF.md"
+      ],
+      "guidance": [
+        "docs/DECISIONS.md",
+        "docs/DEX_HANDOFF.md",
+        "docs/ARCHITECTURE.md"
+      ],
+      "docsReviewed": [],
+      "delivery": {
+        "stage": "not_started",
+        "branch": null
+      },
+      "acceptance": [
+        {
+          "id": "AC1",
+          "description": "Scoped behavior and source/version provenance verified with meaningful synthetic boundary cases; criteria refined before implementation.",
+          "result": "not_tested",
+          "evidence": []
+        },
+        {
+          "id": "AC2",
+          "description": "Affected consumers and guidance reviewed; compatibility and unavailable-data behavior verified without unrelated regressions.",
+          "result": "not_tested",
+          "evidence": []
+        }
+      ]
+    },
+    {
+      "id": "DEX-CANDY",
+      "milestone": "B",
+      "title": "Verified candy eligibility and reserve budgets",
+      "scope": "Implement the scoped packet described in docs/DEX_HANDOFF.md; record actual coverage and compatibility evidence.",
+      "excludes": "No unrelated features, private data publication, save writeback, merge or production deployment.",
+      "class": "data",
+      "authorization": "pending",
+      "status": "planned",
+      "dependsOn": [
+        "DEX-REF"
+      ],
+      "paths": [
+        "docs/DEX_HANDOFF.md"
+      ],
+      "guidance": [
+        "docs/DECISIONS.md",
+        "docs/DEX_HANDOFF.md",
+        "docs/ARCHITECTURE.md"
+      ],
+      "docsReviewed": [],
+      "delivery": {
+        "stage": "not_started",
+        "branch": null
+      },
+      "acceptance": [
+        {
+          "id": "AC1",
+          "description": "Scoped behavior and source/version provenance verified with meaningful synthetic boundary cases; criteria refined before implementation.",
+          "result": "not_tested",
+          "evidence": []
+        },
+        {
+          "id": "AC2",
+          "description": "Affected consumers and guidance reviewed; compatibility and unavailable-data behavior verified without unrelated regressions.",
+          "result": "not_tested",
+          "evidence": []
+        }
+      ]
+    },
+    {
+      "id": "DEX-UPDATES",
+      "milestone": "B",
+      "title": "Versioned reference update pipeline",
+      "scope": "Implement the scoped packet described in docs/DEX_HANDOFF.md; record actual coverage and compatibility evidence.",
+      "excludes": "No unrelated features, private data publication, save writeback, merge or production deployment.",
+      "class": "infrastructure",
+      "authorization": "pending",
+      "status": "planned",
+      "dependsOn": [
+        "DEX-CANDY"
+      ],
+      "paths": [
+        "docs/DEX_HANDOFF.md"
+      ],
+      "guidance": [
+        "docs/DECISIONS.md",
+        "docs/DEX_HANDOFF.md",
+        "docs/ARCHITECTURE.md"
+      ],
+      "docsReviewed": [],
+      "delivery": {
+        "stage": "not_started",
+        "branch": null
+      },
+      "acceptance": [
+        {
+          "id": "AC1",
+          "description": "Scoped behavior and source/version provenance verified with meaningful synthetic boundary cases; criteria refined before implementation.",
+          "result": "not_tested",
+          "evidence": []
+        },
+        {
+          "id": "AC2",
+          "description": "Affected consumers and guidance reviewed; compatibility and unavailable-data behavior verified without unrelated regressions.",
+          "result": "not_tested",
+          "evidence": []
+        }
+      ]
+    },
+    {
+      "id": "ART-VERIFY",
+      "milestone": "B",
+      "title": "Pinned artwork fetch and rendering verification",
+      "scope": "Verify pinned JSON/PNG requests, actual cropped artwork, failures and fallback behavior.",
+      "excludes": "No search parser/UI expansion, candy reservation/pricing changes, reference updates, storage migration, private data, merge or production deployment.",
+      "class": "data",
+      "authorization": "approved",
+      "status": "verified",
+      "dependsOn": [
+        "U4A"
+      ],
+      "paths": [
+        "companion/src/domain/assets.ts",
+        "companion/src/ui/components/PokemonSprite.tsx",
+        "companion/src/ui/artwork.ts",
+        "companion/tests/artwork.test.ts",
+        "companion/scripts/check-artwork.mjs",
+        "project/evidence/ART-VERIFY.md"
+      ],
+      "guidance": [
+        "docs/DEX_HANDOFF.md",
+        "docs/DATA_SOURCES.md",
+        "docs/ARCHITECTURE.md"
+      ],
+      "docsReviewed": [
+        "docs/DEX_HANDOFF.md",
+        "docs/DATA_SOURCES.md",
+        "docs/ARCHITECTURE.md"
+      ],
+      "delivery": {
+        "stage": "pr_open",
+        "branch": "design/profile-candy-overview",
+        "pr": "https://github.com/GageDush/Rogue-Plus/pull/8"
+      },
+      "acceptance": [
+        {
+          "id": "AC1",
+          "description": "Actual pinned JSON/PNG CORS pixels render across nine generations, canonical/regional forms and shiny tiers; synthetic invalid-frame, failure, timeout, retry and fallback cases pass.",
+          "result": "pass",
+          "evidence": [
+            "project/evidence/ART-VERIFY.md"
+          ]
+        },
+        {
+          "id": "AC2",
+          "description": "320/390px and desktop short/large artwork states plus shared Dex/theme/recovery consumers verified; application and tracking checks pass, guidance reviewed with limits recorded.",
+          "result": "pass",
+          "evidence": [
+            "project/evidence/ART-VERIFY.md"
+          ]
+        }
+      ],
+      "verifiedOn": "2026-10-09"
+    },
+    {
+      "id": "DEX-REF-CONTRACT",
+      "milestone": "B",
+      "title": "Dex reference contract",
+      "scope": "Define species/forms/roots/provenance/coverage separate from imported facts.",
+      "excludes": "No search parser/UI expansion, candy reservation/pricing changes, reference updates, storage migration, private data, merge or production deployment.",
+      "class": "data",
+      "authorization": "approved",
+      "status": "verified",
+      "dependsOn": [
+        "ART-VERIFY"
+      ],
+      "paths": [
+        "companion/src/reference/index.ts",
+        "companion/src/reference/dex-contract.ts",
+        "companion/tests/dex-reference-contract.test.ts",
+        "companion/src/reference/README.md",
+        "project/evidence/DEX-REF-CONTRACT.md"
+      ],
+      "guidance": [
+        "docs/DEX_HANDOFF.md",
+        "docs/DATA_SOURCES.md",
+        "docs/ARCHITECTURE.md",
+        "companion/src/reference/README.md"
+      ],
+      "docsReviewed": [
+        "docs/DEX_HANDOFF.md",
+        "docs/DATA_SOURCES.md",
+        "docs/ARCHITECTURE.md",
+        "companion/src/reference/README.md"
+      ],
+      "delivery": {
+        "stage": "pr_open",
+        "branch": "design/profile-candy-overview",
+        "pr": "https://github.com/GageDush/Rogue-Plus/pull/8"
+      },
+      "acceptance": [
+        {
+          "id": "AC1",
+          "description": "Pure typed public-fact contract distinguishes unknown/absent/zero and owns pinned provenance/coverage; duplicate, unpinned and partial-data synthetic cases pass.",
+          "result": "pass",
+          "evidence": [
+            "project/evidence/DEX-REF-CONTRACT.md"
+          ]
+        },
+        {
+          "id": "AC2",
+          "description": "Existing starter consumers remain unchanged; relevant tests/typecheck/build/boundaries/tracking pass, guidance reviewed and unavailable expanded data documented.",
+          "result": "pass",
+          "evidence": [
+            "project/evidence/DEX-REF-CONTRACT.md"
+          ]
+        }
+      ],
+      "verifiedOn": "2026-10-09"
+    },
+    {
+      "id": "DEX-REF-SPECIES",
+      "milestone": "B",
+      "title": "Pinned species fundamentals",
+      "scope": "Generate verified names, types, generations, base stats and form records with deterministic coverage.",
+      "excludes": "No search parser/UI expansion, candy reservation/pricing changes, reference updates, storage migration, private data, merge or production deployment.",
+      "class": "data",
+      "authorization": "approved",
+      "status": "verified",
+      "dependsOn": [
+        "DEX-REF-CONTRACT"
+      ],
+      "paths": [
+        "scripts/generate-game-references.mjs",
+        "scripts/generate-dex-references.mjs",
+        "scripts/dex-reference-extractor.mjs",
+        "scripts/dex-reference-extractor.test.mjs",
+        "project/evidence/DEX-REF-SPECIES.md"
+      ],
+      "guidance": [
+        "docs/DEX_HANDOFF.md",
+        "docs/DATA_SOURCES.md",
+        "docs/ARCHITECTURE.md"
+      ],
+      "docsReviewed": [
+        "docs/DEX_HANDOFF.md",
+        "docs/DATA_SOURCES.md",
+        "docs/ARCHITECTURE.md"
+      ],
+      "delivery": {
+        "stage": "pr_open",
+        "branch": "design/profile-candy-overview",
+        "pr": "https://github.com/GageDush/Rogue-Plus/pull/8"
+      },
+      "acceptance": [
+        {
+          "id": "AC1",
+          "description": "Packet scope and official pinned provenance verified with meaningful positive, negative and unavailable-data cases.",
+          "result": "pass",
+          "evidence": [
+            "project/evidence/DEX-REF-SPECIES.md"
+          ]
+        },
+        {
+          "id": "AC2",
+          "description": "Affected consumers and guidance reviewed; applicable application, browser and tracking checks pass with honest limits.",
+          "result": "pass",
+          "evidence": [
+            "project/evidence/DEX-REF-SPECIES.md"
+          ]
+        }
+      ],
+      "verifiedOn": "2026-10-09"
+    },
+    {
+      "id": "DEX-REF-ROOTS",
+      "milestone": "B",
+      "title": "Evolution and starter-root mapping",
+      "scope": "Generate verified evolution/form relationships and explicit starter-root candidates.",
+      "excludes": "No search parser/UI expansion, candy reservation/pricing changes, reference updates, storage migration, private data, merge or production deployment.",
+      "class": "data",
+      "authorization": "approved",
+      "status": "verified",
+      "dependsOn": [
+        "DEX-REF-SPECIES"
+      ],
+      "paths": [
+        "scripts/dex-reference-extractor.mjs",
+        "scripts/dex-reference-extractor.test.mjs",
+        "scripts/generate-dex-references.mjs",
+        "companion/src/reference/dex-contract.ts",
+        "companion/src/reference/index.ts",
+        "companion/tests/dex-reference-contract.test.ts",
+        "project/evidence/DEX-REF-ROOTS.md"
+      ],
+      "guidance": [
+        "docs/DEX_HANDOFF.md",
+        "docs/DATA_SOURCES.md",
+        "docs/ARCHITECTURE.md"
+      ],
+      "docsReviewed": [
+        "docs/DEX_HANDOFF.md",
+        "docs/DATA_SOURCES.md",
+        "docs/ARCHITECTURE.md"
+      ],
+      "delivery": {
+        "stage": "pr_open",
+        "branch": "design/profile-candy-overview",
+        "pr": "https://github.com/GageDush/Rogue-Plus/pull/8"
+      },
+      "acceptance": [
+        {
+          "id": "AC1",
+          "description": "Packet scope and official pinned provenance verified with meaningful positive, negative and unavailable-data cases.",
+          "result": "pass",
+          "evidence": [
+            "project/evidence/DEX-REF-ROOTS.md"
+          ]
+        },
+        {
+          "id": "AC2",
+          "description": "Affected consumers and guidance reviewed; applicable application, browser and tracking checks pass with honest limits.",
+          "result": "pass",
+          "evidence": [
+            "project/evidence/DEX-REF-ROOTS.md"
+          ]
+        }
+      ],
+      "verifiedOn": "2026-10-09"
+    },
+    {
+      "id": "DEX-REF-ABILITIES",
+      "milestone": "B",
+      "title": "Ability and passive reference slots",
+      "scope": "Verify ordinary/hidden ability slots and eligible passive mappings without changing ownership.",
+      "excludes": "No search parser/UI expansion, candy reservation/pricing changes, reference updates, storage migration, private data, merge or production deployment.",
+      "class": "data",
+      "authorization": "approved",
+      "status": "verified",
+      "dependsOn": [
+        "DEX-REF-ROOTS"
+      ],
+      "paths": [
+        "scripts/dex-reference-extractor.mjs",
+        "scripts/dex-reference-extractor.test.mjs",
+        "scripts/generate-dex-references.mjs",
+        "companion/src/reference/dex-contract.ts",
+        ".github/workflows/reference-ci.yml",
+        ".github/workflows/companion-ci.yml",
+        "project/evidence/DEX-REF-ABILITIES.md"
+      ],
+      "guidance": [
+        "docs/DEX_HANDOFF.md",
+        "docs/DATA_SOURCES.md",
+        "docs/ARCHITECTURE.md"
+      ],
+      "docsReviewed": [
+        "docs/DEX_HANDOFF.md",
+        "docs/DATA_SOURCES.md",
+        "docs/ARCHITECTURE.md"
+      ],
+      "delivery": {
+        "stage": "pr_open",
+        "branch": "design/profile-candy-overview",
+        "pr": "https://github.com/GageDush/Rogue-Plus/pull/8"
+      },
+      "acceptance": [
+        {
+          "id": "AC1",
+          "description": "Packet scope and official pinned provenance verified with meaningful positive, negative and unavailable-data cases.",
+          "result": "pass",
+          "evidence": [
+            "project/evidence/DEX-REF-ABILITIES.md"
+          ]
+        },
+        {
+          "id": "AC2",
+          "description": "Affected consumers and guidance reviewed; applicable application, browser and tracking checks pass with honest limits.",
+          "result": "pass",
+          "evidence": [
+            "project/evidence/DEX-REF-ABILITIES.md"
+          ]
+        }
+      ],
+      "verifiedOn": "2026-10-09"
+    },
+    {
+      "id": "DEX-REF-MOVES",
+      "milestone": "B",
+      "title": "Move facts and egg/learnset slots",
+      "scope": "Generate named move facts, egg slot order and required learnsets from unchanged pin.",
+      "excludes": "No search parser/UI expansion, candy reservation/pricing changes, reference updates, storage migration, private data, merge or production deployment.",
+      "class": "data",
+      "authorization": "approved",
+      "status": "verified",
+      "dependsOn": [
+        "DEX-REF-ABILITIES"
+      ],
+      "paths": [
+        "scripts/dex-reference-extractor.mjs",
+        "scripts/dex-reference-extractor.test.mjs",
+        "scripts/generate-dex-references.mjs",
+        "companion/src/reference/dex-contract.ts",
+        "companion/tests/dex-reference-contract.test.ts",
+        "project/evidence/DEX-REF-MOVES.md"
+      ],
+      "guidance": [
+        "docs/DEX_HANDOFF.md",
+        "docs/DATA_SOURCES.md",
+        "docs/ARCHITECTURE.md"
+      ],
+      "docsReviewed": [
+        "docs/DEX_HANDOFF.md",
+        "docs/DATA_SOURCES.md",
+        "docs/ARCHITECTURE.md"
+      ],
+      "delivery": {
+        "stage": "pr_open",
+        "branch": "design/profile-candy-overview",
+        "pr": "https://github.com/GageDush/Rogue-Plus/pull/8"
+      },
+      "acceptance": [
+        {
+          "id": "AC1",
+          "description": "Packet scope and official pinned provenance verified with meaningful positive, negative and unavailable-data cases.",
+          "result": "pass",
+          "evidence": [
+            "project/evidence/DEX-REF-MOVES.md"
+          ]
+        },
+        {
+          "id": "AC2",
+          "description": "Affected consumers and guidance reviewed; applicable application, browser and tracking checks pass with honest limits.",
+          "result": "pass",
+          "evidence": [
+            "project/evidence/DEX-REF-MOVES.md"
+          ]
+        }
+      ],
+      "verifiedOn": "2026-10-09"
+    },
+    {
+      "id": "DEX-REF-SELECTION",
+      "milestone": "B",
+      "title": "Starter selection compatibility",
+      "scope": "Establish verified selectable-now versus possible option rules with synthetic boundary cases.",
+      "excludes": "No search parser/UI expansion, candy reservation/pricing changes, reference updates, storage migration, private data, merge or production deployment.",
+      "class": "data",
+      "authorization": "approved",
+      "status": "verified",
+      "dependsOn": [
+        "DEX-REF-MOVES"
+      ],
+      "paths": [
+        "scripts/dex-reference-extractor.mjs",
+        "scripts/dex-reference-extractor.test.mjs",
+        "scripts/generate-dex-references.mjs",
+        "companion/src/reference/dex-contract.ts",
+        "companion/src/domain/starter-selection.ts",
+        "companion/tests/starter-selection.test.ts",
+        "companion/tests/dex-reference-contract.test.ts",
+        "project/evidence/DEX-REF-SELECTION.md"
+      ],
+      "guidance": [
+        "docs/DEX_HANDOFF.md",
+        "docs/DATA_SOURCES.md",
+        "docs/ARCHITECTURE.md"
+      ],
+      "docsReviewed": [
+        "docs/DEX_HANDOFF.md",
+        "docs/DATA_SOURCES.md",
+        "docs/ARCHITECTURE.md"
+      ],
+      "delivery": {
+        "stage": "pr_open",
+        "branch": "design/profile-candy-overview",
+        "pr": "https://github.com/GageDush/Rogue-Plus/pull/8"
+      },
+      "acceptance": [
+        {
+          "id": "AC1",
+          "description": "Packet scope and official pinned provenance verified with meaningful positive, negative and unavailable-data cases.",
+          "result": "pass",
+          "evidence": [
+            "project/evidence/DEX-REF-SELECTION.md"
+          ]
+        },
+        {
+          "id": "AC2",
+          "description": "Affected consumers and guidance reviewed; applicable application, browser and tracking checks pass with honest limits.",
+          "result": "pass",
+          "evidence": [
+            "project/evidence/DEX-REF-SELECTION.md"
+          ]
+        }
+      ],
+      "verifiedOn": "2026-10-09"
+    },
+    {
+      "id": "DEX-REF-INTEGRATE",
+      "milestone": "B",
+      "title": "Reference facade integration and closure",
+      "scope": "Expose validated reference lookups and integrate expanded public facts/standard starter option states into Dex cards and detail while preserving account data and query/detail round trips. User explicitly authorized UI integration on 2026-10-09.",
+      "excludes": "No expression grammar, candy reservation/pricing changes, reference updates, storage migration, private data, merge or production deployment.",
+      "class": "feature",
+      "authorization": "approved",
+      "status": "verified",
+      "dependsOn": [
+        "DEX-REF-SELECTION"
+      ],
+      "paths": [
+        "companion/src/reference/index.ts",
+        "companion/src/domain/dex-catalog.ts",
+        "companion/src/domain/facade.ts",
+        "companion/src/domain/starter-selection.ts",
+        "companion/src/domain/dex-query.ts",
+        "companion/src/features/dex/DexPage.tsx",
+        "companion/src/features/dex/DetailPage.tsx",
+        "companion/src/App.tsx",
+        "companion/src/ui/styles/field-guide.css",
+        "companion/tests/dex-catalog.test.tsx",
+        "companion/scripts/check-dex.mjs",
+        "companion/scripts/check-dex-reference.mjs",
+        ".github/workflows/companion-ui.yml",
+        "project/evidence/DEX-REF-INTEGRATE.md"
+      ],
+      "guidance": [
+        "docs/DEX_HANDOFF.md",
+        "docs/DATA_SOURCES.md",
+        "docs/ARCHITECTURE.md",
+        "docs/DESIGN.md",
+        "docs/DECISIONS.md",
+        "AGENTS.md"
+      ],
+      "docsReviewed": [
+        "docs/DEX_HANDOFF.md",
+        "docs/DATA_SOURCES.md",
+        "docs/ARCHITECTURE.md",
+        "docs/DESIGN.md",
+        "docs/DECISIONS.md",
+        "AGENTS.md"
+      ],
+      "delivery": {
+        "stage": "pr_open",
+        "branch": "design/profile-candy-overview",
+        "pr": "https://github.com/GageDush/Rogue-Plus/pull/8"
+      },
+      "acceptance": [
+        {
+          "id": "AC1",
+          "description": "Pinned catalog/facade and UI expose reference forms/types/generation/base stats/roots plus named standard starter option states, keeping account ownership/history/storage separate; positive/negative/unknown synthetic cases pass.",
+          "result": "pass",
+          "evidence": [
+            "project/evidence/DEX-REF-INTEGRATE.md"
+          ]
+        },
+        {
+          "id": "AC2",
+          "description": "Reference controls and plain-text available/possible matches preserve draft/detail contracts; phone/desktop/both-theme integration and shared consumer checks pass; affected guidance and tracking are updated with limits.",
+          "result": "pass",
+          "evidence": [
+            "project/evidence/DEX-REF-INTEGRATE.md"
+          ]
+        }
+      ],
+      "verifiedOn": "2026-10-09"
     }
   ]
 }

@@ -27,3 +27,7 @@ Console inspection found browser-extension metadata errors; no observed applicat
 Follow-up polish: package fonts locally and complete downstream page compositions without inventing reference-backed data.
 
 final result: passed
+
+## Follow-up U1-CANDY (2026-10-08)
+
+Accepted user refinements replace title/header Import placement, mixed Home priorities, shiny shorthand and completion-ratio treatment. Synthetic 390px light/dark pair in docs/assets/profile-candy-modes.jpg; 320px Home/detail/Trainer and 1330px Home reviewed. Slim real-denominator bars, 13px count text and readable percentages; controls and rows wrap without horizontal overflow. Existing mark/sprite resolver and theme palettes retained. Egg sort/row navigation/More Import verified separately; no full redesign, physical iPhone signoff or release claimed. See project/evidence/U1-CANDY.md for test and price provenance.

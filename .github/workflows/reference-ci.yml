@@ -16,7 +16,11 @@ jobs:
           node-version: '24'
       - name: Validate reference generator syntax
         run: node --check scripts/generate-game-references.mjs
+      - name: Install build-time TypeScript parser and application dependencies
+        run: npm --prefix companion install --no-audit --no-fund
       - name: Regenerate pinned upstream references and verify outputs
         run: node scripts/generate-game-references.mjs && node --input-type=module -e "import fs from 'node:fs';const j=JSON.parse(fs.readFileSync('companion/src/reference/generated/starter-roots.v1.json'));if(j.count!==572||j.starters.length!==572)process.exit(1)"
       - name: Build Rogue+ with generated reference assets
-        run: npm --prefix companion install --no-audit --no-fund && npm --prefix companion run build
+        run: npm --prefix companion run build
+      - name: Verify static extraction and declared pinned coverage
+        run: node --test scripts/dex-reference-extractor.test.mjs

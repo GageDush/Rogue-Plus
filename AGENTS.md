@@ -40,3 +40,7 @@ Use rg; avoid repeated unchanged-file reads, node_modules/dist/generated-referen
 For authorized UI work inspect matching states at 320/390px and a considered desktop width; test applicable long content, empty/loading/error/partial data, artwork fallback, focus and real phone interactions. Source, screenshots and interactions prove different things.
 
 Release/migration gates include failed-load preservation, strict backup validation, isolated actual-user backup restoration, privacy/history review, offline update/device checks and approved rollback/rollout. Legacy v2 data remains recoverable. Do not merge the Play experiment into the companion stack incidentally.
+
+## Dex handoff
+
+For Dex planning/implementation read docs/DEX_HANDOFF.md after the start-here sources. It records accepted 2026-10-09 direction and current coverage limits. Status/authorization remain in project/tasks.json. Do not treat proposed syntax, future packs or unimplemented reference fields as shipped.

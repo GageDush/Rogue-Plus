@@ -1,5 +1,5 @@
 import type { PokeRogueData } from '../../domain/facade';
-import { EmptyInline, Kpi, SaveMeta, fmt } from '../../ui/components/AppWidgets';
+import { CollectionProgress, EmptyInline, Kpi, SaveMeta, fmt } from '../../ui/components/AppWidgets';
 
 export function TrainerPage({ data }: { data: PokeRogueData | null }) {
   if (!data) return <EmptyInline />;
@@ -15,12 +15,12 @@ export function TrainerPage({ data }: { data: PokeRogueData | null }) {
       </div>
       <section className='section'><h2>Collection completion</h2>
         <div className='progress-list'>
-          <Progress label='Starters' value={account.startersUnlocked} total={account.startersTotal} tone='green' />
-          <Progress label='Passives' value={account.passivesUnlocked} total={account.passivesTotal} tone='gold' />
-          <Progress label='Egg moves' value={account.eggMovesUnlocked} total={account.eggMovesTotal} tone='blue' />
-          <Progress label='Perfect IV' value={account.perfectIvStarters} total={account.startersTotal} tone='green' />
-          <Progress label='Shiny' value={account.shinyStarters} total={account.startersTotal} tone='purple' />
-          <Progress label='Classic wins' value={account.classicWinners} total={account.startersTotal} tone='orange' />
+          <CollectionProgress label='Starters' value={account.startersUnlocked} total={account.startersTotal} tone='green' />
+          <CollectionProgress label='Passives' value={account.passivesUnlocked} total={account.passivesTotal} tone='gold' />
+          <CollectionProgress label='Egg moves' value={account.eggMovesUnlocked} total={account.eggMovesTotal} tone='blue' />
+          <CollectionProgress label='Perfect IV' value={account.perfectIvStarters} total={account.startersTotal} tone='green' />
+          <CollectionProgress label='Shiny' value={account.shinyStarters} total={account.startersTotal} tone='purple' />
+          <CollectionProgress label='Classic wins' value={account.classicWinners} total={account.startersTotal} tone='orange' />
         </div>
       </section>
       <section className='section'><h2>Vouchers</h2>
@@ -35,9 +35,3 @@ export function TrainerPage({ data }: { data: PokeRogueData | null }) {
     </>
   );
 }
-
-function Progress({ label, value, total, tone }: { label:string; value:number; total:number; tone:string }) {
-  const pct = total ? Math.round(value/total*100) : 0;
-  return <div className='progress-row'><div><strong>{label}</strong><span>{value.toLocaleString()} / {total.toLocaleString()}</span></div><div className='progress-track'><span className={'tone-'+tone} style={{width:pct+'%'}} /></div><strong>{pct}%</strong></div>;
-}
-

@@ -1,11 +1,13 @@
 import { useEffect, useMemo, useState } from 'react';
 import {
   assetRequestFromPokemon,
+  POKEROGUE_ASSET_REVISION,
   resolvePokemonAsset,
   type PokemonAssetRequest,
   type ResolvedPokemonAsset,
 } from '../../domain/assets';
 import type { PokemonRecord } from '../../domain/types';
+import { loadPokemonArtwork } from '../artwork';
 
 type SpritePokemon = Pick<PokemonRecord, 'id' | 'name' | 'visual'>;
 
@@ -42,7 +44,8 @@ export function PokemonSprite({
       return () => { cancelled = true; };
     }
     resolvePokemonAsset(effectiveRequest)
-      .then(resolved => {
+      .then(async resolved => {
+        await loadPokemonArtwork(resolved);
         if (!cancelled) setAsset(resolved);
       })
       .catch(() => {
@@ -87,8 +90,10 @@ export function PokemonSprite({
       role='img'
       aria-label={label}
       title={label}
-      data-asset-revision={asset.atlasKey}
+      data-asset-revision={POKEROGUE_ASSET_REVISION}
+      data-atlas-key={asset.atlasKey}
       data-shiny-tier={asset.shinyTier}
+      data-fallback-from-tier={asset.fallbackFromTier ?? undefined}
       style={{
         width: size,
         height: size,

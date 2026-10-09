@@ -2,6 +2,8 @@ import { CANONICAL_FUSIONS, FUSION_INHERITANCE_NEEDS_RECHECK } from './fusions';
 import { CANONICAL_TEAMS, getTeamReadiness } from './teams';
 import type { PokemonRecord, Snapshot, TeamReadiness } from './types';
 import type { StorageStatus } from '../storage/types';
+import { createDexCatalog, type DexEntry } from './dex-catalog';
+export { getCandyActions, type EggSort } from './candy-actions';
 
 export interface PokeRogueData {
   snapshot: Snapshot;
@@ -16,6 +18,8 @@ export interface PokeRogueData {
   fusionInheritanceNeedsRecheck: boolean;
   changes: Snapshot['latestChanges'];
   storage: StorageStatus | null;
+  dex: DexEntry[];
+  dexById: ReadonlyMap<number,DexEntry>;
 }
 
 export function createPokeRogueData(
@@ -30,6 +34,7 @@ export function createPokeRogueData(
   const teamReadiness = CANONICAL_TEAMS
     .map(team => getTeamReadiness(team.id, pokemonByName))
     .filter((result): result is TeamReadiness => result !== null);
+  const dex = createDexCatalog(snapshot);
 
   return {
     snapshot,
@@ -46,5 +51,8 @@ export function createPokeRogueData(
     fusionInheritanceNeedsRecheck: FUSION_INHERITANCE_NEEDS_RECHECK,
     changes: snapshot.latestChanges,
     storage,
+    dex,
+    dexById:new Map(dex.map(entry=>[entry.id,entry])),
   };
 }
+

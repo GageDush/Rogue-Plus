@@ -37,14 +37,11 @@ try {
   await page.getByText('RUNS · PLANNED').waitFor();
   await nav('Goals').click();
   await page.locator('.hunt-list').waitFor();
-  await nav('More').click();
-  await page.locator('.more-grid').getByRole('button', { name: /Trainer/i }).click();
+  await nav('Trainer').click();
   await page.locator('.progress-list').waitFor();
-  await nav('More').click();
-  await page.locator('.more-grid').getByRole('button', { name: /Modules/i }).click();
+  await nav('Modules').click();
   await page.getByText('MODULE REGISTRY · PLANNED').waitFor();
-  await nav('More').click();
-  await page.locator('.more-grid').getByRole('button', { name: /Import \/ Settings/i }).click();
+  await nav('Import / Settings').click();
   await page.locator('.settings-hero').waitFor();
 
   const [download] = await Promise.all([
@@ -55,6 +52,17 @@ try {
   assert.equal(backup.kind, 'pokerogue-command-center-backup');
   assert.ok(backup.state.current, 'Synthetic backup missing current account');
   assert.ok(backup.state.current.pokemon.length >= 8, 'Synthetic backup missing collection');
+
+  const malformed = { ...backup, state: { ...backup.state, current: { schemaVersion: 2 } } };
+  await page.locator('input[type="file"][accept=".json,application/json"]').setInputFiles({
+    name: 'synthetic-invalid-backup.json', mimeType: 'application/json',
+    buffer: Buffer.from(JSON.stringify(malformed)),
+  });
+  await page.getByText(/Invalid Rogue\+ data at state.current/).waitFor();
+  const preservedDownload = page.waitForEvent('download');
+  await page.getByRole('button', { name: /Export backup/i }).click();
+  const preserved = JSON.parse(await readFile(await (await preservedDownload).path(), 'utf8'));
+  assert.deepEqual(preserved.state, backup.state, 'Rejected nested restore replaced the existing synthetic account');
 
   await page.reload({ waitUntil: 'domcontentloaded' });
   await page.locator('.hero-grid .kpi').first().waitFor();
@@ -79,7 +87,7 @@ try {
   await phone.locator('.bottom-nav').getByRole('button', { name: 'Run', exact: true }).click();
   await phone.getByText('RUNS · PLANNED').waitFor();
   await phone.getByRole('button', { name: 'More navigation' }).click();
-  await phone.locator('.more-grid').getByRole('button', { name: /Import \/ Settings/i }).waitFor();
+  await phone.locator('.more-popover').getByRole('button', { name: /Import \/ Settings/i }).waitFor();
   assert.equal(await phone.locator('.bottom-nav .nav-button').count(), 5, 'Mobile navigation must contain five primary destinations');
   const pageWidth = await phone.evaluate(() => document.documentElement.scrollWidth);
   assert.ok(pageWidth <= 390, 'Horizontal overflow on iPhone-width viewport: '+pageWidth);

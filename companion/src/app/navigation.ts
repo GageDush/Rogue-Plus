@@ -18,7 +18,7 @@ export interface NavigationItem {
 }
 
 export const navigation: readonly NavigationItem[] = [
-  { id: 'home', label: 'Home', title: 'Command Center', icon: 'home', group: 'primary', status: 'available', description: 'Collection overview and recent changes' },
+  { id: 'home', label: 'Home', title: 'Profile overview', icon: 'home', group: 'primary', status: 'available', description: 'Collection overview and recent changes' },
   { id: 'dex', label: 'Dex', title: 'Pokédex', icon: 'dex', group: 'primary', status: 'available', description: 'Starter collection and ownership details' },
   { id: 'build', label: 'Build', title: 'Build Library', icon: 'build', group: 'primary', status: 'preview', description: 'View strategy presets; editor coming later' },
   { id: 'run', label: 'Run', title: 'Runs', icon: 'run', group: 'primary', status: 'planned', description: 'Session import and tracking planned' },
@@ -40,3 +40,4 @@ export const pageTitles: Record<Page, string> = {
 export function isNavigationActive(route: Page, item: Page): boolean {
   return route === item || (route === 'detail' && item === 'dex');
 }
+

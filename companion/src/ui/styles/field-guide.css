@@ -48,6 +48,17 @@ h1, h2, h3, .kpi > strong { font-family: var(--font-display); }
 .priority-row .pokemon-sprite-component { background: var(--panel2); border-radius: 10px; }
 .priority-copy strong { font-size: 17px; font-weight: 750; overflow-wrap: anywhere; }
 .priority-copy small { font-size: 14px; line-height: 1.4; }
+.collection-progress { gap: 6px; }
+.collection-progress .progress-summary { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 10px; margin: 4px 0; }
+.collection-progress .progress-summary strong { font-size: 26px; color: var(--text); }
+.collection-progress .progress-summary small { font-size: 13px; color: var(--muted); overflow-wrap: anywhere; }
+.collection-track { height: 8px; background: var(--panel3); border-radius: 99px; overflow: hidden; width: 100%; }
+.collection-track > span { display: block; height: 100%; background: currentColor; border-radius: inherit; }
+.candy-explainer { font-size: 14px; line-height: 1.5; color: var(--muted); margin: 8px 0 12px; }
+.egg-sort { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-size: 14px; color: var(--muted); margin: 12px 0; }
+.egg-sort select { min-height: 44px; max-width: 100%; border: 1px solid var(--line-strong); border-radius: 10px; background: var(--panel); color: var(--text); font: inherit; padding: 8px 10px; }
+.red-shiny-star { color: var(--red); }
+.t3-badge.red-shiny-star, .big-shiny.red-shiny-star { color: var(--red); border-color: var(--red); }
 .empty-panel { border: 0; border-radius: 12px; background: var(--accent-soft); padding: 14px; min-height: 76px; }
 .empty-panel strong { font-size: 16px; }
 .empty-panel span { font-size: 14px; }
@@ -92,7 +103,38 @@ h1, h2, h3, .kpi > strong { font-family: var(--font-display); }
 .appearance-options button[aria-pressed='true'] { background: var(--accent-soft); border-color: var(--accent-text); color: var(--accent-text); font-weight: 750; }
 .toast { font-size: 14px; bottom: calc(88px + env(safe-area-inset-bottom)); }
 .icon-button { min-width: 44px; min-height: 44px; }
+.filter-row, .team-tabs { flex-wrap: wrap; overflow: visible; }
+.team-tabs { gap: 8px; border: 0; }
+.team-tabs button, .team-tabs button:first-child, .team-tabs button:last-child {
+  flex: 1 1 140px; min-width: 0; min-height: 44px; white-space: normal;
+  border: 1px solid var(--line-strong); border-radius: 10px; font-size: 14px;
+}
+.filter-row .filter { flex: 1 1 auto; }
+.candy-browser { margin-block: 16px; }
+.candy-notes { margin-top: 12px; }
+.candy-notes summary { min-height: 44px; display: list-item; padding-block: 10px; font-size: 14px; cursor: pointer; color: var(--muted); }
+.section-heading { flex-wrap: wrap; gap: 4px 12px; }
 button:focus-visible, input:focus-visible { outline: var(--focus-ring); }
+.search-box input:focus-visible { outline: none; }
+.search-box:focus-within { outline: var(--focus-ring); outline-offset: 2px; }
+.more-backdrop { position: fixed; inset: 0; z-index: 25; background: rgb(0 0 0 / .18); touch-action: none; }
+.desktop-sidebar.menu-open { z-index: 30; }
+.more-popover {
+  position: fixed; z-index: 45; top: calc(88px + var(--safe-top)); right: calc(16px + var(--safe-right));
+  width: min(292px, calc(100vw - 48px - var(--safe-left) - var(--safe-right)));
+  max-height: calc(100dvh - 112px - var(--safe-top) - var(--safe-bottom));
+  overflow-y: auto; overscroll-behavior: contain; padding: 8px; border: 1px solid var(--line-strong);
+  border-radius: 14px; background: var(--panel); box-shadow: 0 12px 36px rgb(0 0 0 / .24);
+}
+.more-popover-heading { display: flex; align-items: center; justify-content: space-between; padding-left: 10px; gap: 12px; }
+.more-popover-heading strong { font-size: 16px; }
+.more-popover-heading button { display: grid; place-items: center; background: transparent; border: 0; border-radius: 8px; }
+.more-popover-heading svg { width: 20px; height: 20px; }
+.more-popover-link { display: flex; align-items: center; gap: 12px; width: 100%; min-height: 52px; padding: 10px; text-align: left; border: 0; border-radius: 9px; background: transparent; font-size: 15px; }
+.more-popover-link:hover, .more-popover-link[aria-current='page'] { background: var(--panel2); }
+.more-popover-link > svg { width: 20px; height: 20px; flex: 0 0 auto; color: var(--accent-text); }
+.more-popover-link span { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; }
+.more-popover-link small { font-size: 11px; color: var(--muted); border: 1px solid var(--line); border-radius: 4px; padding: 2px 4px; }
 @media (max-width: 360px) {
   .topbar { padding-inline: 12px; }
   .brand-compact .brand-copy { display: none; }
@@ -114,3 +156,132 @@ button:focus-visible, input:focus-visible { outline: var(--focus-ring); }
   .page-heading h1 { font-size: 36px; }
   .desktop-sidebar .nav-button { font-size: 14px; min-height: 46px; }
 }
+
+/* Own safe areas after every legacy shell and breakpoint override.
+ * Backgrounds cover the screen; content stays clear of system controls. */
+:root {
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-right: env(safe-area-inset-right, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-left: env(safe-area-inset-left, 0px);
+  --page-gutter: 16px;
+}
+.app-shell, .main, .loading-screen { min-height: 100dvh; }
+.topbar {
+  min-height: calc(76px + var(--safe-top));
+  padding: calc(12px + var(--safe-top)) calc(var(--page-gutter) + var(--safe-right)) 12px calc(var(--page-gutter) + var(--safe-left));
+}
+.content { padding-inline: calc(var(--page-gutter) + var(--safe-left)) calc(var(--page-gutter) + var(--safe-right)); }
+.bottom-nav {
+  height: calc(76px + var(--safe-bottom));
+  padding: 6px calc(5px + var(--safe-right)) calc(8px + var(--safe-bottom)) calc(5px + var(--safe-left));
+}
+.main { padding-bottom: calc(100px + var(--safe-bottom)); }
+.toast { bottom: calc(88px + var(--safe-bottom)); left: calc(14px + var(--safe-left)); right: calc(14px + var(--safe-right)); }
+.recovery-screen, .loading-screen { padding: calc(24px + var(--safe-top)) calc(16px + var(--safe-right)) calc(24px + var(--safe-bottom)) calc(16px + var(--safe-left)); }
+@media (max-width: 360px) { :root { --page-gutter: 12px; } }
+@media (min-width: 640px) { :root { --page-gutter: 24px; } }
+@media (min-width: 980px) {
+  :root { --page-gutter: 28px; }
+  .main { padding-bottom: 0; }
+}
+@media (max-height: 500px) and (max-width: 979px) {
+  .topbar { min-height: calc(52px + var(--safe-top)); padding-top: calc(6px + var(--safe-top)); padding-bottom: 6px; }
+  .brand-mark { width: 32px; height: 32px; }
+  .page-heading { margin-bottom: 12px; }
+  .page-heading h1 { font-size: 26px; }
+  .bottom-nav { min-height: 56px; height: calc(56px + var(--safe-bottom)); padding-top: 4px; }
+  .bottom-nav .nav-button { font-size: 11px; gap: 2px; }
+  .bottom-nav .nav-button svg { width: 20px; height: 20px; }
+  .main { padding-bottom: calc(80px + var(--safe-bottom)); }
+  .toast { bottom: calc(68px + var(--safe-bottom)); }
+  .more-popover { top: calc(64px + var(--safe-top)); max-height: calc(100dvh - 88px - var(--safe-top) - var(--safe-bottom)); }
+}
+
+/* Desktop destinations fit directly in tall windows. Short windows keep More
+   beside the sidebar trigger; the panel measures that trigger on open/resize. */
+.desktop-secondary { display: flex; flex-direction: column; gap: 1px; }
+.desktop-more-toggle { display: none; }
+@media (min-width: 980px) and (max-height: 719px) {
+  .desktop-secondary { display: none; }
+  .desktop-more-toggle { display: flex; }
+}
+@media (min-width: 980px) and (max-height: 500px) {
+  .desktop-sidebar { padding: 8px 9px; }
+  .desktop-sidebar .brand { padding: 4px 8px; margin-bottom: 4px; }
+  .desktop-sidebar .brand-mark { width: 32px; height: 32px; }
+  .desktop-sidebar .nav-button { min-height: 40px; }
+  .desktop-sidebar .navigation-section-label { margin-top: 8px; }
+  .desktop-sidebar .navigation-footer { display: none; }
+}
+
+/* U4A: scoped Dex browser; other roster consumers keep their existing layout. */
+.dex-toolbar, .dex-toolbar > div, .dex-applied { display: flex; flex-wrap: wrap; gap: 8px; }
+.dex-toolbar { margin: 12px 0; justify-content: space-between; }
+.dex-toolbar button, .dex-applied button, .dex-panel button { min-height: 44px; padding: 8px 12px; border: 1px solid var(--line-strong); border-radius: 10px; background: var(--panel); color: var(--text); font: inherit; }
+.dex-toolbar button[aria-pressed='true'] { background: var(--accent-soft); color: var(--accent-text); border-color: var(--accent-text); }
+.dex-note, .dex-panel p { color: var(--muted); font-size: 14px; line-height: 1.5; }
+.dex-applied button { max-width: 100%; overflow-wrap: anywhere; text-align: left; font-size: 14px; }
+.dex-results { display: grid; gap: 8px; overflow: visible; background: transparent; border: 0; }
+.dex-browser .dex-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.dex-browser .dex-list { grid-template-columns: minmax(0, 1fr); }
+.dex-browser .pokemon-card { display: flex; flex-direction: column; min-width: 0; align-items: center; padding: 10px 6px; gap: 8px; border: 1px solid var(--line); border-radius: 12px; background: var(--panel); text-align: center; }
+.dex-browser .pokemon-card:last-child { border-bottom: 1px solid var(--line); }
+.dex-browser .sprite-wrap { border: 0; background: transparent; flex-shrink: 0; }
+.dex-browser .pokemon-main { width: 100%; }
+.dex-browser .pokemon-main strong, .dex-browser .pokemon-main small { white-space: normal; overflow: visible; text-overflow: clip; overflow-wrap: anywhere; }
+.dex-browser .pokemon-main strong { font-size: 14px; line-height: 1.3; }
+.dex-browser .pokemon-main span, .dex-browser .pokemon-main small { font-size: 12px; line-height: 1.4; }
+.dex-browser .pokemon-status { display: flex; flex-direction: column; gap: 4px; color: var(--muted); font-size: 12px; overflow-wrap: anywhere; }
+.dex-list .pokemon-card { flex-direction: row; align-items: flex-start; text-align: left; padding: 12px; }
+.dex-list .pokemon-main { flex: 1; }
+.dex-list .pokemon-status { flex: 0 1 100px; }
+.dex-panel { position: fixed; margin: 0; inset: auto max(12px, var(--safe-right)) max(12px, var(--safe-bottom)) max(12px, var(--safe-left)); width: auto; max-width: none; max-height: min(80dvh, calc(100dvh - 24px - var(--safe-top) - var(--safe-bottom))); padding: 0; color: var(--text); background: var(--panel); border: 1px solid var(--line-strong); border-radius: 16px; box-shadow: 0 12px 48px rgb(0 0 0 / .25); }
+.dex-panel[open] { display: flex; flex-direction: column; }
+.dex-panel::backdrop { background: rgb(0 0 0 / .3); }
+.dex-panel header, .dex-panel footer { flex-shrink: 0; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 16px; }
+.dex-panel header { border-bottom: 1px solid var(--line); }
+.dex-panel h2 { font-size: 20px; margin: 0; }
+.dex-panel-body { overflow: auto; padding: 0 16px 16px; overscroll-behavior: contain; }
+.dex-panel footer { border-top: 1px solid var(--line); justify-content: flex-end; }
+.dex-panel footer .primary { background: var(--orange); color: var(--on-orange); }
+.dex-panel label { display: flex; flex-direction: column; gap: 8px; margin: 12px 0; font-size: 14px; }
+.dex-panel .dex-checkbox { flex-direction: row; align-items: center; min-height: 44px; }
+.dex-checkbox input { width: 20px; height: 20px; flex-shrink: 0; }
+.dex-panel select, .dex-range input { width: 100%; min-width: 0; min-height: 44px; background: var(--bg); color: var(--text); border: 1px solid var(--line-strong); border-radius: 8px; padding: 8px; font: inherit; }
+.dex-panel fieldset { min-width: 0; border: 1px solid var(--line); border-radius: 10px; margin: 16px 0; padding: 8px 12px; }
+.dex-range { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+@media (min-width: 980px) {
+  .dex-browser { container-type: inline-size; }
+  .dex-browser .dex-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .dex-panel { inset: auto; width: 360px; max-width: calc(100vw - 24px); max-height: calc(100dvh - 24px); }
+}
+@container (min-width: 560px) { .dex-browser .dex-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+@container (min-width: 700px) { .dex-browser .dex-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); } }
+@container (min-width: 840px) { .dex-browser .dex-grid { grid-template-columns: repeat(6, minmax(0, 1fr)); } }
+@container (min-width: 980px) { .dex-browser .dex-grid { grid-template-columns: repeat(7, minmax(0, 1fr)); } }
+@container (min-width: 1120px) { .dex-browser .dex-grid { grid-template-columns: repeat(8, minmax(0, 1fr)); } }
+
+.dex-checkbox-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 8px; }
+.dex-panel .dex-checkbox-grid label { margin: 2px 0; overflow-wrap: anywhere; }
+.dex-reference-line, .dex-match { color: var(--muted); }
+.dex-form-label { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-bottom: 16px; }
+.dex-form-label select { min-width: 0; max-width: 100%; min-height: 44px; padding: 8px; background: var(--panel); color: var(--text); border: 1px solid var(--line-strong); border-radius: 8px; font: inherit; }
+.dex-reference-detail { overflow-wrap: anywhere; }
+.dex-related { display: flex; flex-wrap: wrap; gap: 8px; }
+.dex-related button { min-height: 44px; padding: 8px 12px; border: 1px solid var(--line-strong); background: var(--panel); color: var(--text); border-radius: 8px; font: inherit; }
+.dex-option-group h3 { margin: 20px 0 8px; }
+.dex-option-group ul { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); padding: 0; list-style: none; gap: 8px; }
+.dex-option-group li { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; min-width: 0; padding: 12px; border: 1px solid var(--line); border-radius: 10px; }
+.dex-option-group li strong { flex: 1 1 120px; }
+.dex-option-group li small { width: 100%; color: var(--muted); }
+.dex-availability { font-size: 13px; text-transform: capitalize; }
+.dex-availability-available { color: var(--green); }
+.dex-availability-locked, .dex-availability-unknown { color: var(--muted); }
+/* Public detail facts need readable labels and a shrinking title column on phones. */
+.pokemon-hero { grid-template-columns: 118px minmax(0, 1fr); }
+.hero-copy { min-width: 0; }
+.hero-copy h2 { overflow-wrap: anywhere; font-size: clamp(20px, 5vw, 29px); line-height: 1.15; }
+.hero-copy .tag-row span, .dex-reference-detail .tag-row span { font-family: inherit; font-size: 14px; line-height: 1.4; overflow-wrap: anywhere; }
+.dex-reference-detail .iv-grid span { font-size: 12px; }
+.dex-reference-detail .iv-grid strong { font-size: 18px; }
