@@ -1,9 +1,9 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { ArrowLeft, Check, Import, Menu, RefreshCw } from 'lucide-react';
 import { buildDemoState, decryptAndNormalize, runDecryptSelfTest, type AppState } from './pokerogue';
 import { createPokeRogueData } from './domain/facade';
-import { CANONICAL_TEAM_IDS } from './domain/teams';
-import { isNavigationActive, pageTitles, primaryNavigation, secondaryNavigation, type Page, type DexFilter } from './app/navigation';
+import { defaultDexQuery, queryDex, type DexQuery } from './domain/dex-query';
+import { isNavigationActive, pageTitles, primaryNavigation, secondaryNavigation, type Page } from './app/navigation';
 import { Brand, NavButton, NavigationIcon } from './ui/components/Navigation';
 import { MorePopover } from './ui/components/MorePopover';
 import { HomePage } from './features/home/HomePage';
@@ -50,8 +50,9 @@ function App() {
     }
   }
   const [selectedId, setSelectedId] = useState<number>(898);
-  const [search, setSearch] = useState('');
-  const [dexFilter, setDexFilter] = useState<DexFilter>('all');
+  const [dexQuery, setDexQuery] = useState<DexQuery>(defaultDexQuery);
+  const [dexView, setDexView] = useState<'grid' | 'list'>('grid');
+  const dexReturn = useRef<{ top: number; id: number } | null>(null);
   const [visibleCount, setVisibleCount] = useState(90);
   const [teamIndex, setTeamIndex] = useState(1);
   const [busy, setBusy] = useState(false);
@@ -108,7 +109,7 @@ function App() {
 
   useEffect(() => {
     setVisibleCount(90);
-  }, [search, dexFilter]);
+  }, [dexQuery]);
 
   function showToast(message: string) {
     setToast(message);
@@ -119,7 +120,7 @@ function App() {
     if (next === 'more') { toggleMore(); return; }
     setMoreOpen(false);
     setPage(next);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (next !== 'dex' || !dexReturn.current) window.scrollTo({ top: 0, behavior: next === 'detail' ? 'instant' : 'smooth' });
   }
 
   async function handleSaveFile(file?: File) {
@@ -200,6 +201,8 @@ function App() {
   }
 
   function openPokemon(id: number) {
+    if (page === 'dex') dexReturn.current = { top: window.scrollY, id };
+    else dexReturn.current = null;
     setSelectedId(id);
     navigate('detail');
   }
@@ -212,24 +215,14 @@ function App() {
   );
   const selected = data?.pokemonById.get(selectedId) || data?.pokemon[0] || null;
 
-  const filteredPokemon = useMemo(() => {
-    if (!data) return [];
-    const term = search.trim().toLowerCase();
-    return data.pokemon.filter(p => {
-      if (
-        term &&
-        !p.name.toLowerCase().includes(term) &&
-        !p.progressGaps.toLowerCase().includes(term) &&
-        !p.collectionGaps.toLowerCase().includes(term)
-      ) return false;
-      if (dexFilter === 'missing' && p.progressGaps === 'None') return false;
-      if (dexFilter === 't3' && !p.t3) return false;
-      if (dexFilter === 'passive' && p.passiveUnlocked) return false;
-      if (dexFilter === 'team' && !CANONICAL_TEAM_IDS.has(p.id)) return false;
-      if (dexFilter === 'iv' && p.perfectIvs === 6) return false;
-      return true;
-    });
-  }, [data, search, dexFilter]);
+  const filteredPokemon = useMemo(() => queryDex(data?.pokemon ?? [], dexQuery), [data, dexQuery]);
+  useLayoutEffect(() => {
+    if (page !== 'dex' || !dexReturn.current) return;
+    const { top, id } = dexReturn.current;
+    window.scrollTo({ top, behavior: 'instant' });
+    document.querySelector<HTMLButtonElement>(`[data-pokemon-id="${id}"]`)?.focus({ preventScroll: true });
+    dexReturn.current = null;
+  }, [page]);
 
   if (loadPhase === 'blocked') {
     return (
@@ -323,10 +316,10 @@ function App() {
             <DexPage
               pokemon={filteredPokemon.slice(0, visibleCount)}
               total={filteredPokemon.length}
-              search={search}
-              setSearch={setSearch}
-              filter={dexFilter}
-              setFilter={setDexFilter}
+              query={dexQuery}
+              setQuery={setDexQuery}
+              view={dexView}
+              setView={setDexView}
               onPokemon={openPokemon}
               onMore={() => setVisibleCount(value => value + 90)}
             />

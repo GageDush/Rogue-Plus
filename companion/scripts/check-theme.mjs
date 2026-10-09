@@ -111,7 +111,7 @@ export async function checkTheme(browser, base) {
         }
         assert.ok(await page.evaluate(() => document.documentElement.scrollWidth) <= width, destination + ' overflows ' + width);
         if (destination === 'Dex' || destination === 'Build') {
-          assert.ok(await page.locator(destination === 'Dex' ? '.filter-row' : '.team-tabs').evaluate(el => el.scrollWidth <= el.clientWidth), 'Filter/tab options are hidden horizontally');
+          assert.ok(await page.locator(destination === 'Dex' ? '.dex-toolbar' : '.team-tabs').evaluate(el => el.scrollWidth <= el.clientWidth), 'Filter/tab options are hidden horizontally');
         }
         if (width < 980) {
           assert.ok(await page.locator('.topbar').evaluate(el => parseFloat(getComputedStyle(el).paddingTop) >= 71), 'Camera inset lost to stylesheet override');

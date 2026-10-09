@@ -1,6 +1,6 @@
 # Rogue+ Dex implementation handoff
 
-Prepared 2026-10-09. This is a scoped handoff, not a second status ledger. Read AGENTS.md, DECISIONS.md and project/tasks.json first. New Dex work below is not implemented.
+Prepared 2026-10-09. This is a scoped handoff, not a second status ledger. Read AGENTS.md, DECISIONS.md and project/tasks.json first. U4A foundations are now implemented on the draft branch; reference search, candy reservation and reference-update packets remain unimplemented.
 
 ## Working source and delivery
 
@@ -43,7 +43,7 @@ Sort candidates: Dex number, name, current cost, luck, candy, perfect IVs, egg-m
 
 Actual normalized fields: companion/src/domain/types.ts and import/normalize.ts. Current reference: reference-sources.lock.json, companion/src/reference/mechanics.v1.json and source-manifest.v1.json. Game pin e734a202a912cc969409c84111b5ab6a15fc7774; assets pin 056a1f408f26a3be4fef243f7462cb43608c7928. Do not bump incidentally.
 
-Current Dex remains name/gap search, six quick filters and bounded list reveal, without the proposed Grid, sorting or richer reference search. Current domain/candy-actions.ts already prioritizes affordable passives/reductions/eggs using bundled hatch discount tables, but full eligibility/exception handling and reserve are not verified. Use this code as evidence, not as a complete pricing specification.
+Before U4A, Dex had name/gap search, six quick filters and bounded list reveal. U4A replaces that presentation/query foundation with Grid/List, explicit Collected/All starter scope, imported-field conditions/ranges and sorting; richer reference search remains unimplemented. Current domain/candy-actions.ts already prioritizes affordable passives/reductions/eggs using bundled hatch discount tables, but full eligibility/exception handling and reserve are not verified. Use this code as evidence, not as a complete pricing specification.
 
 Starter-selectable moves require verified starter selection rules, applicable form/learnset and unlocked egg slots. A level-up/evolution move is not necessarily selectable now. Map ability slots to species/form names; unlocked passive differs from enabled. Forms caught, starter-selectable and obtainable later are distinct. Friendship progress is not universal happiness percentage. Pseudo-legendary/trio groupings require maintained definitions, not guessed flags.
 
@@ -71,3 +71,7 @@ Use rogue-plus-navigate; reconcile actual head and read this handoff once. First
 Then DEX-REF (reference coverage), DEX-SEARCH (grammar/available-vs-possible search), DEX-CANDY (pricing/reserve), DEX-UPDATES (reference update architecture). Task dependencies and pending approvals live only in project/tasks.json. Do not implement all five at once.
 
 Before close: meaningful synthetic tests, UI 320/390 and desktop/window-height cases, existing baseline/module-boundary checks, docs/evidence update and tracking regeneration. No saves/backups/private player facts committed. No save re-encryption, edited game-save export, upload API or PokéRogue writeback. Merge/deployment remain separately authorized.
+
+## U4A implementation continuation
+
+Authorized by the user on 2026-10-09. Query and panel behavior are documented in DESIGN and ARCHITECTURE; task status and acceptance evidence remain solely in project/tasks.json. Names/gaps are plain text, not the proposed advanced grammar. All scope is limited to starter records in the snapshot and states its dependency on expanded reference coverage. No reference pins, ownership decoding, candy formulas, storage schemas or account facts were changed. Continue DEX-REF only after its separate implementation authorization; do not begin downstream work merely because U4A is complete.

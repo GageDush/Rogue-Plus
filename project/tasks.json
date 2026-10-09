@@ -699,13 +699,19 @@
       "scope": "Default three-column mobile Grid and width-responsive desktop up to eight; optional List, Collected/All scope and filter/sort access using supported imported fields. Preserve detail round-trip state.",
       "excludes": "No unrelated features, mechanics changes, storage migration or production deployment.",
       "class": "interaction",
-      "authorization": "pending",
-      "status": "planned",
+      "authorization": "approved",
+      "status": "verified",
       "dependsOn": [
         "U1-NAVFIT"
       ],
       "paths": [
-        "companion/src/features/dex/DexPage.tsx"
+        "companion/src/features/dex/DexPage.tsx",
+        "companion/src/domain/dex-query.ts",
+        "companion/src/App.tsx",
+        "companion/src/ui/styles/field-guide.css",
+        "companion/tests/dex-query.test.ts",
+        "companion/scripts/check-dex.mjs",
+        "companion/scripts/check-theme.mjs"
       ],
       "guidance": [
         "docs/DECISIONS.md",
@@ -713,25 +719,36 @@
         "docs/ARCHITECTURE.md",
         "docs/DESIGN.md"
       ],
-      "docsReviewed": [],
+      "docsReviewed": [
+        "docs/DECISIONS.md",
+        "docs/DEX_HANDOFF.md",
+        "docs/ARCHITECTURE.md",
+        "docs/DESIGN.md"
+      ],
       "delivery": {
-        "stage": "not_started",
-        "branch": null
+        "stage": "pr_open",
+        "branch": "design/profile-candy-overview",
+        "pr": "https://github.com/GageDush/Rogue-Plus/pull/8"
       },
       "acceptance": [
         {
           "id": "AC1",
           "description": "Grid/List, default Collected scope, supported filter/sort controls and Advanced access work at 320/390 and desktop widths in both themes; unsupported reference fields are not fabricated.",
-          "result": "not_tested",
-          "evidence": []
+          "result": "pass",
+          "evidence": [
+            "project/evidence/U4A.md"
+          ]
         },
         {
           "id": "AC2",
           "description": "Long names/statuses and empty results readable; query retained after detail round trip.",
-          "result": "not_tested",
-          "evidence": []
+          "result": "pass",
+          "evidence": [
+            "project/evidence/U4A.md"
+          ]
         }
-      ]
+      ],
+      "verifiedOn": "2026-10-09"
     },
     {
       "id": "U4B",

@@ -28,7 +28,7 @@ The dated REDESIGN_PLAN retains the detailed comparison and original packets. Cu
 
 `ui/styles/tokens.css` owns both palettes. `ui/theme.ts` owns independent UI preference resolution, OS/tab notifications and safe persistence; `ui/useTheme.ts` exposes it to feature UI. The small pre-render bootstrap in index.html must keep its key and normalization consistent with theme.ts (tested). Default follows system. Settings offers System / Light / Dark with pressed states and 44px targets. No theme preference is part of an imported account, local account reset or account backup.
 
-`field-guide.css` deliberately bridges legacy selectors using semantic tokens. Home now follows DES-005–007: Profile overview, Home-only header Import, affordable candy recommendations with egg sorting, and progress bars with small counts. Goals retains the full long-term ranking. Dex retains all six supported filters and real imported fields. Type badges shown in the concept are deferred until source-backed data is exposed. No invented data; the separately authorized U1-CANDY planner uses pinned prices without changing Goals weights. Broader feature layouts remain in their existing packets. Brand mark is the supplied PNG unchanged; fonts use local system fallback until a separate self-hosted font packet.
+`field-guide.css` deliberately bridges legacy selectors using semantic tokens. Home now follows DES-005–007: Profile overview, Home-only header Import, affordable candy recommendations with egg sorting, and progress bars with small counts. Goals retains the full long-term ranking. Dex now uses the U4A imported-field query controls described below. Type badges shown in the concept are deferred until source-backed data is exposed. No invented data; the separately authorized U1-CANDY planner uses pinned prices without changing Goals weights. Broader feature layouts remain in their existing packets. Brand mark is the supplied PNG unchanged; fonts use local system fallback until a separate self-hosted font packet.
 
 ## Profile overview follow-up
 
@@ -49,3 +49,13 @@ More toggles a slim nonmodal pop-out over the mounted feature rather than naviga
 ### Desktop navigation fit
 
 At desktop widths (980px+), windows at least 720px high expose all secondary destinations directly and omit More. Shorter windows show More in the sidebar and position its bounded pop-out beside the trigger. Resize closes the panel if its trigger becomes hidden. Phone navigation remains header More plus five primary bottom destinations.
+
+## U4A Dex foundations
+
+Grid is the default, with three phone columns; desktop uses content-width container breakpoints to grow from three through eight. List uses the same results and controls. Collected defaults to imported unlocked starters. All Pokémon exposes every starter record present in the current normalized snapshot with locked labels; full species/evolution coverage remains DEX-REF work.
+
+Filters offers missing core progress, owned red shiny, passive not unlocked, bundled-team membership, missing perfect IVs, unlocked hidden ability and no Classic wins. All selected conditions combine with AND. Advanced offers inclusive current-cost, candy, perfect-IV-slot and unlocked-egg-slot ranges; blank bounds are open, invalid ranges retain the draft and show feedback. Sort supports number/name/current cost/luck/candy/perfect IVs/egg slots, with explicit direction, ID ties and unknown values last.
+
+All three panels edit drafts. Apply commits; Cancel, Escape and backdrop dismissal discard. Phone uses a bounded bottom sheet, desktop anchors near the triggering control with internal scrolling in short windows. Native modal dialogs plus explicit Tab wrapping keep keyboard focus within the panel; closing returns focus to the trigger. Applied search/filter/range chips remove conditions individually; Clear all clears those conditions while retaining scope, layout and sort. Search is visibly plain name/gap text; reference expression grammar is not implemented.
+
+App retains query, layout and reveal count through detail. Returning restores the Dex scroll position and selected card focus. More dismissal retains the mounted feature and its state. Unknown fields display Unknown or Progress unavailable rather than fabricated numeric zeros. Reuse the unchanged authentic artwork resolver and its fallback; no new type/move badges are inferred.

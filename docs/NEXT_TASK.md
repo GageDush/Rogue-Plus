@@ -20,12 +20,13 @@
 | --- | --- | --- |
 | S1 | Validate backup payloads deeply | pending |
 | U2 | Shell, navigation and authentic branding | pending |
-| U4A | Dex Grid/List, scope and filter/sort foundations | pending |
+| U4B | Pokemon detail composition | pending |
 | C0 | First narrow companion module contract | pending |
 | I0 | Lock dependencies and reproducible CI | pending |
 | D0 | Public-source and reachable-history review | pending |
 | REF0 | Rules-legal Build reference coverage | pending |
 | O0 | Offline caches and controlled updates | pending |
+| DEX-REF | Pinned Dex reference coverage | pending |
 
 > Dependency-ready does not mean authorized. Select an approved packet, record it as in_progress, and set activeTask.
 
