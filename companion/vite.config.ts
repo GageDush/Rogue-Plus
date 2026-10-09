@@ -1,8 +1,9 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import { offlineBuildPlugin } from './scripts/offline-build.mjs';
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(), offlineBuildPlugin()],
   base: './',
   server: { host: '0.0.0.0', allowedHosts: ['terminal.local'] },
   build: {

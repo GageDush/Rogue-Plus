@@ -97,4 +97,14 @@ describe('Local-only backup and storage safety', () => {
     expect(loaded.current?.legacy).toBe(true);
     expect(loaded.current?.pokemon[0]).not.toHaveProperty('source');
   });
+
+  it('retains the existing unknown collection-progress contract without filling zeros', () => {
+    const state = sample();
+    const row = state.current!.pokemon[0] as any;
+    delete row.perfectIvs; delete row.eggCount; delete row.passiveUnlocked;
+    const loaded = parseBackup(JSON.parse(JSON.stringify(createBackupEnvelope(state)))).state.current!.pokemon[0];
+    expect(loaded).not.toHaveProperty('perfectIvs');
+    expect(loaded).not.toHaveProperty('eggCount');
+    expect(loaded).not.toHaveProperty('passiveUnlocked');
+  });
 });

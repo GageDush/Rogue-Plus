@@ -19,6 +19,8 @@ jobs:
         run: npm --prefix companion test
       - name: Test pinned Dex reference extraction
         run: node --test scripts/dex-reference-extractor.test.mjs
+      - name: Test offline build and service-worker lifecycle
+        run: node --test companion/scripts/offline-lifecycle.check.mjs
       - name: Enforce feature import boundaries
         run: node scripts/check-module-boundaries.mjs
       - name: Validate TypeScript boundaries

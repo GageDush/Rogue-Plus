@@ -8,7 +8,7 @@
 
 | Verified | In progress | Ready for review | Blocked | Planned |
 | --- | --- | --- | --- | --- |
-| ✓ 21 | ◐ 0 | ◇ 3 | ! 0 | ○ 27 |
+| ✓ 21 | ◐ 0 | ◇ 4 | ! 0 | ○ 26 |
 
 > **Product intent and implementation approval are separate.** A planned task is not permission to begin.
 
@@ -1158,28 +1158,28 @@ Tested caching, backup recovery, device review and controlled rollout.
 
 | Task | Work packet | State |
 | --- | --- | --- |
-| O0 | Offline caches and controlled updates | ○ Planned |
+| O0 | Offline caches and controlled updates | ◇ Ready for review |
 | R0 | Alpha release verification and approval | ○ Planned |
 
 <details>
 <summary>O0 · Offline caches and controlled updates</summary>
 
-**○ Planned** · infrastructure · Implementation authorization: **pending**
+**◇ Ready for review** · infrastructure · Implementation authorization: **approved**
 
 Make core assets and update behavior coherent after setup.
 
 **Acceptance**
 
-- ○ Not tested — Required shell/data/font/art assets work offline after warming.
-- ○ Not tested — Old/new cache upgrades, interruption and rollback checked; user state preserved.
+- ✓ Pass — Required shell/data/font/art assets work offline after warming. · [project/evidence/O0.md](../project/evidence/O0.md)
+- ✓ Pass — Old/new cache upgrades, interruption and rollback checked; user state preserved. · [project/evidence/O0.md](../project/evidence/O0.md)
 
 **Dependencies:** None.
 
 **Excluded:** No unrelated features, mechanics changes, storage migration or production deployment.
 
-**Affected paths:** [companion/public/sw.js](../companion/public/sw.js), [companion/public/manifest.webmanifest](../companion/public/manifest.webmanifest)
+**Affected paths:** [companion/public/sw.js](../companion/public/sw.js), [companion/public/manifest.webmanifest](../companion/public/manifest.webmanifest), [companion/scripts/offline-build.mjs](../companion/scripts/offline-build.mjs), [companion/scripts/offline-lifecycle.check.mjs](../companion/scripts/offline-lifecycle.check.mjs), [companion/scripts/check-offline.mjs](../companion/scripts/check-offline.mjs), [companion/scripts/check-ui.mjs](../companion/scripts/check-ui.mjs), [companion/src/main.tsx](../companion/src/main.tsx), [companion/vite.config.ts](../companion/vite.config.ts), [companion/src/storage/validate-state.ts](../companion/src/storage/validate-state.ts), [companion/tests/storage-safety.test.ts](../companion/tests/storage-safety.test.ts), [.github/workflows/companion-ci.yml](../.github/workflows/companion-ci.yml), [.github/workflows/companion-ui.yml](../.github/workflows/companion-ui.yml), [project/evidence/O0.md](../project/evidence/O0.md), [docs/DEX_HANDOFF.md](../docs/DEX_HANDOFF.md), [project/evidence/RELEASE-AUDIT-2026-10-09.md](../project/evidence/RELEASE-AUDIT-2026-10-09.md)
 
-**Guidance:** [docs/DECISIONS.md](../docs/DECISIONS.md), [docs/ARCHITECTURE.md](../docs/ARCHITECTURE.md), [docs/DESIGN.md](../docs/DESIGN.md)
+**Guidance:** [docs/DECISIONS.md](../docs/DECISIONS.md), [docs/ARCHITECTURE.md](../docs/ARCHITECTURE.md), [docs/DESIGN.md](../docs/DESIGN.md), [docs/DEX_HANDOFF.md](../docs/DEX_HANDOFF.md)
 
 </details>
 

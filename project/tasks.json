@@ -283,7 +283,7 @@
       "name": "Offline cold start and safe cache updates",
       "result": "not_tested",
       "evidence": [
-        "project/evidence/RELEASE-AUDIT-2026-10-09.md"
+        "project/evidence/O0.md"
       ]
     },
     {
@@ -1532,35 +1532,58 @@
       "scope": "Make core assets and update behavior coherent after setup.",
       "excludes": "No unrelated features, mechanics changes, storage migration or production deployment.",
       "class": "infrastructure",
-      "authorization": "pending",
-      "status": "planned",
+      "authorization": "approved",
+      "status": "ready_for_review",
       "dependsOn": [],
       "paths": [
         "companion/public/sw.js",
-        "companion/public/manifest.webmanifest"
+        "companion/public/manifest.webmanifest",
+        "companion/scripts/offline-build.mjs",
+        "companion/scripts/offline-lifecycle.check.mjs",
+        "companion/scripts/check-offline.mjs",
+        "companion/scripts/check-ui.mjs",
+        "companion/src/main.tsx",
+        "companion/vite.config.ts",
+        "companion/src/storage/validate-state.ts",
+        "companion/tests/storage-safety.test.ts",
+        ".github/workflows/companion-ci.yml",
+        ".github/workflows/companion-ui.yml",
+        "project/evidence/O0.md",
+        "docs/DEX_HANDOFF.md",
+        "project/evidence/RELEASE-AUDIT-2026-10-09.md"
       ],
       "guidance": [
         "docs/DECISIONS.md",
         "docs/ARCHITECTURE.md",
-        "docs/DESIGN.md"
+        "docs/DESIGN.md",
+        "docs/DEX_HANDOFF.md"
       ],
-      "docsReviewed": [],
+      "docsReviewed": [
+        "docs/DECISIONS.md",
+        "docs/ARCHITECTURE.md",
+        "docs/DESIGN.md",
+        "docs/DEX_HANDOFF.md"
+      ],
       "delivery": {
-        "stage": "not_started",
-        "branch": null
+        "stage": "working_branch",
+        "branch": "design/profile-candy-overview"
       },
       "acceptance": [
         {
           "id": "AC1",
           "description": "Required shell/data/font/art assets work offline after warming.",
-          "result": "not_tested",
-          "evidence": []
+          "result": "pass",
+          "evidence": [
+            "project/evidence/O0.md"
+          ]
         },
         {
           "id": "AC2",
           "description": "Old/new cache upgrades, interruption and rollback checked; user state preserved.",
-          "result": "not_tested",
-          "evidence": []
+          "result": "pass",
+          "evidence": [
+            "project/evidence/O0.md"
+          ]
         }
       ]
     },

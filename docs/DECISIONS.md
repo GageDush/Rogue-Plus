@@ -37,6 +37,10 @@ Affected tasks and guidance:
 
 Routine status or path updates need evidence, not a new product decision. Material architecture/design/scope changes use this record and explicit task authorization.
 
+## DEC-008 — coherent offline installation and waiting updates (2026-10-09)
+
+Previous: fixed shell cache, opportunistic JS/CSS caching, network-first HTML and forced immediate worker activation. Replacement: build-content cache revisions, atomic complete local-shell precaching, installed-build HTML/dependencies and browser-managed waiting updates. Apply completed updates after all app clients close; do not interrupt current sessions or reload automatically. Reason: release audit demonstrated missing precached dependencies and incomplete update guarantees. User approval: “Fix those two” following strict-backup/offline findings on 2026-10-09. Affects O0, offline/release verification and build delivery; no account schema/key changes or production release authorization.
+
 ## Profile and candy refinements (accepted 2026-10-08)
 
 DES-005 supersedes the Command Center label and ubiquitous header Import: Home becomes Profile overview; header Import appears on Home only, with Import / Settings reachable through More on every route. Primary tab labels/routes stay unchanged. Approval: user requested these refinements and authorized implementation. Affects U1-CANDY and later shell/Home packets.

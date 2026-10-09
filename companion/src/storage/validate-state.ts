@@ -27,11 +27,18 @@ function pokemon(value: unknown, path: string): void {
   const p = record(value, path);
   number(p.id, path + '.id'); if (p.id === 0) invalid(path + '.id');
   text(p.name, path + '.name', true);
-  for (const key of pokemonBooleans) bool(p[key], path + '.' + key);
+  for (const key of pokemonBooleans) {
+    // Existing partial-collection views explicitly support unknown passive progress.
+    if (key === 'passiveUnlocked' && p[key] === undefined) continue;
+    bool(p[key], path + '.' + key);
+  }
   for (const key of ['baseCost', 'currentCost', 'priorityScore']) number(p[key], path + '.' + key, Number.MAX_SAFE_INTEGER, false);
   for (const key of ['candy', 'friendship', 'classicWins', 'seen', 'caught', 'hatched']) number(p[key], path + '.' + key);
   for (const key of ['ivHp', 'ivAtk', 'ivDef', 'ivSpa', 'ivSpd', 'ivSpe']) number(p[key], path + '.' + key, 31);
-  for (const [key, max] of Object.entries({ luck: 3, eggCount: 4, perfectIvs: 6, natureCount: 25, costReductions: 2 })) number(p[key], path + '.' + key, max);
+  for (const [key, max] of Object.entries({ luck: 3, eggCount: 4, perfectIvs: 6, natureCount: 25, costReductions: 2 })) {
+    if ((key === 'eggCount' || key === 'perfectIvs') && p[key] === undefined) continue;
+    number(p[key], path + '.' + key, max);
+  }
   for (const key of ['nextAction', 'progressGaps', 'collectionGaps']) text(p[key], path + '.' + key);
   if (p.nextCost !== null) number(p.nextCost, path + '.nextCost', Number.MAX_SAFE_INTEGER, false);
   // Older supported snapshots lack source/visual detail; absence stays unknown.

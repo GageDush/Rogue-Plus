@@ -1,3 +1,4 @@
+/// <reference types="vite/client" />
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import App from './App';
@@ -15,9 +16,9 @@ createRoot(document.getElementById('root')!).render(
   </StrictMode>
 );
 
-if ('serviceWorker' in navigator) {
+if (import.meta.env.PROD && 'serviceWorker' in navigator) {
   window.addEventListener('load', () =>
-    navigator.serviceWorker.register('./sw.js').catch(() => undefined)
+    navigator.serviceWorker.register('./sw.js', { updateViaCache: 'none' }).catch(() => undefined)
   );
 }
 

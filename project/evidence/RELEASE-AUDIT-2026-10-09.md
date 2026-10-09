@@ -30,3 +30,7 @@ This is broader than the tracked-filename validator but is not proof that every 
 ## Release recommendation
 
 Hold public production rollout for strict nested backup validation and reliable offline/update handling. Device checks and current regression tests pass. Isolated real-user restoration and historical artifact review retain their exact coverage limits; no release authorization is inferred from check completion. The inconsistent built-in demo caught-form masks are a known separate fixture issue recorded in U1-SAFE evidence.
+
+## Authorized fix follow-up
+
+The user subsequently authorized “Fix those two.” S1 now rejects malformed nested/envelope values before replacement and preserves supported unknown/legacy fields. O0 generates complete versioned offline precaches and waiting updates. See S1.md and O0.md for actual tests and limits. These fixes supersede the audit's source-level blockers; native cold-launch/update rollout and publication/CI results remain separate evidence rather than being inferred from the fixes.

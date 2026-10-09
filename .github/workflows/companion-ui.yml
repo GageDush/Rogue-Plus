@@ -44,6 +44,8 @@ jobs:
           exit 1
       - name: Test screens, mobile navigation, backup, reload, and restore
         run: node companion/scripts/check-ui.mjs
+      - name: Test cold offline startup with isolated account state
+        run: node companion/scripts/check-offline.mjs
 
       - name: Start isolated source fixture server for Dex interactions
         run: |

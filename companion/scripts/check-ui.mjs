@@ -53,6 +53,17 @@ try {
   assert.ok(backup.state.current, 'Synthetic backup missing current account');
   assert.ok(backup.state.current.pokemon.length >= 8, 'Synthetic backup missing collection');
 
+  const malformed = { ...backup, state: { ...backup.state, current: { schemaVersion: 2 } } };
+  await page.locator('input[type="file"][accept=".json,application/json"]').setInputFiles({
+    name: 'synthetic-invalid-backup.json', mimeType: 'application/json',
+    buffer: Buffer.from(JSON.stringify(malformed)),
+  });
+  await page.getByText(/Invalid Rogue\+ data at state.current/).waitFor();
+  const preservedDownload = page.waitForEvent('download');
+  await page.getByRole('button', { name: /Export backup/i }).click();
+  const preserved = JSON.parse(await readFile(await (await preservedDownload).path(), 'utf8'));
+  assert.deepEqual(preserved.state, backup.state, 'Rejected nested restore replaced the existing synthetic account');
+
   await page.reload({ waitUntil: 'domcontentloaded' });
   await page.locator('.hero-grid .kpi').first().waitFor();
   console.log('PASS: Desktop navigation and IndexedDB reload');

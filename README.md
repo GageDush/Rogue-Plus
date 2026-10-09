@@ -19,7 +19,7 @@ A mobile-first, local-first PokéRogue companion. Explore an imported collection
 
 | Verified | In progress | Ready for review | Blocked | Planned |
 | --- | --- | --- | --- | --- |
-| ✓ 21 | ◐ 0 | ◇ 3 | ! 0 | ○ 27 |
+| ✓ 21 | ◐ 0 | ◇ 4 | ! 0 | ○ 26 |
 
 <details>
 <summary>View milestone progress illustration</summary>

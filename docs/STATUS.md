@@ -8,7 +8,7 @@
 
 | Verified | In progress | Ready for review | Blocked | Planned |
 | --- | --- | --- | --- | --- |
-| ✓ 21 | ◐ 0 | ◇ 3 | ! 0 | ○ 27 |
+| ✓ 21 | ◐ 0 | ◇ 4 | ! 0 | ○ 26 |
 
 > **Verification is not release.** Code may be checked on a draft branch while production stays unchanged.
 
@@ -126,6 +126,7 @@ Source and synthetic browser checks pass; physical iPhone review and production 
 | **U1** | ✓ Verified | pr open |
 | **U4A** | ✓ Verified | pr open |
 | **D0** | ◇ Ready for review | working branch |
+| **O0** | ◇ Ready for review | working branch |
 | **DOCS-01** | ✓ Verified | pr open |
 | **U1-CANDY** | ✓ Verified | pr open |
 | **U1-SAFE** | ✓ Verified | pr open |
@@ -151,6 +152,7 @@ Source and synthetic browser checks pass; physical iPhone review and production 
 - **U1** — `design/light-dark-foundation` · [PR](https://github.com/GageDush/Rogue-Plus/pull/7)
 - **U4A** — `design/profile-candy-overview` · [PR](https://github.com/GageDush/Rogue-Plus/pull/8)
 - **D0** — `design/profile-candy-overview`
+- **O0** — `design/profile-candy-overview`
 - **DOCS-01** — `chore/project-tracking-2026-10-08` · [PR](https://github.com/GageDush/Rogue-Plus/pull/5)
 - **U1-CANDY** — `design/profile-candy-overview` · [PR](https://github.com/GageDush/Rogue-Plus/pull/8)
 - **U1-SAFE** — `design/profile-candy-overview` · [PR](https://github.com/GageDush/Rogue-Plus/pull/8)
@@ -185,7 +187,7 @@ Source and synthetic browser checks pass; physical iPhone review and production 
 - **Isolated restoration of actual user backup** — [project/evidence/RELEASE-AUDIT-2026-10-09.md](../project/evidence/RELEASE-AUDIT-2026-10-09.md)
 - **Failed-load preservation and strict nested backup validation** — [project/evidence/S0.md](../project/evidence/S0.md), [project/evidence/S1.md](../project/evidence/S1.md)
 - **Public content/history privacy review** — [project/evidence/RELEASE-AUDIT-2026-10-09.md](../project/evidence/RELEASE-AUDIT-2026-10-09.md)
-- **Offline cold start and safe cache updates** — [project/evidence/RELEASE-AUDIT-2026-10-09.md](../project/evidence/RELEASE-AUDIT-2026-10-09.md)
+- **Offline cold start and safe cache updates** — [project/evidence/O0.md](../project/evidence/O0.md)
 - **Real phone/desktop interaction signoff** — [project/evidence/U1-SAFE.md](../project/evidence/U1-SAFE.md), [project/evidence/RELEASE-AUDIT-2026-10-09.md](../project/evidence/RELEASE-AUDIT-2026-10-09.md)
 - **Explicit merge and production rollout approval** — No passing evidence recorded.
 
