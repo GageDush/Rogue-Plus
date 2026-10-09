@@ -58,3 +58,15 @@ Previous: More replaced the current feature with a full library page. Replacemen
 ## DES-010 — Desktop navigation follows available height (2026-10-08)
 
 User approved replacing the redundant tall-desktop More control with all secondary destinations directly in the sidebar. Below 720px viewport height, desktop secondary destinations collapse into More; its panel opens beside the actual sidebar trigger and stays within the viewport. Mobile retains the header trigger. This replaces DES-009’s universal top-right position for desktop. Applies to U1-NAVFIT; no feature or route change.
+
+## DEX-001 — Grid, scope and available-option searching (2026-10-09)
+
+Accepted product direction from user: default three-column mobile Grid, desktop width-responsive Grid up to eight columns, optional List; one Collected/All Pokémon Dex defaulting to Collected. Collected searches starter-selectable moves and unlocked abilities; All includes possible unlocks with locked labels. This supersedes U4A’s presentation-only requirement to retain the same six filters/query behavior. Filtering, sorting, Advanced toggle and an advanced-search guide are accepted requirements. Exact syntax/menu details remain proposed in DEX_HANDOFF. Affects U4A, DEX-REF and DEX-SEARCH; feature implementation is not claimed.
+
+## DEX-002 — Candy reservation and verified pricing (2026-10-09)
+
+User explicitly requested Reserve candy for upgrades. Planned reserve covers missing eligible passive and remaining starter reductions; show raw and reserved egg budgets without changing account candy. Pricing joins original base cost, hatch count, unlock/reduction state and verified official rules, including exceptions. Preserve DES-006’s priorities and random-outcome labels. Affects DEX-CANDY and shared Home consumers.
+
+## DEX-003 — Reference update target (2026-10-09)
+
+User accepted versioned reference-update direction with “Sounds good.” Future bundled fallback plus validated cached packs, atomic activation and rollback replaces bundled-only target, not current runtime. Official released-revision detection, trust/schema compatibility and reviewed publication must be designed before implementation; automatic publication and historical rules selector remain proposals. No executable downloads or account-state mutation. Affects DEX-UPDATES; implementation/release authorization remains separate.

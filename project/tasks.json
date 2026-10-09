@@ -695,21 +695,21 @@
     {
       "id": "U4A",
       "milestone": "B",
-      "title": "Dex rows, search and quick filters",
-      "scope": "Restyle the existing screen behavior with phone-first hierarchy and honest provenance.",
+      "title": "Dex Grid/List, scope and filter/sort foundations",
+      "scope": "Default three-column mobile Grid and width-responsive desktop up to eight; optional List, Collected/All scope and filter/sort access using supported imported fields. Preserve detail round-trip state.",
       "excludes": "No unrelated features, mechanics changes, storage migration or production deployment.",
-      "class": "presentation",
+      "class": "interaction",
       "authorization": "pending",
       "status": "planned",
       "dependsOn": [
-        "U1",
-        "U2"
+        "U1-NAVFIT"
       ],
       "paths": [
         "companion/src/features/dex/DexPage.tsx"
       ],
       "guidance": [
         "docs/DECISIONS.md",
+        "docs/DEX_HANDOFF.md",
         "docs/ARCHITECTURE.md",
         "docs/DESIGN.md"
       ],
@@ -721,7 +721,7 @@
       "acceptance": [
         {
           "id": "AC1",
-          "description": "Same query matching, six filters and 90-item reveal preserved.",
+          "description": "Grid/List, default Collected scope, supported filter/sort controls and Advanced access work at 320/390 and desktop widths in both themes; unsupported reference fields are not fabricated.",
           "result": "not_tested",
           "evidence": []
         },
@@ -2042,13 +2042,231 @@
           "id": "AC1",
           "description": "Tall desktop shows all destinations without More; shorter desktop shows More beside its trigger, bounded within viewport, with dismissal preserving page state.",
           "result": "pass",
-          "evidence": ["project/evidence/U1-NAVFIT.md"]
+          "evidence": [
+            "project/evidence/U1-NAVFIT.md"
+          ]
         },
         {
           "id": "AC2",
           "description": "Both themes, 320/390 phones, short landscape and desktop resizing retain navigation and existing storage/import behavior.",
           "result": "pass",
-          "evidence": ["project/evidence/U1-NAVFIT.md"]
+          "evidence": [
+            "project/evidence/U1-NAVFIT.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "DEX-DOC",
+      "milestone": "B",
+      "title": "Dex decisions and new-context handoff",
+      "scope": "Record accepted Dex direction, data provenance and staged implementation plan; refresh generated tracking.",
+      "excludes": "No application edits, feature implementation, merge or deployment.",
+      "class": "documentation",
+      "authorization": "approved",
+      "status": "verified",
+      "dependsOn": [
+        "U1-NAVFIT"
+      ],
+      "paths": [
+        "docs/DEX_HANDOFF.md",
+        "docs/DECISIONS.md",
+        "AGENTS.md",
+        "project/tasks.json",
+        "project/evidence/DEX-DOC.md"
+      ],
+      "guidance": [
+        "docs/DECISIONS.md",
+        "docs/DEX_HANDOFF.md",
+        "docs/PROJECT_WORKFLOW.md"
+      ],
+      "docsReviewed": [
+        "docs/DECISIONS.md",
+        "docs/DEX_HANDOFF.md",
+        "docs/PROJECT_WORKFLOW.md"
+      ],
+      "delivery": {
+        "stage": "pr_open",
+        "branch": "design/profile-candy-overview",
+        "pr": "https://github.com/GageDush/Rogue-Plus/pull/8"
+      },
+      "acceptance": [
+        {
+          "id": "AC1",
+          "description": "Accepted requirements separated from proposed syntax and future reference-update architecture; baseline and first packet documented.",
+          "result": "pass",
+          "evidence": [
+            "project/evidence/DEX-DOC.md"
+          ]
+        },
+        {
+          "id": "AC2",
+          "description": "Tracking generation, built-in tests and freshness pass; no application files changed by this packet.",
+          "result": "pass",
+          "evidence": [
+            "project/evidence/DEX-DOC.md"
+          ]
+        }
+      ],
+      "verifiedOn": "2026-10-09"
+    },
+    {
+      "id": "DEX-REF",
+      "milestone": "B",
+      "title": "Pinned Dex reference coverage",
+      "scope": "Implement the scoped packet described in docs/DEX_HANDOFF.md; record actual coverage and compatibility evidence.",
+      "excludes": "No unrelated features, private data publication, save writeback, merge or production deployment.",
+      "class": "data",
+      "authorization": "pending",
+      "status": "planned",
+      "dependsOn": [
+        "U4A"
+      ],
+      "paths": [
+        "docs/DEX_HANDOFF.md"
+      ],
+      "guidance": [
+        "docs/DECISIONS.md",
+        "docs/DEX_HANDOFF.md",
+        "docs/ARCHITECTURE.md"
+      ],
+      "docsReviewed": [],
+      "delivery": {
+        "stage": "not_started",
+        "branch": null
+      },
+      "acceptance": [
+        {
+          "id": "AC1",
+          "description": "Scoped behavior and source/version provenance verified with meaningful synthetic boundary cases; criteria refined before implementation.",
+          "result": "not_tested",
+          "evidence": []
+        },
+        {
+          "id": "AC2",
+          "description": "Affected consumers and guidance reviewed; compatibility and unavailable-data behavior verified without unrelated regressions.",
+          "result": "not_tested",
+          "evidence": []
+        }
+      ]
+    },
+    {
+      "id": "DEX-SEARCH",
+      "milestone": "B",
+      "title": "Advanced search and available-option matching",
+      "scope": "Implement the scoped packet described in docs/DEX_HANDOFF.md; record actual coverage and compatibility evidence.",
+      "excludes": "No unrelated features, private data publication, save writeback, merge or production deployment.",
+      "class": "feature",
+      "authorization": "pending",
+      "status": "planned",
+      "dependsOn": [
+        "DEX-REF"
+      ],
+      "paths": [
+        "docs/DEX_HANDOFF.md"
+      ],
+      "guidance": [
+        "docs/DECISIONS.md",
+        "docs/DEX_HANDOFF.md",
+        "docs/ARCHITECTURE.md"
+      ],
+      "docsReviewed": [],
+      "delivery": {
+        "stage": "not_started",
+        "branch": null
+      },
+      "acceptance": [
+        {
+          "id": "AC1",
+          "description": "Scoped behavior and source/version provenance verified with meaningful synthetic boundary cases; criteria refined before implementation.",
+          "result": "not_tested",
+          "evidence": []
+        },
+        {
+          "id": "AC2",
+          "description": "Affected consumers and guidance reviewed; compatibility and unavailable-data behavior verified without unrelated regressions.",
+          "result": "not_tested",
+          "evidence": []
+        }
+      ]
+    },
+    {
+      "id": "DEX-CANDY",
+      "milestone": "B",
+      "title": "Verified candy eligibility and reserve budgets",
+      "scope": "Implement the scoped packet described in docs/DEX_HANDOFF.md; record actual coverage and compatibility evidence.",
+      "excludes": "No unrelated features, private data publication, save writeback, merge or production deployment.",
+      "class": "data",
+      "authorization": "pending",
+      "status": "planned",
+      "dependsOn": [
+        "DEX-REF"
+      ],
+      "paths": [
+        "docs/DEX_HANDOFF.md"
+      ],
+      "guidance": [
+        "docs/DECISIONS.md",
+        "docs/DEX_HANDOFF.md",
+        "docs/ARCHITECTURE.md"
+      ],
+      "docsReviewed": [],
+      "delivery": {
+        "stage": "not_started",
+        "branch": null
+      },
+      "acceptance": [
+        {
+          "id": "AC1",
+          "description": "Scoped behavior and source/version provenance verified with meaningful synthetic boundary cases; criteria refined before implementation.",
+          "result": "not_tested",
+          "evidence": []
+        },
+        {
+          "id": "AC2",
+          "description": "Affected consumers and guidance reviewed; compatibility and unavailable-data behavior verified without unrelated regressions.",
+          "result": "not_tested",
+          "evidence": []
+        }
+      ]
+    },
+    {
+      "id": "DEX-UPDATES",
+      "milestone": "B",
+      "title": "Versioned reference update pipeline",
+      "scope": "Implement the scoped packet described in docs/DEX_HANDOFF.md; record actual coverage and compatibility evidence.",
+      "excludes": "No unrelated features, private data publication, save writeback, merge or production deployment.",
+      "class": "infrastructure",
+      "authorization": "pending",
+      "status": "planned",
+      "dependsOn": [
+        "DEX-CANDY"
+      ],
+      "paths": [
+        "docs/DEX_HANDOFF.md"
+      ],
+      "guidance": [
+        "docs/DECISIONS.md",
+        "docs/DEX_HANDOFF.md",
+        "docs/ARCHITECTURE.md"
+      ],
+      "docsReviewed": [],
+      "delivery": {
+        "stage": "not_started",
+        "branch": null
+      },
+      "acceptance": [
+        {
+          "id": "AC1",
+          "description": "Scoped behavior and source/version provenance verified with meaningful synthetic boundary cases; criteria refined before implementation.",
+          "result": "not_tested",
+          "evidence": []
+        },
+        {
+          "id": "AC2",
+          "description": "Affected consumers and guidance reviewed; compatibility and unavailable-data behavior verified without unrelated regressions.",
+          "result": "not_tested",
+          "evidence": []
         }
       ]
     }
