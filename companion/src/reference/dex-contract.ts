@@ -43,6 +43,7 @@ export interface DexFormReference {
   readonly baseStats: ReferenceValue<BaseStats>;
   readonly baseStatTotal: ReferenceValue<number>;
   readonly abilities: ReferenceValue<AbilitySlots>;
+  readonly passiveAbilityId: ReferenceValue<number | null>;
   readonly starterSelectable: ReferenceValue<boolean>;
   readonly obtainable: ReferenceValue<boolean>;
   readonly levelMoves: ReferenceValue<readonly LevelMove[]>;

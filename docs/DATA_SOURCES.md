@@ -47,3 +47,7 @@ DEX-REF-SPECIES statically reads TypeScript syntax at the unchanged game pin, in
 ## Evolution and form relationships
 
 DEX-REF-ROOTS populates every species' official `starter` association, direct deduplicated evolution IDs, ordered `evolutionLinks` and `formChangeLinks`. Links preserve source/target form keys and target species IDs; absent restrictions use null. The official empty target key is retained even when the first target form has a gendered name. This is a relationship graph, not an evolution eligibility/condition evaluator. Generation rejects missing/unpriced roots, missing species targets and unknown nonempty form targets. No account ownership or search changes.
+
+## Ability/passive coverage
+
+DEX-REF-ABILITIES resolves 317 officially named ability IDs, ordinary/hidden slots for all 1,500 forms and form-specific passives. Declared NONE is null; the game constructor's second-slot alias is left for selection compatibility. Passive lookup reproduces the pinned registry's form-zero fallback. Official unnamed ABILITY_314/ABILITY_317 enum placeholders are excluded and coverage is partial; referenced unknown names fail generation. These public facts contain no unlocked/enabled ownership. Reference CI installs TypeScript before extraction; application CI now runs extractor tests.

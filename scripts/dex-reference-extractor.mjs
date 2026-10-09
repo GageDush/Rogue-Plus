@@ -102,6 +102,7 @@ export function extractSpecies(entries, enums, names) {
         name: form.has('formName') ? get(form,'formName') : 'Normal', types: known(types),
         baseStats: known(baseStats), baseStatTotal: known(total),
         abilities: unavailable('Ability reference packet pending.'),
+        passiveAbilityId: unavailable('Ability reference packet pending.'),
         starterSelectable: unavailable('Selection compatibility packet pending.'),
         obtainable: unavailable('Selection compatibility packet pending.'),
         levelMoves: unavailable('Move reference packet pending.') };
@@ -151,4 +152,36 @@ export function applyRoots(species, entries, enums) {
     record.evolutionLinks = known(evolutions);
     record.formChangeLinks = known(links('formChanges',['SpeciesFormChange']));
   }
+}
+
+export function formConstructors(data) {
+  if (!data.has('forms')) return [data];
+  const list=data.get('forms');
+  if (!ts.isArrayLiteralExpression(list)) throw Error('Expected explicit forms');
+  return list.elements.length ? list.elements.map(node => fields(node.arguments[0])) : [data];
+}
+export function applyAbilities(species, entries, enums, names) {
+  // Official unknown ZA placeholders have no English identity; never invent a name.
+  const abilities = [...enums.AbilityId].filter(([key,id]) => id !== 0 && !/^ABILITY_\d+$/.test(key)).map(([key,id]) => named(key,id,names));
+  const valid = new Set(abilities.map(a => a.id));
+  const byId=new Map(species.map(s=>[s.id,s]));
+  const check=id=>{if(id===0)return null;if(!valid.has(id))throw Error('Missing named ability: '+id);return id;};
+  for (const {key,config,data} of entries) {
+    const record=byId.get(enums.SpeciesId.get(key));
+    const passives=config.get('passives');
+    const passiveTable=ts.isObjectLiteralExpression(passives) ? fields(passives) : null;
+    const passiveAt=index=>{
+      // Pinned SpeciesDataRegistry.getPassive falls back to form index zero.
+      const node=passiveTable ? (passiveTable.get(String(index)) ?? passiveTable.get('0')) : passives;
+      return node ? known(check(literal(node,enums))) : unavailable('No explicit passive for this form index.');
+    };
+    record.passiveAbilityId=passiveAt(0);
+    formConstructors(data).forEach((form,index)=>{
+      const first=check(literal(form.get('ability1'),enums));
+      if(first===null)throw Error('Missing first ability: '+key);
+      record.forms.value[index].abilities=known({first,second:check(literal(form.get('ability2'),enums)),hidden:check(literal(form.get('abilityHidden'),enums))});
+      record.forms.value[index].passiveAbilityId=passiveAt(index);
+    });
+  }
+  return abilities.sort((a,b)=>a.id-b.id);
 }
