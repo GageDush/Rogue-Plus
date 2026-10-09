@@ -55,9 +55,17 @@ export interface DexSpeciesReference extends NamedReference {
   /** Explicit official starter associations, not a name/ID heuristic. */
   readonly starterRootIds: ReferenceValue<readonly number[]>;
   readonly evolutionIds: ReferenceValue<readonly number[]>;
+  /** null form keys mean the source declares no explicit form restriction. */
+  readonly evolutionLinks: ReferenceValue<readonly DexRelationship[]>;
+  readonly formChangeLinks: ReferenceValue<readonly DexRelationship[]>;
   readonly passiveAbilityId: ReferenceValue<number | null>;
   /** Preserve official slot order. Ownership and unlocks are account facts. */
   readonly eggMoveIds: ReferenceValue<readonly number[]>;
+}
+export interface DexRelationship {
+  readonly targetSpeciesId: number;
+  readonly fromFormKey: string | null;
+  readonly toFormKey: string | null;
 }
 export interface DexMoveReference extends NamedReference {
   readonly typeId: ReferenceValue<number>;

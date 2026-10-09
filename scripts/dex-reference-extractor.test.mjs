@@ -1,13 +1,34 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { enumValues, literal, syntax, fields, speciesEntries, extractSpecies } from './dex-reference-extractor.mjs';
+import { enumValues, literal, syntax, fields, speciesEntries, extractSpecies, applyRoots } from './dex-reference-extractor.mjs';
 const enums = {SpeciesId:new Map([['TEST',1]]),PokemonType:new Map([['GRASS',11]]),SpeciesFormKey:new Map()};
 const specimen = total => `const data={}; data[SpeciesId.TEST]={species:new PokemonSpecies({id:SpeciesId.TEST,generation:1,type1:PokemonType.GRASS,type2:null,baseTotal:${total},baseHp:1,baseAtk:2,baseDef:3,baseSpatk:4,baseSpdef:5,baseSpd:6}),starterCost:3};`;
 test('enum extraction handles explicit/implicit numbers, strings and negatives',()=>{
   assert.deepEqual([...enumValues('enum E { A=-1,B,C=5,D }','E').values()],[-1,0,5,6]);
   assert.equal(enumValues('enum E { A="mega" }','E').get('A'),'mega');
   assert.throws(()=>enumValues('enum E { A=getId() }','E'),/Unsupported/);
+});
+test('roots reject missing associations, unpriced roots and missing form targets',()=>{
+  const make=extra=>speciesEntries(specimen(21).replace('starterCost:3',`starterCost:3,${extra}`));
+  const pack=()=>extractSpecies(make('starter:SpeciesId.TEST'),enums,{test:'Test'});
+  const records=pack();applyRoots(records,make('starter:SpeciesId.TEST,evolutions:[]'),enums);
+  assert.deepEqual(records[0].starterRootIds.value,[1]);assert.deepEqual(records[0].evolutionIds.value,[]);
+  assert.throws(()=>applyRoots(pack(),make('starter:999'),enums),/starter root/);
+  assert.throws(()=>applyRoots(pack(),make('starter:SpeciesId.TEST,evolutions:[new SpeciesEvolution({speciesId:999})]'),enums),/target/);
+  assert.throws(()=>applyRoots(pack(),make('starter:SpeciesId.TEST,evolutions:[new SpeciesFormEvolution({speciesId:SpeciesId.TEST,preFormKey:"fake",evoFormKey:""})]'),enums),/form/);
+  const unpriced=pack();unpriced[0].originalStarterCost.value=null;
+  assert.throws(()=>applyRoots(unpriced,make('starter:SpeciesId.TEST'),enums),/unpriced/);
+});
+test('pinned roots cover branching, regional and explicit form relationships',()=>{
+  const pack=JSON.parse(readFileSync(new URL('../companion/src/reference/generated/dex-reference.v1.json',import.meta.url)));
+  const get=key=>pack.species.find(s=>s.key===key);
+  assert.deepEqual(get('GARCHOMP').starterRootIds.value,[get('GIBLE').id]);
+  assert.equal(get('EEVEE').evolutionIds.value.length,8);
+  assert.deepEqual(get('ALOLA_RAICHU').starterRootIds.value,[get('PICHU').id]);
+  assert.ok(get('PIKACHU').evolutionLinks.value.some(link=>link.fromFormKey==='partner'));
+  assert.ok(get('CHARIZARD').formChangeLinks.value.some(link=>link.toFormKey==='mega-x'));
+  assert.equal(pack.coverage.roots.count,1084);
 });
 test('static literals reject calls, spreads, malformed syntax and duplicate fields',()=>{
   assert.throws(()=>literal(syntax('call()').statements[0].expression),/Unsupported/);

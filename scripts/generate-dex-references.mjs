@@ -1,7 +1,7 @@
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { resolve, dirname } from 'node:path';
 import { createHash } from 'node:crypto';
-import { enumValues, speciesEntries, extractSpecies, known } from './dex-reference-extractor.mjs';
+import { enumValues, speciesEntries, extractSpecies, applyRoots } from './dex-reference-extractor.mjs';
 const root = resolve(import.meta.dirname,'..');
 // Gitlink at the unchanged game revision; do not use the locales moving branch.
 export const localeCommit = '0696f674f631b47f208f5d687b427ed3e7cd81b0';
@@ -23,6 +23,7 @@ export async function generateDexReferences() {
   const enums = Object.fromEntries(['SpeciesId','PokemonType','SpeciesFormKey'].map((name,i) => [name,enumValues(texts[i],name)]));
   const entries = texts.slice(3).flatMap(speciesEntries);
   const species = extractSpecies(entries,enums,names);
+  applyRoots(species,entries,enums);
   const expectedIds = [...enums.SpeciesId.values()].filter(id => id > 0);
   if (expectedIds.length !== species.length || expectedIds.some(id => !species.some(s => s.id === id))) throw Error('Incomplete species declaration coverage');
   const types = [...enums.PokemonType].filter(([,id]) => id >= 0).map(([key,id]) => ({key,id,name:key[0]+key.slice(1).toLowerCase()}));
@@ -30,7 +31,7 @@ export async function generateDexReferences() {
   const pack = {schemaVersion:1,referenceVersion:'upstream-'+lock.game.commit.slice(0,12),
     provenance:{repository:lock.game.repository,commit:lock.game.commit,paths},
     coverage:{species:{status:'complete',count:species.length,boundary:'Every non-NONE SpeciesId declaration and explicit PokemonForm at the pinned game revision.'},
-      roots:pending('Root packet pending.'), abilities:pending('Ability packet pending.'), moves:pending('Move packet pending.'), selection:pending('Starter compatibility packet pending.')},
+      roots:{status:'complete',count:species.length,boundary:'Explicit starter associations and declared evolution/form-change links; no evolution eligibility claims.'}, abilities:pending('Ability packet pending.'), moves:pending('Move packet pending.'), selection:pending('Starter compatibility packet pending.')},
     species,types,abilities:[],moves:[]};
   const output = resolve(root,'companion/src/reference/generated/dex-reference.v1.json');
   await mkdir(dirname(output),{recursive:true});

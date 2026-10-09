@@ -112,7 +112,43 @@ export function extractSpecies(entries, enums, names) {
     if (cost !== null && (!Number.isInteger(cost) || cost < 1 || cost > 10)) throw Error('Invalid starter cost');
     records.push({ ...named(key,id,names), generation: known(generation), originalStarterCost: known(cost), forms: known(forms),
       starterRootIds: unavailable('Root reference packet pending.'), evolutionIds: unavailable('Root reference packet pending.'),
+      evolutionLinks: unavailable('Root reference packet pending.'), formChangeLinks: unavailable('Root reference packet pending.'),
       passiveAbilityId: unavailable('Ability reference packet pending.'), eggMoveIds: unavailable('Move reference packet pending.') });
   }
   return records.sort((a,b) => a.id-b.id);
+}
+
+/** Relationships only: conditions/items/levels are not a rules-legality engine. */
+export function applyRoots(species, entries, enums) {
+  const byId = new Map(species.map(s => [s.id,s]));
+  for (const entry of entries) {
+    const record = byId.get(enums.SpeciesId.get(entry.key));
+    const rootId = literal(entry.config.get('starter'),enums);
+    if (!byId.has(rootId) || byId.get(rootId).originalStarterCost.value === null) throw Error('Missing/unpriced starter root: ' + entry.key);
+    record.starterRootIds = known([rootId]);
+    function links(field, allowed) {
+      if (!entry.config.has(field)) return [];
+      const list = entry.config.get(field);
+      if (!ts.isArrayLiteralExpression(list)) throw Error('Expected explicit relationship array');
+      return list.elements.map(node => {
+        if (!ts.isNewExpression(node) || !allowed.includes(node.expression.getText()) || node.arguments?.length !== 1) throw Error('Unsupported relationship constructor');
+        const values = fields(node.arguments[0]);
+        const targetSpeciesId = literal(values.get('speciesId'),enums);
+        if (!byId.has(targetSpeciesId)) throw Error('Missing relationship target: ' + targetSpeciesId);
+        const readKey = key => values.has(key) ? literal(values.get(key),enums) : null;
+        const link = {targetSpeciesId,fromFormKey:readKey('preFormKey'),toFormKey:readKey('evoFormKey')};
+        for (const [id,key] of [[record.id,link.fromFormKey],[targetSpeciesId,link.toFormKey]]) {
+          // Preserve the official empty target key even when a gendered first form has a named key.
+          // This graph records source declarations; selection/evolution execution is separate.
+          if (key !== null && !(id === targetSpeciesId && key === '')
+            && !byId.get(id).forms.value.some(form => form.key === key)) throw Error('Missing relationship form: ' + entry.key + ' / ' + key);
+        }
+        return link;
+      });
+    }
+    const evolutions = links('evolutions',['SpeciesEvolution','SpeciesFormEvolution']);
+    record.evolutionIds = known([...new Set(evolutions.map(link => link.targetSpeciesId))]);
+    record.evolutionLinks = known(evolutions);
+    record.formChangeLinks = known(links('formChanges',['SpeciesFormChange']));
+  }
 }

@@ -4,7 +4,7 @@ import { createDexReferenceIndex, known, unavailable, type DexReferencePack, typ
 const species: DexSpeciesReference = {
   id: 1, key: 'SYNTHETIC', name: 'Synthetic Species', generation: known(1),
   originalStarterCost: known(null), forms: known([]), starterRootIds: unavailable('Not extracted yet'),
-  evolutionIds: known([]), passiveAbilityId: known(null), eggMoveIds: unavailable('Not extracted yet'),
+  evolutionIds: known([]), evolutionLinks: known([]), formChangeLinks: known([]), passiveAbilityId: known(null), eggMoveIds: unavailable('Not extracted yet'),
 };
 const coverage = { status: 'unavailable', count: 0, boundary: 'Synthetic test only' } as const;
 function fixture(): DexReferencePack {
