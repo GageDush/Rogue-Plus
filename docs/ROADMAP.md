@@ -831,7 +831,7 @@ Expose validated reference lookups and integrate expanded public facts/standard 
 
 **Affected paths:** [companion/src/reference/index.ts](../companion/src/reference/index.ts), [companion/src/domain/dex-catalog.ts](../companion/src/domain/dex-catalog.ts), [companion/src/domain/facade.ts](../companion/src/domain/facade.ts), [companion/src/domain/starter-selection.ts](../companion/src/domain/starter-selection.ts), [companion/src/domain/dex-query.ts](../companion/src/domain/dex-query.ts), [companion/src/features/dex/DexPage.tsx](../companion/src/features/dex/DexPage.tsx), [companion/src/features/dex/DetailPage.tsx](../companion/src/features/dex/DetailPage.tsx), [companion/src/App.tsx](../companion/src/App.tsx), [companion/src/ui/styles/field-guide.css](../companion/src/ui/styles/field-guide.css), [companion/tests/dex-catalog.test.tsx](../companion/tests/dex-catalog.test.tsx), [companion/scripts/check-dex.mjs](../companion/scripts/check-dex.mjs), [companion/scripts/check-dex-reference.mjs](../companion/scripts/check-dex-reference.mjs), [.github/workflows/companion-ui.yml](../.github/workflows/companion-ui.yml), [project/evidence/DEX-REF-INTEGRATE.md](../project/evidence/DEX-REF-INTEGRATE.md)
 
-**Guidance:** [docs/DEX_HANDOFF.md](../docs/DEX_HANDOFF.md), [docs/DATA_SOURCES.md](../docs/DATA_SOURCES.md), [docs/ARCHITECTURE.md](../docs/ARCHITECTURE.md), [docs/DESIGN.md](../docs/DESIGN.md), [docs/DECISIONS.md](../docs/DECISIONS.md)
+**Guidance:** [docs/DEX_HANDOFF.md](../docs/DEX_HANDOFF.md), [docs/DATA_SOURCES.md](../docs/DATA_SOURCES.md), [docs/ARCHITECTURE.md](../docs/ARCHITECTURE.md), [docs/DESIGN.md](../docs/DESIGN.md), [docs/DECISIONS.md](../docs/DECISIONS.md), [AGENTS.md](../AGENTS.md)
 
 </details>
 

@@ -2721,14 +2721,16 @@
         "docs/DATA_SOURCES.md",
         "docs/ARCHITECTURE.md",
         "docs/DESIGN.md",
-        "docs/DECISIONS.md"
+        "docs/DECISIONS.md",
+        "AGENTS.md"
       ],
       "docsReviewed": [
         "docs/DEX_HANDOFF.md",
         "docs/DATA_SOURCES.md",
         "docs/ARCHITECTURE.md",
         "docs/DESIGN.md",
-        "docs/DECISIONS.md"
+        "docs/DECISIONS.md",
+        "AGENTS.md"
       ],
       "delivery": {
         "stage": "pr_open",

@@ -1,15 +1,15 @@
 # Rogue+ Dex implementation handoff
 
-Prepared 2026-10-09. This is a scoped handoff, not a second status ledger. Read AGENTS.md, DECISIONS.md and project/tasks.json first. U4A foundations are now implemented on the draft branch; reference search, candy reservation and reference-update packets remain unimplemented.
+Prepared 2026-10-09. This is a scoped handoff, not a second status ledger. Read AGENTS.md, DECISIONS.md and project/tasks.json first. U4A and all eight authorized reference packets, including standard selection and facade/UI integration, are implemented on the draft branch. Plain-text reference/option matching is implemented; expression grammar, candy reservation and runtime reference updates remain separate pending tasks.
 
 ## Working source and delivery
 
 - Repository: GageDush/Rogue-Plus. Continue design/profile-candy-overview, draft PR #8: https://github.com/GageDush/Rogue-Plus/pull/8 . Check actual head before editing.
-- Pre-handoff documentation head: 126182cebb84e3955b5fb5ea5a31c96060881b26. Implementation/test head: 0c77db9a979d7b7243255664556e9e05596fbff3. This documentation packet produces a later head; do not treat this snapshot as current forever.
-- Preview: https://design-profile-candy-overview-rogue-plus.gagedush-bff.workers.dev/ . Last recorded application preview head: 8efd69313c5d96835e434cd8b123e9c0e4ecacff; later application-test changes did not change UI bytes. No byte-parity claim for later heads.
-- main baseline: 1fe923af979466cfa4d785127a69d9e3ae6edf9d. No production merge/deploy by this handoff.
-- Baseline/UI/tracking workflows passed on implementation/test head; see project/evidence/U1-NAVFIT.md. Physical safe-area gate remains pending despite successful user keyboard testing.
-- Current workspace is a materialized source with a seeded Git index, no HEAD/remotes/history. Its whole-tree status is not a publishable diff. Use real checkout or connector with explicit changed paths and expected-head check.
+- Published reference integration head: 3f64539ae165e03800dd8ec8739d6a99b15b1822; selection head: d7a1bd30b32e585b178118b3ad42a58b7b9c4e0a. Later documentation closure may produce a later head; reconcile the live PR branch before editing.
+- Preview: https://design-profile-candy-overview-rogue-plus.gagedush-bff.workers.dev/ . Last recorded application preview head remains 8efd69313c5d96835e434cd8b123e9c0e4ecacff. New reference/UI work has not been deployed to that preview; no byte-parity claim for current heads.
+- main baseline recorded by the original handoff: 1fe923af979466cfa4d785127a69d9e3ae6edf9d. No production merge/deploy in this work.
+- Local application/browser/tracking checks and sanitized evidence are in project/evidence/DEX-REF-INTEGRATE.md. Final remote CI is checked on PR #8 separately. Physical safe-area/device/offline gates remain pending.
+- Current workspace is a real Git checkout on design/profile-candy-overview with origin and history. Local originals are retained on checkpoint/reference-packets-3-6 and checkpoint/reference-packets-7-8. Connected GitHub publication produced equivalent trees with different commit metadata/SHAs; the active local branch is synced to the remote history. Shell Git lacks write credentials, so any authorized publication uses explicit changed paths, expected-head checks and exact tree verification through the connector.
 
 ## Accepted Dex direction
 
@@ -43,7 +43,7 @@ Sort candidates: Dex number, name, current cost, luck, candy, perfect IVs, egg-m
 
 Actual normalized fields: companion/src/domain/types.ts and import/normalize.ts. Current reference: reference-sources.lock.json, companion/src/reference/mechanics.v1.json and source-manifest.v1.json. Game pin e734a202a912cc969409c84111b5ab6a15fc7774; assets pin 056a1f408f26a3be4fef243f7462cb43608c7928. Do not bump incidentally.
 
-Before U4A, Dex had name/gap search, six quick filters and bounded list reveal. U4A replaces that presentation/query foundation with Grid/List, explicit Collected/All starter scope, imported-field conditions/ranges and sorting; richer reference search remains unimplemented. Current domain/candy-actions.ts already prioritizes affordable passives/reductions/eggs using bundled hatch discount tables, but full eligibility/exception handling and reserve are not verified. Use this code as evidence, not as a complete pricing specification.
+Before U4A, Dex had name/gap search, six quick filters and bounded list reveal. U4A replaces that presentation/query foundation with Grid/List, explicit Collected/All scope, imported-field conditions/ranges and sorting. Completed reference integration expands All to public species and adds plain-text related-name/option matching; expression grammar remains unimplemented. Current domain/candy-actions.ts already prioritizes affordable passives/reductions/eggs using bundled hatch discount tables, but full eligibility/exception handling and reserve are not verified. Use this code as evidence, not as a complete pricing specification.
 
 Starter-selectable moves require verified starter selection rules, applicable form/learnset and unlocked egg slots. A level-up/evolution move is not necessarily selectable now. Map ability slots to species/form names; unlocked passive differs from enabled. Forms caught, starter-selectable and obtainable later are distinct. Friendship progress is not universal happiness percentage. Pseudo-legendary/trio groupings require maintained definitions, not guessed flags.
 
@@ -66,9 +66,7 @@ Current rules can recalculate prices; dated save still owns candy/unlocks. Move 
 
 ## Next session
 
-Use rogue-plus-navigate; reconcile actual head and read this handoff once. First packet U4A: Grid/List, scope and filter/sort access plus supported imported-field query foundation. No fake type/move filters before reference coverage. U4A replaces old presentation-only preservation criteria by explicit accepted requirements; other feature owners must be regression checked.
-
-Then DEX-REF (reference coverage), DEX-SEARCH (grammar/available-vs-possible search), DEX-CANDY (pricing/reserve), DEX-UPDATES (reference update architecture). Task dependencies and pending approvals live only in project/tasks.json. Do not implement all five at once.
+Use rogue-plus-navigate; reconcile actual head and read this handoff once. All eight authorized packets are verified in project/tasks.json; no task is active. DEX-SEARCH expression grammar/guide, DEX-CANDY pricing/reserve and DEX-UPDATES runtime architecture remain separately scoped tasks with approval/dependencies in the ledger. Already implemented plain-text option matching and type/generation controls must be preserved when later grammar extends the shared typed model. Do not restart U4A or reference extraction, and do not implement downstream work merely because dependencies are complete.
 
 Before close: meaningful synthetic tests, UI 320/390 and desktop/window-height cases, existing baseline/module-boundary checks, docs/evidence update and tracking regeneration. No saves/backups/private player facts committed. No save re-encryption, edited game-save export, upload API or PokéRogue writeback. Merge/deployment remain separately authorized.
 

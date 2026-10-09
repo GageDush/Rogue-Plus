@@ -28,7 +28,7 @@ Visual inspection found and fixed 320px title clipping and legacy microtext on n
 
 ## Consumers, guidance and limits
 
-Reviewed Home/Build/Run/Goals/Trainer/History/Fusion/Modules/import settings consumers, shared facade/artwork/navigation, backup/recovery and query contracts. Updated DEX_HANDOFF, DATA_SOURCES, ARCHITECTURE, DESIGN, DECISIONS and reference README. No second status ledger or private saves/backups/secrets in this packet.
+Reviewed Home/Build/Run/Goals/Trainer/History/Fusion/Modules/import settings consumers, shared facade/artwork/navigation, backup/recovery and query contracts. Reviewed AGENTS; updated DEX_HANDOFF, DATA_SOURCES, ARCHITECTURE, DESIGN, DECISIONS and reference README. Final guidance closure removes the stale materialized-workspace recovery claim and obsolete next-U4A instructions; current source is the real synced checkout and downstream tasks remain pending approval. No second status ledger or private saves/backups/secrets in this packet.
 
 Final production JS is 2,697.50 kB / 326.58 kB gzip; Vite reports its chunk-size warning. Full bundled reference increases startup payload; splitting/remote-pack architecture is a later packet. Two unnamed official ability placeholders remain excluded with explicit partial coverage. Active challenges/Fresh Start, saved starter preferences, arbitrary later moves/evolution conditions, all-form artwork coverage, physical installed Safari/iPhone and offline/release parity are not claimed. Runtime remains bundled-only and standard-account compatibility stays pinned.
 
