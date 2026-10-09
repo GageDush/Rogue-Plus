@@ -2131,13 +2131,14 @@
       "id": "DEX-REF",
       "milestone": "B",
       "title": "Pinned Dex reference coverage",
-      "scope": "Implement the scoped packet described in docs/DEX_HANDOFF.md; record actual coverage and compatibility evidence.",
+      "scope": "Parent acceptance for seven authorized reference packets; complete only after their pinned coverage, selection compatibility and facade integration are verified. Artwork verification is tracked separately as ART-VERIFY.",
       "excludes": "No unrelated features, private data publication, save writeback, merge or production deployment.",
       "class": "data",
-      "authorization": "pending",
+      "authorization": "approved",
       "status": "planned",
       "dependsOn": [
-        "U4A"
+        "U4A",
+        "DEX-REF-INTEGRATE"
       ],
       "paths": [
         "docs/DEX_HANDOFF.md"
@@ -2282,6 +2283,341 @@
         {
           "id": "AC2",
           "description": "Affected consumers and guidance reviewed; compatibility and unavailable-data behavior verified without unrelated regressions.",
+          "result": "not_tested",
+          "evidence": []
+        }
+      ]
+    },
+    {
+      "id": "ART-VERIFY",
+      "milestone": "B",
+      "title": "Pinned artwork fetch and rendering verification",
+      "scope": "Verify pinned JSON/PNG requests, actual cropped artwork, failures and fallback behavior.",
+      "excludes": "No search parser/UI expansion, candy reservation/pricing changes, reference updates, storage migration, private data, merge or production deployment.",
+      "class": "data",
+      "authorization": "approved",
+      "status": "verified",
+      "dependsOn": [
+        "U4A"
+      ],
+      "paths": [
+        "companion/src/domain/assets.ts",
+        "companion/src/ui/components/PokemonSprite.tsx",
+        "companion/src/ui/artwork.ts",
+        "companion/tests/artwork.test.ts",
+        "companion/scripts/check-artwork.mjs",
+        "project/evidence/ART-VERIFY.md"
+      ],
+      "guidance": [
+        "docs/DEX_HANDOFF.md",
+        "docs/DATA_SOURCES.md",
+        "docs/ARCHITECTURE.md"
+      ],
+      "docsReviewed": [
+        "docs/DEX_HANDOFF.md",
+        "docs/DATA_SOURCES.md",
+        "docs/ARCHITECTURE.md"
+      ],
+      "delivery": {
+        "stage": "pr_open",
+        "branch": "design/profile-candy-overview",
+        "pr": "https://github.com/GageDush/Rogue-Plus/pull/8"
+      },
+      "acceptance": [
+        {
+          "id": "AC1",
+          "description": "Actual pinned JSON/PNG CORS pixels render across nine generations, canonical/regional forms and shiny tiers; synthetic invalid-frame, failure, timeout, retry and fallback cases pass.",
+          "result": "pass",
+          "evidence": [
+            "project/evidence/ART-VERIFY.md"
+          ]
+        },
+        {
+          "id": "AC2",
+          "description": "320/390px and desktop short/large artwork states plus shared Dex/theme/recovery consumers verified; application and tracking checks pass, guidance reviewed with limits recorded.",
+          "result": "pass",
+          "evidence": [
+            "project/evidence/ART-VERIFY.md"
+          ]
+        }
+      ],
+      "verifiedOn": "2026-10-09"
+    },
+    {
+      "id": "DEX-REF-CONTRACT",
+      "milestone": "B",
+      "title": "Dex reference contract",
+      "scope": "Define species/forms/roots/provenance/coverage separate from imported facts.",
+      "excludes": "No search parser/UI expansion, candy reservation/pricing changes, reference updates, storage migration, private data, merge or production deployment.",
+      "class": "data",
+      "authorization": "approved",
+      "status": "planned",
+      "dependsOn": [
+        "ART-VERIFY"
+      ],
+      "paths": [
+        "companion/src/reference/index.ts"
+      ],
+      "guidance": [
+        "docs/DEX_HANDOFF.md",
+        "docs/DATA_SOURCES.md",
+        "docs/ARCHITECTURE.md"
+      ],
+      "docsReviewed": [],
+      "delivery": {
+        "stage": "not_started",
+        "branch": null
+      },
+      "acceptance": [
+        {
+          "id": "AC1",
+          "description": "Packet scope and official pinned provenance verified with meaningful positive, negative and unavailable-data cases.",
+          "result": "not_tested",
+          "evidence": []
+        },
+        {
+          "id": "AC2",
+          "description": "Affected consumers and guidance reviewed; applicable application, browser and tracking checks pass with honest limits.",
+          "result": "not_tested",
+          "evidence": []
+        }
+      ]
+    },
+    {
+      "id": "DEX-REF-SPECIES",
+      "milestone": "B",
+      "title": "Pinned species fundamentals",
+      "scope": "Generate verified names, types, generations, base stats and form records with deterministic coverage.",
+      "excludes": "No search parser/UI expansion, candy reservation/pricing changes, reference updates, storage migration, private data, merge or production deployment.",
+      "class": "data",
+      "authorization": "approved",
+      "status": "planned",
+      "dependsOn": [
+        "DEX-REF-CONTRACT"
+      ],
+      "paths": [
+        "scripts/generate-game-references.mjs"
+      ],
+      "guidance": [
+        "docs/DEX_HANDOFF.md",
+        "docs/DATA_SOURCES.md",
+        "docs/ARCHITECTURE.md"
+      ],
+      "docsReviewed": [],
+      "delivery": {
+        "stage": "not_started",
+        "branch": null
+      },
+      "acceptance": [
+        {
+          "id": "AC1",
+          "description": "Packet scope and official pinned provenance verified with meaningful positive, negative and unavailable-data cases.",
+          "result": "not_tested",
+          "evidence": []
+        },
+        {
+          "id": "AC2",
+          "description": "Affected consumers and guidance reviewed; applicable application, browser and tracking checks pass with honest limits.",
+          "result": "not_tested",
+          "evidence": []
+        }
+      ]
+    },
+    {
+      "id": "DEX-REF-ROOTS",
+      "milestone": "B",
+      "title": "Evolution and starter-root mapping",
+      "scope": "Generate verified evolution/form relationships and explicit starter-root candidates.",
+      "excludes": "No search parser/UI expansion, candy reservation/pricing changes, reference updates, storage migration, private data, merge or production deployment.",
+      "class": "data",
+      "authorization": "approved",
+      "status": "planned",
+      "dependsOn": [
+        "DEX-REF-SPECIES"
+      ],
+      "paths": [
+        "scripts/generate-game-references.mjs"
+      ],
+      "guidance": [
+        "docs/DEX_HANDOFF.md",
+        "docs/DATA_SOURCES.md",
+        "docs/ARCHITECTURE.md"
+      ],
+      "docsReviewed": [],
+      "delivery": {
+        "stage": "not_started",
+        "branch": null
+      },
+      "acceptance": [
+        {
+          "id": "AC1",
+          "description": "Packet scope and official pinned provenance verified with meaningful positive, negative and unavailable-data cases.",
+          "result": "not_tested",
+          "evidence": []
+        },
+        {
+          "id": "AC2",
+          "description": "Affected consumers and guidance reviewed; applicable application, browser and tracking checks pass with honest limits.",
+          "result": "not_tested",
+          "evidence": []
+        }
+      ]
+    },
+    {
+      "id": "DEX-REF-ABILITIES",
+      "milestone": "B",
+      "title": "Ability and passive reference slots",
+      "scope": "Verify ordinary/hidden ability slots and eligible passive mappings without changing ownership.",
+      "excludes": "No search parser/UI expansion, candy reservation/pricing changes, reference updates, storage migration, private data, merge or production deployment.",
+      "class": "data",
+      "authorization": "approved",
+      "status": "planned",
+      "dependsOn": [
+        "DEX-REF-ROOTS"
+      ],
+      "paths": [
+        "companion/src/reference/index.ts"
+      ],
+      "guidance": [
+        "docs/DEX_HANDOFF.md",
+        "docs/DATA_SOURCES.md",
+        "docs/ARCHITECTURE.md"
+      ],
+      "docsReviewed": [],
+      "delivery": {
+        "stage": "not_started",
+        "branch": null
+      },
+      "acceptance": [
+        {
+          "id": "AC1",
+          "description": "Packet scope and official pinned provenance verified with meaningful positive, negative and unavailable-data cases.",
+          "result": "not_tested",
+          "evidence": []
+        },
+        {
+          "id": "AC2",
+          "description": "Affected consumers and guidance reviewed; applicable application, browser and tracking checks pass with honest limits.",
+          "result": "not_tested",
+          "evidence": []
+        }
+      ]
+    },
+    {
+      "id": "DEX-REF-MOVES",
+      "milestone": "B",
+      "title": "Move facts and egg/learnset slots",
+      "scope": "Generate named move facts, egg slot order and required learnsets from unchanged pin.",
+      "excludes": "No search parser/UI expansion, candy reservation/pricing changes, reference updates, storage migration, private data, merge or production deployment.",
+      "class": "data",
+      "authorization": "approved",
+      "status": "planned",
+      "dependsOn": [
+        "DEX-REF-ABILITIES"
+      ],
+      "paths": [
+        "companion/src/reference/index.ts"
+      ],
+      "guidance": [
+        "docs/DEX_HANDOFF.md",
+        "docs/DATA_SOURCES.md",
+        "docs/ARCHITECTURE.md"
+      ],
+      "docsReviewed": [],
+      "delivery": {
+        "stage": "not_started",
+        "branch": null
+      },
+      "acceptance": [
+        {
+          "id": "AC1",
+          "description": "Packet scope and official pinned provenance verified with meaningful positive, negative and unavailable-data cases.",
+          "result": "not_tested",
+          "evidence": []
+        },
+        {
+          "id": "AC2",
+          "description": "Affected consumers and guidance reviewed; applicable application, browser and tracking checks pass with honest limits.",
+          "result": "not_tested",
+          "evidence": []
+        }
+      ]
+    },
+    {
+      "id": "DEX-REF-SELECTION",
+      "milestone": "B",
+      "title": "Starter selection compatibility",
+      "scope": "Establish verified selectable-now versus possible option rules with synthetic boundary cases.",
+      "excludes": "No search parser/UI expansion, candy reservation/pricing changes, reference updates, storage migration, private data, merge or production deployment.",
+      "class": "data",
+      "authorization": "approved",
+      "status": "planned",
+      "dependsOn": [
+        "DEX-REF-MOVES"
+      ],
+      "paths": [
+        "companion/src/domain/types.ts"
+      ],
+      "guidance": [
+        "docs/DEX_HANDOFF.md",
+        "docs/DATA_SOURCES.md",
+        "docs/ARCHITECTURE.md"
+      ],
+      "docsReviewed": [],
+      "delivery": {
+        "stage": "not_started",
+        "branch": null
+      },
+      "acceptance": [
+        {
+          "id": "AC1",
+          "description": "Packet scope and official pinned provenance verified with meaningful positive, negative and unavailable-data cases.",
+          "result": "not_tested",
+          "evidence": []
+        },
+        {
+          "id": "AC2",
+          "description": "Affected consumers and guidance reviewed; applicable application, browser and tracking checks pass with honest limits.",
+          "result": "not_tested",
+          "evidence": []
+        }
+      ]
+    },
+    {
+      "id": "DEX-REF-INTEGRATE",
+      "milestone": "B",
+      "title": "Reference facade integration and closure",
+      "scope": "Expose validated lookups ready for DEX-SEARCH and verify existing consumers and coverage.",
+      "excludes": "No search parser/UI expansion, candy reservation/pricing changes, reference updates, storage migration, private data, merge or production deployment.",
+      "class": "data",
+      "authorization": "approved",
+      "status": "planned",
+      "dependsOn": [
+        "DEX-REF-SELECTION"
+      ],
+      "paths": [
+        "companion/src/domain/facade.ts"
+      ],
+      "guidance": [
+        "docs/DEX_HANDOFF.md",
+        "docs/DATA_SOURCES.md",
+        "docs/ARCHITECTURE.md"
+      ],
+      "docsReviewed": [],
+      "delivery": {
+        "stage": "not_started",
+        "branch": null
+      },
+      "acceptance": [
+        {
+          "id": "AC1",
+          "description": "Packet scope and official pinned provenance verified with meaningful positive, negative and unavailable-data cases.",
+          "result": "not_tested",
+          "evidence": []
+        },
+        {
+          "id": "AC2",
+          "description": "Affected consumers and guidance reviewed; applicable application, browser and tracking checks pass with honest limits.",
           "result": "not_tested",
           "evidence": []
         }

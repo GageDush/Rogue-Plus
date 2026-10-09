@@ -56,3 +56,7 @@ Desktop navigation visibility uses viewport-height media queries (720px threshol
 ## Dex query ownership (U4A)
 
 `domain/dex-query.ts` owns a pure typed imported-field query, numeric ranges, deterministic sorting and explicit scope. It does not parse expressions, fetch reference packs, calculate candy prices or persist account changes. Missing numeric facts fail range conditions and sort last; blank progress descriptions do not imply missing progress. `App.tsx` owns query/layout/reveal state and the detail-return scroll/focus checkpoint; `features/dex/DexPage.tsx` owns presentation and disposable panel drafts. CSS is scoped under the Dex browser so other roster consumers retain their layouts. UI preferences are session-local and do not enter account snapshots or backups. Future search syntax must extend this shared model rather than introduce an independent filter engine.
+
+## Shared artwork readiness
+
+`PokemonSprite` resolves pinned atlas metadata through the existing resolver, then `ui/artwork.ts` deduplicates browser image decoding and checks actual PNG dimensions before displaying the CSS frame. JSON and PNG requests are bounded at 15 seconds. Rejected requests leave the accessible ID fallback and are evicted from session caches so later mounts can retry; this does not add an automatic retry loop or rewrite account visuals. Frame bounds are validated before cropping. Cancellation prevents a superseded request from replacing the current sprite. `data-asset-revision` carries the pin; atlas and actual/fallback shiny tiers have separate attributes.

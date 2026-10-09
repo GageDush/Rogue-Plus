@@ -29,3 +29,7 @@
 - Mechanic constants/candy costs and asset metadata remain version-pinned handwritten snapshots. Replace them with verified upstream extractors in subsequent focused changes.
 - The existing strategy preset JSONs are public sample strategies, not your stored user-defined Builds. Separate them during UserContent work.
 - When the Play module's game revision changes, check reference compatibility explicitly.
+
+## Artwork transport verification
+
+ART-VERIFY uses the unchanged immutable asset pin and exercises real CORS-compatible JSON/PNG fetching and pixel decoding separately from synthetic failure tests. Image metadata alone is not evidence that artwork rendered. Shared sprite rendering now checks PNG decode/dimensions and exposes a readable ID fallback for missing/failed artwork; failed session-cache entries can retry on later mounts. See project/evidence/ART-VERIFY.md for exact browser coverage and limits. This is not an asset-pin update, a complete licensing audit, or proof of cold-start offline availability.

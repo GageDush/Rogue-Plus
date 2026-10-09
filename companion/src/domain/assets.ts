@@ -113,10 +113,14 @@ export function describePokemonAsset(request: PokemonAssetRequest): PokemonAsset
 function loadAtlas(descriptor: PokemonAssetDescriptor): Promise<AtlasJson> {
   const existing = atlasCache.get(descriptor.atlasKey);
   if (existing) return existing;
-  const promise = fetch(descriptor.atlasJsonUrl, { mode: 'cors', cache: 'force-cache' })
+  const promise = fetch(descriptor.atlasJsonUrl, { mode: 'cors', cache: 'force-cache', signal: AbortSignal.timeout(15000) })
     .then(response => {
       if (!response.ok) throw new Error('Could not load ' + descriptor.atlasKey + '.');
       return response.json() as Promise<AtlasJson>;
+    }).catch(error => {
+      // A transient failure must not poison later mounts for this session.
+      atlasCache.delete(descriptor.atlasKey);
+      throw error;
     });
   atlasCache.set(descriptor.atlasKey, promise);
   return promise;
@@ -145,6 +149,16 @@ export async function resolvePokemonAsset(request: PokemonAssetRequest): Promise
         continue;
       }
       if (frame.rotated) throw new Error('Rotated icon frames are not supported.');
+      const dimensions = [texture.size.w, texture.size.h, frame.sourceSize.w, frame.sourceSize.h, frame.frame.w, frame.frame.h];
+      const offsets = [frame.frame.x, frame.frame.y, frame.spriteSourceSize.x, frame.spriteSourceSize.y];
+      if (dimensions.some(value => !Number.isInteger(value) || value <= 0)
+        || offsets.some(value => !Number.isInteger(value) || value < 0)
+        || frame.frame.x + frame.frame.w > texture.size.w
+        || frame.frame.y + frame.frame.h > texture.size.h
+        || frame.spriteSourceSize.x + frame.frame.w > frame.sourceSize.w
+        || frame.spriteSourceSize.y + frame.frame.h > frame.sourceSize.h) {
+        throw new Error('Invalid icon frame bounds.');
+      }
       return {
         ...descriptor,
         atlasWidth: texture.size.w,

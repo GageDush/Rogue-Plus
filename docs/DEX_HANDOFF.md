@@ -75,3 +75,7 @@ Before close: meaningful synthetic tests, UI 320/390 and desktop/window-height c
 ## U4A implementation continuation
 
 Authorized by the user on 2026-10-09. Query and panel behavior are documented in DESIGN and ARCHITECTURE; task status and acceptance evidence remain solely in project/tasks.json. Names/gaps are plain text, not the proposed advanced grammar. All scope is limited to starter records in the snapshot and states its dependency on expanded reference coverage. No reference pins, ownership decoding, candy formulas, storage schemas or account facts were changed. Continue DEX-REF only after its separate implementation authorization; do not begin downstream work merely because U4A is complete.
+
+## Expanded reference continuation
+
+The user authorized eight sequential packets on 2026-10-09: artwork transport verification, reference contract, species fundamentals, evolution/roots, abilities/passives, moves/learnsets, starter-selection rules, and integration. Their individual states and evidence live only in project/tasks.json. Downstream search grammar/UI, candy reservation and runtime reference-pack updates remain outside these packets. ART-VERIFY corrects PNG readiness/failure handling without changing artwork pins or imported visual ownership.
