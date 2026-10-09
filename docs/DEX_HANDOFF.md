@@ -79,3 +79,5 @@ Authorized by the user on 2026-10-09. Query and panel behavior are documented in
 ## Expanded reference continuation
 
 The user authorized eight sequential packets on 2026-10-09: artwork transport verification, reference contract, species fundamentals, evolution/roots, abilities/passives, moves/learnsets, starter-selection rules, and integration. Their individual states and evidence live only in project/tasks.json. Downstream search grammar/UI, candy reservation and runtime reference-pack updates remain outside these packets. ART-VERIFY corrects PNG readiness/failure handling without changing artwork pins or imported visual ownership.
+
+The expanded reference contract is implemented in `reference/dex-contract.ts`: known/null/empty values remain distinct from unavailable coverage, and public facts carry provenance without ownership. Species/forms/abilities/moves/selection data are not yet populated through this contract. Its interface is an implementation choice inside the authorized contract packet, not approval of the proposed advanced-search grammar.

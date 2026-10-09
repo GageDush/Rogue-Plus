@@ -1,5 +1,10 @@
 import starterRootsJson from './generated/starter-roots.v1.json';
 import mechanicsJson from './mechanics.v1.json';
+export { createDexReferenceIndex, known, unavailable } from './dex-contract';
+export type {
+  ReferenceValue, ReferenceProvenance, ReferenceCoverage, NamedReference, BaseStats,
+  AbilitySlots, LevelMove, DexFormReference, DexSpeciesReference, DexMoveReference, DexReferencePack,
+} from './dex-contract';
 
 export interface StarterReference {
   id: number;

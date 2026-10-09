@@ -33,3 +33,9 @@
 ## Artwork transport verification
 
 ART-VERIFY uses the unchanged immutable asset pin and exercises real CORS-compatible JSON/PNG fetching and pixel decoding separately from synthetic failure tests. Image metadata alone is not evidence that artwork rendered. Shared sprite rendering now checks PNG decode/dimensions and exposes a readable ID fallback for missing/failed artwork; failed session-cache entries can retry on later mounts. See project/evidence/ART-VERIFY.md for exact browser coverage and limits. This is not an asset-pin update, a complete licensing audit, or proof of cold-start offline availability.
+
+## Expanded Dex reference contract
+
+`reference/dex-contract.ts` defines a bundled-only public-fact boundary: species/form identities, named reference IDs, base stats/BST, declared ability slots, ordered egg moves, level-move entries, explicit starter associations and per-area coverage/provenance. `ReferenceValue` distinguishes known facts (including null, empty lists and zero) from unavailable facts with a reason. Starter-selectable/obtainable facts and selection coverage are separate from caught/unlocked account masks. Base move power, species base stats and imported IVs remain distinct. The build-pack index rejects duplicate identities and unpinned provenance; it is not a downloaded-pack validator.
+
+This packet adds contracts and synthetic index tests only. The current generated starter roster remains unchanged; the expanded contract is not populated or connected to Dex search yet. Exact parser syntax, runtime reference updates and account compatibility remain later work. See project/evidence/DEX-REF-CONTRACT.md.

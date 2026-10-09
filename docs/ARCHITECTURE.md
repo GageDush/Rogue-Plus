@@ -60,3 +60,7 @@ Desktop navigation visibility uses viewport-height media queries (720px threshol
 ## Shared artwork readiness
 
 `PokemonSprite` resolves pinned atlas metadata through the existing resolver, then `ui/artwork.ts` deduplicates browser image decoding and checks actual PNG dimensions before displaying the CSS frame. JSON and PNG requests are bounded at 15 seconds. Rejected requests leave the accessible ID fallback and are evicted from session caches so later mounts can retry; this does not add an automatic retry loop or rewrite account visuals. Frame bounds are validated before cropping. Cancellation prevents a superseded request from replacing the current sprite. `data-asset-revision` carries the pin; atlas and actual/fallback shiny tiers have separate attributes.
+
+## Expanded Dex public facts
+
+`reference/dex-contract.ts` owns typed bundled reference values, immutable pack interfaces, provenance and bounded coverage descriptions. Its index is account-independent and has no I/O. Known absence (`null`/empty lists) and unknown coverage are distinct; facts carry no imported ownership or local preferences. Reference API exports are available through `reference/index.ts`, while existing STARTER_ROOTS consumers retain their original shape. Domain integration and populated reference data are subsequent packets; no new query fields are enabled by a contract alone.
