@@ -16,9 +16,10 @@ describe('Dex imported-field query', () => {
     expect(JSON.stringify(rows)).toBe(before);
   });
   it('does not treat missing numbers or ownership as zero or false', () => {
-    const rows = [starter({ id: 1, candy: undefined as unknown as number, classicWins: undefined as unknown as number, passiveUnlocked: undefined as unknown as boolean }), starter({ id: 2, candy: 0, classicWins: 0, passiveUnlocked: false })];
+    const rows = [starter({ id: 1, progressGaps: '', candy: undefined as unknown as number, classicWins: undefined as unknown as number, passiveUnlocked: undefined as unknown as boolean }), starter({ id: 2, progressGaps: 'Missing passive', candy: 0, classicWins: 0, passiveUnlocked: false })];
     expect(queryDex(rows, { ...defaultDexQuery, ranges: { candy: { min: 0 } } }).map(p => p.id)).toEqual([2]);
     expect(queryDex(rows, { ...defaultDexQuery, conditions: ['classic', 'passive'] }).map(p => p.id)).toEqual([2]);
+    expect(queryDex(rows, { ...defaultDexQuery, conditions: ['gaps'] }).map(p => p.id)).toEqual([2]);
     for (const direction of ['asc', 'desc'] as const) expect(queryDex(rows, { ...defaultDexQuery, sort: 'candy', direction }).map(p => p.id)).toEqual([2, 1]);
   });
   it('sorts names and numbers with deterministic ties and supports gap search', () => {

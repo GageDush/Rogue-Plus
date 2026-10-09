@@ -32,7 +32,7 @@ Filters, Sort and Advanced use drafts: Apply commits; Cancel/Escape/backdrop dis
 | 1100 × 390 | Light, Dark | 5 |
 | 1600 × 900 | Light, Dark | 8 |
 
-Assertions cover defaults, Grid/List and no horizontal overflow, long-name wrapping, partial/unknown labels, Collected/All and locked labeling, actual red-owned results, Apply/Cancel/Escape/backdrop behavior, explicit sort direction, invalid inclusive ranges retaining drafts, removable chips, Clear all, empty results, dialog Tab wrapping, trigger-focus restoration, and detail return preserving active hidden-ability condition, search, sort, layout, scroll and card focus. Phone/short-desktop More dismissal also preserves query and scroll.
+Assertions cover defaults, Grid/List and no horizontal overflow, long-name wrapping, partial/unknown labels, Collected/All and locked labeling, actual red-owned results, Apply/Cancel/Escape/backdrop behavior, explicit sort direction, invalid inclusive ranges retaining drafts, removable chips, Clear all, empty results, dialog Tab wrapping, trigger-focus restoration, and detail return preserving active hidden-ability condition, search, sort, layout, scroll and card focus. Phone/short-desktop More dismissal also preserves query and scroll. The final matrix also rotates the 390px contexts to 844×390 in both themes and verifies the sheet stays inside simulated 59px camera side insets and 21px home-indicator clearance.
 
 Visual inspection: phone Grid in both themes, phone Advanced sheet, and bounded desktop Advanced panel in a 390px-high window. Matched synthetic captures: [phone](../../docs/assets/dex-u4a-phone.jpg), [desktop](../../docs/assets/dex-u4a-desktop.jpg). Captures show the existing artwork-unavailable fallback because this browser environment could not load upstream atlas assets; authentic artwork resolver and pins remain unchanged. No claim that these captures validate upstream artwork fetching.
 
@@ -48,6 +48,10 @@ Reviewed DECISIONS, DEX_HANDOFF, ARCHITECTURE and DESIGN. Updated current Dex fa
 
 ## Limitations and delivery
 
-This verifies U4A foundations, not full reference searching, named unlock availability, evolution-root matching, candy reservation, update infrastructure or release gates. Session preferences are not persisted across reload. Unknown presentation/query safeguards do not change existing importer normalization semantics. Physical iPhone/Safari/keyboard/safe-area signoff remains the separately tracked U1-SAFE gate.
+This verifies U4A foundations, not full reference searching, named unlock availability, evolution-root matching, candy reservation, update infrastructure or release gates. Session preferences are not persisted across reload. Blank/unknown progress descriptions do not match the missing-core-progress condition. Unknown presentation/query safeguards do not change existing importer normalization semantics. Physical iPhone/Safari/keyboard/safe-area signoff remains the separately tracked U1-SAFE gate.
 
 Delivery targets the existing development branch and draft PR #8. No merge, manual deployment, production release or preview byte-parity claim. Next scoped implementation is DEX-REF, still pending separate authorization. The final GitHub commit/check state is reported separately from the dated baseline above.
+
+### Closing safe-area refinement
+
+Remote baseline, project-tracking and full Companion UI regression passed at `8b37a6aaba8b9b679430320c0d509aa383e13acd`. A final source review then found fixed 12px sheet side margins did not honor landscape camera insets. U4A was reopened in the same authorized packet; the sheet now uses shared safe-left/right/top/bottom variables. The added two-theme landscape assertions and full eight-case Dex matrix pass after that correction. The final CSS production build, Node syntax check, tracking tests/freshness and tracked-source validation are checked again with this refinement. Earlier screenshot compositions show native-zero-inset contexts and remain representative of those layouts; the added landscape evidence is interaction/bounds evidence, not physical-device signoff. Remote checks for the final refinement commit are reported separately.

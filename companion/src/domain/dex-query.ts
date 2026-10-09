@@ -25,7 +25,7 @@ export const defaultDexQuery: DexQuery = { text: '', scope: 'collected', conditi
 export function queryDex(pokemon: readonly PokemonRecord[], query: DexQuery): PokemonRecord[] {
   const text = query.text.trim().toLocaleLowerCase();
   const matches: Record<DexCondition, (p: PokemonRecord) => boolean> = {
-    gaps: p => typeof p.progressGaps === 'string' && p.progressGaps !== 'None',
+    gaps: p => typeof p.progressGaps === 'string' && Boolean(p.progressGaps.trim()) && p.progressGaps !== 'None',
     red: p => p.t3 === true, passive: p => p.passiveUnlocked === false,
     team: p => CANONICAL_TEAM_IDS.has(p.id), iv: p => Number.isFinite(p.perfectIvs) && p.perfectIvs < 6,
     hidden: p => p.haUnlocked === true, classic: p => Number.isFinite(p.classicWins) && p.classicWins === 0,

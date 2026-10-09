@@ -128,6 +128,14 @@ export async function checkDex(browser, base, captures) {
         assert.equal(await search.inputValue(), 'a');
         assert.equal(await page.evaluate(() => window.scrollY), before, 'More dismissal lost scroll');
       }
+      if (width === 390) {
+        await page.setViewportSize({ width: 844, height: 390 });
+        await page.addStyleTag({ content: ':root { --safe-top: 0px; --safe-left: 59px; --safe-right: 59px; --safe-bottom: 21px; }' });
+        await button('Advanced').click();
+        const landscapePanel = await page.getByRole('dialog').boundingBox();
+        assert.ok(landscapePanel.x >= 59 && landscapePanel.x + landscapePanel.width <= 844 - 59 && landscapePanel.y >= 0 && landscapePanel.y + landscapePanel.height <= 390 - 21, 'Landscape sheet must clear camera and home-indicator insets');
+        await page.keyboard.press('Escape');
+      }
       assert.deepEqual(errors, []);
       console.log(`PASS: Dex ${width}x${height} ${theme}, ${columns} columns, grid/list/scope/drafts/ranges/empty/partial/focus/detail/menu`);
       await context.close();
