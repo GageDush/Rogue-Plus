@@ -68,7 +68,7 @@ export async function checkTheme(browser, base) {
           await search.fill('a');
           await page.evaluate(() => window.scrollTo({ top: 300, behavior: 'instant' }));
           const scroll = await page.evaluate(() => window.scrollY);
-          const more = page.getByRole('button', { name: 'More navigation', exact: true });
+          const more = width >= 980 ? page.locator('.desktop-sidebar').getByRole('button', { name: 'More', exact: true }) : page.getByRole('button', { name: 'More navigation', exact: true });
           for (const dismissal of ['toggle', 'outside', 'escape']) {
             await more.click();
             await page.locator('.more-popover').waitFor();
