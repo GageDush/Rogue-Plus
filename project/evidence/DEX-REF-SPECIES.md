@@ -1,0 +1,9 @@
+# DEX-REF-SPECIES — pinned species fundamentals
+
+Authorized continuation on GPT-6.1 Medium, 2026-10-09. Baseline 14bcbaf; development branch design/profile-candy-overview, draft PR #8. No merge or production deployment.
+
+Static TypeScript AST extraction reads only explicit approved fields, never executes game constructors and rejects unexpected expressions. Every 1,084 non-NONE SpeciesId is represented; 1,500 ordered form records reproduce explicit form arrays (not a fabricated extra base form). Six stats sum to the declared BST in every record. Names are official English values at the game's inspected locale gitlink 0696f674f631b47f208f5d687b427ed3e7cd81b0; game and asset pins unchanged. Build produces a deterministic source digest/coverage report beside the ignored generated pack. Existing STARTER exports and all account/storage behavior unchanged. Expanded pack is not integrated into UI yet.
+
+Actual checks: pinned generation passed; four Node extractor tests passed (negative enums, calls/spreads/malformed syntax, duplicate fields/IDs, absent cost, deterministic extraction, missing names, total mismatch). Pack assertions cover Bulbasaur, Garchomp, Alolan Vulpix, Mega X Charizard and Miraidon across generation/type/stat/form boundaries. All 59 application tests, TypeScript typecheck, Vite production build, module-boundary check and repository validation passed. git diff --check passed. Tracking regeneration, 15 tracking tests and freshness check run before commit.
+
+Reviewed declared guidance plus reference README and DECISIONS; factual coverage appended. Existing importer, scoring/team/fusion and UI names still consume unchanged STARTER exports. No UI behavior change, so no new visual signoff claimed. Roots/abilities/moves/selection explicitly unavailable. No community exporter executed or private data used. License/source release review remains its existing separate gate.

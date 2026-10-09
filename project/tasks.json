@@ -293,7 +293,7 @@
     "Implementation verification does not prove merge, deployment or production release.",
     "Private account screenshots, saves and backups are excluded; use sanitized evidence.",
     "Selected warm field-guide direction and U1 light/dark foundation authorized 2026-10-08; other feature packets and production release remain separate.",
-    "2026-10-09: After ART-VERIFY and DEX-REF-CONTRACT, pause at the next packet boundary for recommended GPT-6.1 High static extraction/constructor-semantics work. Packets 3\u20138 remain authorized and planned; see project/evidence/DEX-REF-CONTRACT.md recovery boundary."
+    "2026-10-09: User explicitly requested continuing packets 3\u20136 on GPT-6.1 Medium; this supersedes the previous High recommendation pause. All eight packets remain authorized."
   ],
   "tasks": [
     {
@@ -2408,37 +2408,51 @@
       "excludes": "No search parser/UI expansion, candy reservation/pricing changes, reference updates, storage migration, private data, merge or production deployment.",
       "class": "data",
       "authorization": "approved",
-      "status": "planned",
+      "status": "verified",
       "dependsOn": [
         "DEX-REF-CONTRACT"
       ],
       "paths": [
-        "scripts/generate-game-references.mjs"
+        "scripts/generate-game-references.mjs",
+        "scripts/generate-dex-references.mjs",
+        "scripts/dex-reference-extractor.mjs",
+        "scripts/dex-reference-extractor.test.mjs",
+        "project/evidence/DEX-REF-SPECIES.md"
       ],
       "guidance": [
         "docs/DEX_HANDOFF.md",
         "docs/DATA_SOURCES.md",
         "docs/ARCHITECTURE.md"
       ],
-      "docsReviewed": [],
+      "docsReviewed": [
+        "docs/DEX_HANDOFF.md",
+        "docs/DATA_SOURCES.md",
+        "docs/ARCHITECTURE.md"
+      ],
       "delivery": {
-        "stage": "not_started",
-        "branch": null
+        "stage": "pr_open",
+        "branch": "design/profile-candy-overview",
+        "pr": "https://github.com/GageDush/Rogue-Plus/pull/8"
       },
       "acceptance": [
         {
           "id": "AC1",
           "description": "Packet scope and official pinned provenance verified with meaningful positive, negative and unavailable-data cases.",
-          "result": "not_tested",
-          "evidence": []
+          "result": "pass",
+          "evidence": [
+            "project/evidence/DEX-REF-SPECIES.md"
+          ]
         },
         {
           "id": "AC2",
           "description": "Affected consumers and guidance reviewed; applicable application, browser and tracking checks pass with honest limits.",
-          "result": "not_tested",
-          "evidence": []
+          "result": "pass",
+          "evidence": [
+            "project/evidence/DEX-REF-SPECIES.md"
+          ]
         }
-      ]
+      ],
+      "verifiedOn": "2026-10-09"
     },
     {
       "id": "DEX-REF-ROOTS",
