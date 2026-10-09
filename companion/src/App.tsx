@@ -1,10 +1,11 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { ArrowLeft, Check, Import, Menu, RefreshCw } from 'lucide-react';
 import { buildDemoState, decryptAndNormalize, runDecryptSelfTest, type AppState } from './pokerogue';
 import { createPokeRogueData } from './domain/facade';
 import { CANONICAL_TEAM_IDS } from './domain/teams';
 import { isNavigationActive, pageTitles, primaryNavigation, secondaryNavigation, type Page, type DexFilter } from './app/navigation';
 import { Brand, NavButton, NavigationIcon } from './ui/components/Navigation';
+import { MorePopover } from './ui/components/MorePopover';
 import { HomePage } from './features/home/HomePage';
 import { DexPage } from './features/dex/DexPage';
 import { DetailPage } from './features/dex/DetailPage';
@@ -35,6 +36,19 @@ function App() {
   const [loadError, setLoadError] = useState('');
   const [storageStatus, setStorageStatus] = useState<StorageStatus | null>(null);
   const [page, setPage] = useState<Page>('home');
+  const [moreOpen, setMoreOpen] = useState(false);
+  const moreOrigin = useRef<HTMLElement | null>(null);
+  const closeMore = useCallback((restoreFocus = true) => {
+    setMoreOpen(false);
+    if (restoreFocus) moreOrigin.current?.focus({ preventScroll: true });
+  }, []);
+  function toggleMore() {
+    if (moreOpen) closeMore();
+    else {
+      moreOrigin.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+      setMoreOpen(true);
+    }
+  }
   const [selectedId, setSelectedId] = useState<number>(898);
   const [search, setSearch] = useState('');
   const [dexFilter, setDexFilter] = useState<DexFilter>('all');
@@ -102,6 +116,8 @@ function App() {
   }
 
   function navigate(next: Page) {
+    if (next === 'more') { toggleMore(); return; }
+    setMoreOpen(false);
     setPage(next);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
@@ -258,7 +274,7 @@ function App() {
         onChange={event => handleBackup(event.target.files?.[0])}
       />
 
-      <aside className='desktop-sidebar' aria-label='Primary and secondary navigation'>
+      <aside className={'desktop-sidebar' + (moreOpen ? ' menu-open' : '')} aria-label='Primary and secondary navigation'>
         <Brand />
         <div className='navigation-section-label'>WORKSPACE</div>
         {primaryNavigation.map(item => (
@@ -270,7 +286,7 @@ function App() {
           <NavButton key={item.id} icon={<NavigationIcon icon={item.icon} />} label={item.label}
             active={isNavigationActive(page, item.id)} onClick={() => navigate(item.id)} />
         ))}
-        <NavButton icon={<Menu />} label='More' active={page === 'more'} onClick={() => navigate('more')} />
+        <button className='nav-button' data-more-toggle aria-expanded={moreOpen} aria-controls='more-popover' onClick={toggleMore}><Menu aria-hidden='true' /><span>More</span></button>
         <div className='navigation-footer'>LOCAL-FIRST · ALPHA</div>
       </aside>
 
@@ -285,10 +301,10 @@ function App() {
             )}
           </div>
           <div className='topbar-actions'>
-            <button type='button' className='more-nav-trigger' aria-label='More navigation' onClick={() => navigate('more')}>
+            <button type='button' className='more-nav-trigger' data-more-toggle aria-label='More navigation' aria-expanded={moreOpen} aria-controls='more-popover' onClick={toggleMore}>
               <Menu aria-hidden='true' /> <span>More</span>
             </button>
-          {page === 'home' && <button className='import-button' onClick={() => saveInput.current?.click()} disabled={busy}>
+          {page === 'home' && <button className='import-button' onClick={() => { closeMore(false); saveInput.current?.click(); }} disabled={busy}>
             {busy ? <RefreshCw className='spin' /> : <Import />}
             <span>{busy ? 'Importing' : 'Import'}</span>
           </button>}
@@ -347,6 +363,8 @@ function App() {
           ))}
         </nav>
       </main>
+
+      {moreOpen && <MorePopover items={secondaryNavigation} page={page} onNavigate={navigate} onClose={closeMore} />}
 
       {toast && <div className='toast'><Check /> {toast}</div>}
     </div>

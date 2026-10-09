@@ -115,6 +115,26 @@ h1, h2, h3, .kpi > strong { font-family: var(--font-display); }
 .candy-notes summary { min-height: 44px; display: list-item; padding-block: 10px; font-size: 14px; cursor: pointer; color: var(--muted); }
 .section-heading { flex-wrap: wrap; gap: 4px 12px; }
 button:focus-visible, input:focus-visible { outline: var(--focus-ring); }
+.search-box input:focus-visible { outline: none; }
+.search-box:focus-within { outline: var(--focus-ring); outline-offset: 2px; }
+.more-backdrop { position: fixed; inset: 0; z-index: 25; background: rgb(0 0 0 / .18); touch-action: none; }
+.desktop-sidebar.menu-open { z-index: 30; }
+.more-popover {
+  position: fixed; z-index: 45; top: calc(88px + var(--safe-top)); right: calc(16px + var(--safe-right));
+  width: min(292px, calc(100vw - 48px - var(--safe-left) - var(--safe-right)));
+  max-height: calc(100dvh - 112px - var(--safe-top) - var(--safe-bottom));
+  overflow-y: auto; overscroll-behavior: contain; padding: 8px; border: 1px solid var(--line-strong);
+  border-radius: 14px; background: var(--panel); box-shadow: 0 12px 36px rgb(0 0 0 / .24);
+}
+.more-popover-heading { display: flex; align-items: center; justify-content: space-between; padding-left: 10px; gap: 12px; }
+.more-popover-heading strong { font-size: 16px; }
+.more-popover-heading button { display: grid; place-items: center; background: transparent; border: 0; border-radius: 8px; }
+.more-popover-heading svg { width: 20px; height: 20px; }
+.more-popover-link { display: flex; align-items: center; gap: 12px; width: 100%; min-height: 52px; padding: 10px; text-align: left; border: 0; border-radius: 9px; background: transparent; font-size: 15px; }
+.more-popover-link:hover, .more-popover-link[aria-current='page'] { background: var(--panel2); }
+.more-popover-link > svg { width: 20px; height: 20px; flex: 0 0 auto; color: var(--accent-text); }
+.more-popover-link span { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; }
+.more-popover-link small { font-size: 11px; color: var(--muted); border: 1px solid var(--line); border-radius: 4px; padding: 2px 4px; }
 @media (max-width: 360px) {
   .topbar { padding-inline: 12px; }
   .brand-compact .brand-copy { display: none; }
@@ -164,4 +184,16 @@ button:focus-visible, input:focus-visible { outline: var(--focus-ring); }
 @media (min-width: 980px) {
   :root { --page-gutter: 28px; }
   .main { padding-bottom: 0; }
+}
+@media (max-height: 500px) and (max-width: 979px) {
+  .topbar { min-height: calc(52px + var(--safe-top)); padding-top: calc(6px + var(--safe-top)); padding-bottom: 6px; }
+  .brand-mark { width: 32px; height: 32px; }
+  .page-heading { margin-bottom: 12px; }
+  .page-heading h1 { font-size: 26px; }
+  .bottom-nav { min-height: 56px; height: calc(56px + var(--safe-bottom)); padding-top: 4px; }
+  .bottom-nav .nav-button { font-size: 11px; gap: 2px; }
+  .bottom-nav .nav-button svg { width: 20px; height: 20px; }
+  .main { padding-bottom: calc(80px + var(--safe-bottom)); }
+  .toast { bottom: calc(68px + var(--safe-bottom)); }
+  .more-popover { top: calc(64px + var(--safe-top)); max-height: calc(100dvh - 88px - var(--safe-top) - var(--safe-bottom)); }
 }

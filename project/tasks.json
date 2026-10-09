@@ -1931,6 +1931,59 @@
         }
       ],
       "verifiedOn": "2026-10-08"
+    },
+    {
+      "id": "U1-MENU",
+      "milestone": "B",
+      "title": "Dismissible More pop-out and short-screen polish",
+      "scope": "Slim More overlay preserving mounted page/search/scroll on dismissal; repeated toggle/outside/Escape close; compact short-phone layout and single search focus outline.",
+      "excludes": "No storage/mechanics/import/cache overhaul, route migration, merge or production deployment.",
+      "class": "interaction",
+      "authorization": "approved",
+      "status": "ready_for_review",
+      "dependsOn": [
+        "U1-POLISH"
+      ],
+      "paths": [
+        "companion/src/App.tsx",
+        "companion/src/ui/components/MorePopover.tsx",
+        "companion/src/ui/styles/field-guide.css",
+        "companion/src/features/dex/DexPage.tsx",
+        "companion/scripts/check-theme.mjs",
+        "companion/scripts/check-ui.mjs",
+        "docs/DESIGN.md",
+        "docs/DECISIONS.md",
+        "project/evidence/U1-MENU.md"
+      ],
+      "guidance": [
+        "docs/DESIGN.md",
+        "docs/DECISIONS.md",
+        "docs/ARCHITECTURE.md"
+      ],
+      "docsReviewed": [
+        "docs/DESIGN.md",
+        "docs/DECISIONS.md",
+        "docs/ARCHITECTURE.md"
+      ],
+      "delivery": {
+        "stage": "pr_open",
+        "branch": "design/profile-candy-overview",
+        "pr": "https://github.com/GageDush/Rogue-Plus/pull/8"
+      },
+      "acceptance": [
+        {
+          "id": "AC1",
+          "description": "Menu opens over the current page; toggle/outside/Escape dismissals preserve page/search/scroll; destinations close overlay and navigate.",
+          "result": "not_tested",
+          "evidence": []
+        },
+        {
+          "id": "AC2",
+          "description": "Both themes at 320/390/desktop and short landscape retain visible controls, safe areas and single search focus styling.",
+          "result": "not_tested",
+          "evidence": []
+        }
+      ]
     }
   ]
 }

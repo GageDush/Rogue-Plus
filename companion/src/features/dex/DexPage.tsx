@@ -34,7 +34,7 @@ export function DexPage({
           <button key={id} aria-pressed={filter === id} className={filter === id ? 'filter active' : 'filter'} onClick={() => setFilter(id)}>{label}</button>
         ))}
       </div>
-      <div className='result-meta'><span>{total} starters</span><span>Tap a row for full detail</span></div>
+      <div className='result-meta'><span>{total} {total === 1 ? 'starter' : 'starters'}</span><span>Tap a row for full detail</span></div>
       <div className='dex-grid'>{pokemon.map(entry => <PokemonCard key={entry.id} pokemon={entry} onClick={() => onPokemon(entry.id)} />)}</div>
       {pokemon.length < total && <button className='secondary load-more' onClick={onMore}>Show more</button>}
       {!total && <div className='empty-panel'><Search /><div><strong>No matches</strong><span>Try another search or filter.</span></div></div>}

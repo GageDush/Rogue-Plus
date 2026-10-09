@@ -13,7 +13,7 @@ export async function checkTheme(browser, base) {
       if (width >= 980) await page.locator('.desktop-sidebar').getByRole('button', { name: 'Import / Settings', exact: true }).click();
       else {
         await page.getByRole('button', { name: 'More navigation', exact: true }).click();
-        await page.locator('.more-grid').getByRole('button', { name: /Import \/ Settings/ }).click();
+        await page.locator('.more-popover').getByRole('button', { name: /Import \/ Settings/ }).click();
       }
       await page.getByRole('heading', { name: 'Appearance', exact: true }).waitFor();
     }
@@ -63,6 +63,29 @@ export async function checkTheme(browser, base) {
           await page.getByRole('button', { name: 'Back to Pokédex' }).click();
         }
         assert.equal(await actual(), mode.toLowerCase());
+        if (destination === 'Dex') {
+          const search = page.getByRole('textbox', { name: 'Search Pokémon or collection gaps', exact: true });
+          await search.fill('a');
+          await page.evaluate(() => window.scrollTo(0, 300));
+          const scroll = await page.evaluate(() => window.scrollY);
+          const more = page.getByRole('button', { name: 'More navigation', exact: true });
+          for (const dismissal of ['toggle', 'outside', 'escape']) {
+            await more.click();
+            await page.locator('.more-popover').waitFor();
+            assert.equal(await more.getAttribute('aria-expanded'), 'true');
+            assert.equal(await search.inputValue(), 'a');
+            if (dismissal === 'toggle') await more.click();
+            else if (dismissal === 'outside') await page.mouse.click(width / 2, 830);
+            else await page.keyboard.press('Escape');
+            assert.equal(await page.locator('.more-popover').count(), 0);
+            assert.equal(await more.getAttribute('aria-expanded'), 'false');
+            assert.equal(await search.inputValue(), 'a');
+            assert.equal(await page.evaluate(() => window.scrollY), scroll, 'Menu dismissal must preserve scroll');
+            await page.getByRole('heading', { name: 'Pokédex', exact: true }).waitFor();
+          }
+          await search.fill('');
+          await page.evaluate(() => window.scrollTo(0, 0));
+        }
         assert.ok(await page.evaluate(() => document.documentElement.scrollWidth) <= width, destination + ' overflows ' + width);
         if (destination === 'Dex' || destination === 'Build') {
           assert.ok(await page.locator(destination === 'Dex' ? '.filter-row' : '.team-tabs').evaluate(el => el.scrollWidth <= el.clientWidth), 'Filter/tab options are hidden horizontally');
@@ -78,6 +101,12 @@ export async function checkTheme(browser, base) {
         const landscape = await page.addStyleTag({ content: ':root { --safe-top: 0px; --safe-left: 59px; --safe-right: 59px; --safe-bottom: 21px; }' });
         assert.ok(await page.locator('.content').evaluate(el => parseFloat(getComputedStyle(el).paddingLeft) >= 83 && parseFloat(getComputedStyle(el).paddingRight) >= 83), 'Landscape camera side clearance missing');
         assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= 844), 'Landscape overflow');
+        await page.getByRole('button', { name: 'More navigation', exact: true }).click();
+        assert.ok(await page.locator('.more-popover').evaluate(el => {
+          const r = el.getBoundingClientRect();
+          return r.left >= 59 && r.right <= 844 - 59 && r.top >= 0 && r.bottom <= 390 - 21;
+        }), 'Landscape menu leaves safe viewport');
+        await page.keyboard.press('Escape');
         await landscape.evaluate(el => el.remove());
         await page.setViewportSize({ width, height: 844 });
       }

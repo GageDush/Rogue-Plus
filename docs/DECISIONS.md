@@ -50,3 +50,7 @@ DES-007 replaces large completion ratios with accessible progress bars, a percen
 ## DES-008 — bounded candy browsing (2026-10-08)
 
 Previous: unbounded Show all list and horizontally clipped phone filters. Replacement: a searchable, filtered Home expansion in batches of 20, with wrapping Dex/strategy controls. Reason: mk2 phone review shows 419 recommendations; preserve a short default Home and avoid new route complexity. Approval: user requested review and necessary changes. Applies to U1-POLISH; a dedicated candy route remains a future option.
+
+## DES-009 — dismissible More pop-out (2026-10-08)
+
+Previous: More replaced the current feature with a full library page. Replacement: slim overlay navigation toggled by More, dismissed outside or by repeated toggle/Escape/close, preserving current feature/search/scroll. Selecting an item still navigates normally. Reason/approval: user explicitly requested a slim pop-out and return to the same page. Affects U1-MENU; existing secondary destinations and internal page identifiers remain intact.

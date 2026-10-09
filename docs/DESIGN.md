@@ -41,3 +41,7 @@ The final field-guide stylesheet owns top, bottom and landscape side insets afte
 ## Candy browsing and visible phone filters
 
 Home shows three candy priorities. Browse all expands a searchable, action-filtered view on Home, rendering up to 20 rows initially and adding 20 per request. Filters/search reset the batch; collapsing resets browsing controls. Egg order appears with visible egg recommendations or the egg category, and budget detail uses an expandable disclosure. Domain ordering and affordability remain unchanged. Dex filters and strategy selectors wrap so options stay visible on phone widths.
+
+## More pop-out navigation
+
+More toggles a slim nonmodal pop-out over the mounted feature rather than navigating away. Outside pointer, repeated toggle, close button, Escape and focus leaving the pop-out dismiss it. Toggle/Escape/close return focus without scrolling; outside interaction keeps normal focus behavior. Selecting a destination closes the pop-out and uses existing navigation. Header triggers remain reachable above the backdrop. Safe-area-aware height and internal scrolling accommodate short landscapes. Search uses one outer focus ring; short phone screens use a compact header/navigation.
