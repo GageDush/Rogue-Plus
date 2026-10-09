@@ -200,6 +200,7 @@ button:focus-visible, input:focus-visible { outline: var(--focus-ring); }
 
 /* Desktop destinations fit directly in tall windows. Short windows keep More
    beside the sidebar trigger; the panel measures that trigger on open/resize. */
+.desktop-secondary { display: flex; flex-direction: column; gap: 1px; }
 .desktop-more-toggle { display: none; }
 @media (min-width: 980px) and (max-height: 719px) {
   .desktop-secondary { display: none; }
