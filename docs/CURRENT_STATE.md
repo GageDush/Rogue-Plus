@@ -161,3 +161,7 @@ Screenshot review closes the missing phone-image evidence gap. Keyboard, touch i
 ## More navigation update — 2026-10-08
 
 On the design/profile-candy-overview branch, More opens a shared nonmodal pop-out instead of replacing the current feature. Dismissal preserves page state; choosing a destination uses existing navigation. The older More screen described in the audit remains a compatibility component. Short phone landscape uses compact header and bottom navigation, retaining safe-area padding. Native keyboard and physical iPhone interaction still require device review; this branch update does not establish production parity. See project/evidence/U1-MENU.md.
+
+### Navigation fit and device report — 2026-10-08
+
+U1-NAVFIT replaces redundant desktop More with visible secondary destinations in tall windows; short desktop windows use a trigger-adjacent panel. The user reports phone keyboard functionality tested successfully. This is user-supplied interaction evidence; physical landscape/camera/browser chrome states remain distinct checks.

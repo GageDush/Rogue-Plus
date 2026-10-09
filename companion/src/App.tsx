@@ -281,12 +281,14 @@ function App() {
           <NavButton key={item.id} icon={<NavigationIcon icon={item.icon} />} label={item.label}
             active={isNavigationActive(page, item.id)} onClick={() => navigate(item.id)} />
         ))}
+        <div className='desktop-secondary'>
         <div className='navigation-section-label secondary-label'>LIBRARY & SETTINGS</div>
         {secondaryNavigation.map(item => (
           <NavButton key={item.id} icon={<NavigationIcon icon={item.icon} />} label={item.label}
             active={isNavigationActive(page, item.id)} onClick={() => navigate(item.id)} />
         ))}
-        <button className='nav-button' data-more-toggle aria-expanded={moreOpen} aria-controls='more-popover' onClick={toggleMore}><Menu aria-hidden='true' /><span>More</span></button>
+        </div>
+        <button className='nav-button desktop-more-toggle' data-more-toggle aria-expanded={moreOpen} aria-controls='more-popover' onClick={toggleMore}><Menu aria-hidden='true' /><span>More</span></button>
         <div className='navigation-footer'>LOCAL-FIRST · ALPHA</div>
       </aside>
 
@@ -364,7 +366,7 @@ function App() {
         </nav>
       </main>
 
-      {moreOpen && <MorePopover items={secondaryNavigation} page={page} onNavigate={navigate} onClose={closeMore} />}
+      {moreOpen && <MorePopover anchor={moreOrigin.current} items={secondaryNavigation} page={page} onNavigate={navigate} onClose={closeMore} />}
 
       {toast && <div className='toast'><Check /> {toast}</div>}
     </div>

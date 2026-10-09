@@ -197,3 +197,19 @@ button:focus-visible, input:focus-visible { outline: var(--focus-ring); }
   .toast { bottom: calc(68px + var(--safe-bottom)); }
   .more-popover { top: calc(64px + var(--safe-top)); max-height: calc(100dvh - 88px - var(--safe-top) - var(--safe-bottom)); }
 }
+
+/* Desktop destinations fit directly in tall windows. Short windows keep More
+   beside the sidebar trigger; the panel measures that trigger on open/resize. */
+.desktop-more-toggle { display: none; }
+@media (min-width: 980px) and (max-height: 719px) {
+  .desktop-secondary { display: none; }
+  .desktop-more-toggle { display: flex; }
+}
+@media (min-width: 980px) and (max-height: 500px) {
+  .desktop-sidebar { padding: 8px 9px; }
+  .desktop-sidebar .brand { padding: 4px 8px; margin-bottom: 4px; }
+  .desktop-sidebar .brand-mark { width: 32px; height: 32px; }
+  .desktop-sidebar .nav-button { min-height: 40px; }
+  .desktop-sidebar .navigation-section-label { margin-top: 8px; }
+  .desktop-sidebar .navigation-footer { display: none; }
+}

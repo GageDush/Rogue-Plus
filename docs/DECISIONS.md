@@ -54,3 +54,7 @@ Previous: unbounded Show all list and horizontally clipped phone filters. Replac
 ## DES-009 — dismissible More pop-out (2026-10-08)
 
 Previous: More replaced the current feature with a full library page. Replacement: slim overlay navigation toggled by More, dismissed outside or by repeated toggle/Escape/close, preserving current feature/search/scroll. Selecting an item still navigates normally. Reason/approval: user explicitly requested a slim pop-out and return to the same page. Affects U1-MENU; existing secondary destinations and internal page identifiers remain intact.
+
+## DES-010 — Desktop navigation follows available height (2026-10-08)
+
+User approved replacing the redundant tall-desktop More control with all secondary destinations directly in the sidebar. Below 720px viewport height, desktop secondary destinations collapse into More; its panel opens beside the actual sidebar trigger and stays within the viewport. Mobile retains the header trigger. This replaces DES-009’s universal top-right position for desktop. Applies to U1-NAVFIT; no feature or route change.

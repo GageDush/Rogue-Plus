@@ -1993,6 +1993,63 @@
         }
       ],
       "verifiedOn": "2026-10-08"
+    },
+    {
+      "id": "U1-NAVFIT",
+      "milestone": "B",
+      "title": "Height-aware desktop navigation and adjacent More",
+      "scope": "Tall desktop sidebar exposes every destination; short desktop sidebar collapses secondary options into an adjacent, bounded More panel. Record user phone keyboard evidence.",
+      "excludes": "No storage/mechanics/import/cache overhaul, route migration, merge or production deployment.",
+      "class": "interaction",
+      "authorization": "approved",
+      "status": "ready_for_review",
+      "dependsOn": [
+        "U1-MENU"
+      ],
+      "paths": [
+        "companion/src/App.tsx",
+        "companion/src/ui/components/MorePopover.tsx",
+        "companion/src/ui/styles/field-guide.css",
+        "companion/scripts/check-theme.mjs",
+        "companion/scripts/check-ui.mjs",
+        "docs/DESIGN.md",
+        "docs/DECISIONS.md",
+        "project/evidence/U1-NAVFIT.md",
+        "docs/ARCHITECTURE.md",
+        "docs/CURRENT_STATE.md",
+        "project/evidence/U1-SAFE.md"
+      ],
+      "guidance": [
+        "docs/DESIGN.md",
+        "docs/DECISIONS.md",
+        "docs/ARCHITECTURE.md",
+        "docs/CURRENT_STATE.md"
+      ],
+      "docsReviewed": [
+        "docs/DESIGN.md",
+        "docs/DECISIONS.md",
+        "docs/ARCHITECTURE.md",
+        "docs/CURRENT_STATE.md"
+      ],
+      "delivery": {
+        "stage": "pr_open",
+        "branch": "design/profile-candy-overview",
+        "pr": "https://github.com/GageDush/Rogue-Plus/pull/8"
+      },
+      "acceptance": [
+        {
+          "id": "AC1",
+          "description": "Tall desktop shows all destinations without More; shorter desktop shows More beside its trigger, bounded within viewport, with dismissal preserving page state.",
+          "result": "not_tested",
+          "evidence": []
+        },
+        {
+          "id": "AC2",
+          "description": "Both themes, 320/390 phones, short landscape and desktop resizing retain navigation and existing storage/import behavior.",
+          "result": "not_tested",
+          "evidence": []
+        }
+      ]
     }
   ]
 }

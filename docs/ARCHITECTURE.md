@@ -50,3 +50,5 @@ UI appearance is independent of combined-v2 account persistence. `ui/theme.ts` r
 ## Candy planning ownership
 
 `domain/candy-actions.ts` supplies pure read-only affordable actions through the domain facade. It owns no purchase or persistence mechanism. `reference/mechanics.v1.json` includes hatch-based egg prices from the unchanged pinned source and provenance. Home owns the local sort/expansion state; legacy Goals scoring remains independent. Shared `ui/components/AppWidgets.tsx` owns accessible completion bars and unavailable-denominator presentation. UI formatters translate historical shiny shorthand without rewriting stored/imported facts.
+
+Desktop navigation visibility uses viewport-height media queries (720px threshold). MorePopover receives the actual trigger element, measures its bounds on open/resize, and positions beside it on desktop. Mobile retains safe-area CSS positioning. A hidden trigger on resize dismisses the panel.

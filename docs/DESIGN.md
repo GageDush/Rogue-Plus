@@ -45,3 +45,7 @@ Home shows three candy priorities. Browse all expands a searchable, action-filte
 ## More pop-out navigation
 
 More toggles a slim nonmodal pop-out over the mounted feature rather than navigating away. Outside pointer, repeated toggle, close button, Escape and focus leaving the pop-out dismiss it. Toggle/Escape/close return focus without scrolling; outside interaction keeps normal focus behavior. Selecting a destination closes the pop-out and uses existing navigation. Header triggers remain reachable above the backdrop. Safe-area-aware height and internal scrolling accommodate short landscapes. Search uses one outer focus ring; short phone screens use a compact header/navigation.
+
+### Desktop navigation fit
+
+At desktop widths (980px+), windows at least 720px high expose all secondary destinations directly and omit More. Shorter windows show More in the sidebar and position its bounded pop-out beside the trigger. Resize closes the panel if its trigger becomes hidden. Phone navigation remains header More plus five primary bottom destinations.

@@ -67,21 +67,43 @@ export async function checkTheme(browser, base) {
           const search = page.getByRole('textbox', { name: 'Search Pokémon or collection gaps', exact: true });
           await search.fill('a');
           await page.evaluate(() => window.scrollTo({ top: 300, behavior: 'instant' }));
-          const scroll = await page.evaluate(() => window.scrollY);
+          if (width >= 980) {
+            assert.equal(await page.locator('.desktop-more-toggle').isVisible(), false, 'Tall desktop should expose destinations directly');
+            assert.equal(await page.locator('.desktop-secondary').isVisible(), true);
+            await page.setViewportSize({ width, height: 600 });
+            assert.equal(await page.locator('.desktop-secondary').isVisible(), false);
+            await page.evaluate(() => window.scrollTo({ top: 0, behavior: 'instant' }));
+          }
+          const settledScroll = await page.evaluate(() => window.scrollY);
           const more = width >= 980 ? page.locator('.desktop-sidebar').getByRole('button', { name: 'More', exact: true }) : page.getByRole('button', { name: 'More navigation', exact: true });
           for (const dismissal of ['toggle', 'outside', 'escape']) {
             await more.click();
             await page.locator('.more-popover').waitFor();
             assert.equal(await more.getAttribute('aria-expanded'), 'true');
+            if (width >= 980) {
+              const trigger = await more.boundingBox();
+              const menu = await page.locator('.more-popover').boundingBox();
+              assert.ok(menu.x >= trigger.x + trigger.width && menu.x < trigger.x + trigger.width + 24, 'Desktop panel must open beside sidebar toggle');
+              assert.ok(menu.y >= 0 && menu.y + menu.height <= 600, 'Desktop panel must fit short window');
+            }
             assert.equal(await search.inputValue(), 'a');
             if (dismissal === 'toggle') await more.click();
-            else if (dismissal === 'outside') await page.mouse.click(width / 2, 830);
+            else if (dismissal === 'outside') await page.mouse.click(width / 2, width >= 980 ? 550 : 830);
             else await page.keyboard.press('Escape');
             assert.equal(await page.locator('.more-popover').count(), 0);
             assert.equal(await more.getAttribute('aria-expanded'), 'false');
             assert.equal(await search.inputValue(), 'a');
-            assert.equal(await page.evaluate(() => window.scrollY), scroll, 'Menu dismissal must preserve scroll');
+            assert.equal(await page.evaluate(() => window.scrollY), settledScroll, 'Menu dismissal must preserve scroll');
             await page.getByRole('heading', { name: 'Pokédex', exact: true }).waitFor();
+          }
+          if (width >= 980) {
+            await page.setViewportSize({ width, height: 390 });
+            await more.click();
+            const compactMenu = await page.locator('.more-popover').boundingBox();
+            assert.ok(compactMenu.y >= 0 && compactMenu.y + compactMenu.height <= 390, 'Very short desktop panel must remain bounded');
+            await page.setViewportSize({ width, height: 844 });
+            assert.equal(await page.locator('.more-popover').count(), 0, 'Resize hiding the trigger must dismiss More');
+            assert.equal(await page.locator('.desktop-secondary').isVisible(), true);
           }
           await search.fill('');
           await page.evaluate(() => window.scrollTo({ top: 0, behavior: 'instant' }));

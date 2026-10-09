@@ -37,14 +37,11 @@ try {
   await page.getByText('RUNS · PLANNED').waitFor();
   await nav('Goals').click();
   await page.locator('.hunt-list').waitFor();
-  await nav('More').click();
-  await page.locator('.more-popover').getByRole('button', { name: /Trainer/i }).click();
+  await nav('Trainer').click();
   await page.locator('.progress-list').waitFor();
-  await nav('More').click();
-  await page.locator('.more-popover').getByRole('button', { name: /Modules/i }).click();
+  await nav('Modules').click();
   await page.getByText('MODULE REGISTRY · PLANNED').waitFor();
-  await nav('More').click();
-  await page.locator('.more-popover').getByRole('button', { name: /Import \/ Settings/i }).click();
+  await nav('Import / Settings').click();
   await page.locator('.settings-hero').waitFor();
 
   const [download] = await Promise.all([

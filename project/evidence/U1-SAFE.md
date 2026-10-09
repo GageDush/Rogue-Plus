@@ -27,3 +27,7 @@ Cloudflare build f3f44bac-539d-41fe-a01d-1400cbe75949 succeeded for that commit.
 Preview: https://design-profile-candy-overview-rogue-plus.gagedush-bff.workers.dev/
 
 AC2 remains not_tested; task remains ready_for_review. Production remains unchanged.
+
+## User device report — 2026-10-08
+
+User confirmed phone keyboard functionality was tested and worked. This satisfies the reported keyboard interaction subcheck; it does not independently establish every portrait/landscape or camera/browser chrome condition in the broader physical-device criterion.
