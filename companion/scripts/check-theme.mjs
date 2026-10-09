@@ -102,6 +102,7 @@ export async function checkTheme(browser, base) {
             const compactMenu = await page.locator('.more-popover').boundingBox();
             assert.ok(compactMenu.y >= 0 && compactMenu.y + compactMenu.height <= 390, 'Very short desktop panel must remain bounded');
             await page.setViewportSize({ width, height: 844 });
+            await page.locator('.more-popover').waitFor({ state: 'hidden' });
             assert.equal(await page.locator('.more-popover').count(), 0, 'Resize hiding the trigger must dismiss More');
             assert.equal(await page.locator('.desktop-secondary').isVisible(), true);
           }
