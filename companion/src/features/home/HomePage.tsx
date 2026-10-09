@@ -1,4 +1,4 @@
-import { ChevronRight, Database, History, ShieldCheck, Sparkles, Upload } from 'lucide-react';
+import { ChevronRight, Database, History, Search, ShieldCheck, Sparkles, Upload, X } from 'lucide-react';
 import { useState } from 'react';
 import type { Page } from '../../app/navigation';
 import type { AppState } from '../../domain/types';
@@ -57,6 +57,9 @@ export function HomePage({
 }) {
   const [eggSort, setEggSort] = useState<EggSort>('most-eggs');
   const [showAll, setShowAll] = useState(false);
+  const [candySearch, setCandySearch] = useState('');
+  const [actionKind, setActionKind] = useState('all');
+  const [visibleCount, setVisibleCount] = useState(20);
   if (!data) {
     return legacyCurrent
       ? <LegacyStateNotice sourceFile={legacyCurrent.sourceFile} onImport={onImport} />
@@ -64,6 +67,11 @@ export function HomePage({
   }
   const account = data.account;
   const candyActions = getCandyActions(data.pokemon, eggSort);
+  const filteredActions = candyActions.filter(action =>
+    (!showAll || actionKind === 'all' || action.kind === actionKind) &&
+    (!showAll || action.pokemon.name.toLocaleLowerCase().includes(candySearch.trim().toLocaleLowerCase())));
+  const visibleActions = filteredActions.slice(0, showAll ? visibleCount : 3);
+  const visibleEggs = visibleActions.some(action => action.kind === 'eggs');
   const changes = data.changes.slice(0, 5);
   const team = data.teams.find(candidate => candidate.id === 'complete-endless-spliced-5850-cheese') || data.teams[0];
   const readiness = data.teamReadiness.find(result => result.teamId === team.id);
@@ -78,11 +86,16 @@ export function HomePage({
       </section>
 
       <section className='section'>
-        <SectionHeading title='Next actions' action={candyActions.length > 3 ? showAll ? 'Show fewer' : 'Show all (' + candyActions.length + ')' : undefined} onClick={() => setShowAll(!showAll)} />
-        <p className='candy-explainer'>Use available candy in PokéRogue: passives first, then starter cost reductions, then eggs. Based on your last import.</p>
-        {candyActions.some(action => action.kind === 'eggs') && <label className='egg-sort'>Egg order <select value={eggSort} onChange={event => setEggSort(event.target.value as EggSort)}><option value='most-eggs'>Most eggs affordable</option><option value='least-progress'>Least collection progress</option></select></label>}
+        <SectionHeading title='Candy priorities' action={candyActions.length > 3 ? showAll ? 'Show fewer' : 'Browse all (' + candyActions.length + ')' : undefined} onClick={() => { setShowAll(!showAll); setCandySearch(''); setActionKind('all'); setVisibleCount(20); }} />
+        <p className='candy-explainer'>Affordable passives first, then cost reductions, then eggs. Based on your last import.</p>
+        {showAll && <div className='candy-browser'>
+          <div className='search-box'><Search /><input aria-label='Search candy priorities' placeholder='Search Pokémon…' value={candySearch} onChange={event => { setCandySearch(event.target.value); setVisibleCount(20); }} />{candySearch && <button aria-label='Clear candy search' onClick={() => { setCandySearch(''); setVisibleCount(20); }}><X /></button>}</div>
+          <label className='egg-sort'>Action <select aria-label='Candy action type' value={actionKind} onChange={event => { setActionKind(event.target.value); setVisibleCount(20); }}><option value='all'>All actions</option><option value='passive'>Passives</option><option value='reduction'>Cost reductions</option><option value='eggs'>Egg purchases</option></select></label>
+          <p className='result-meta' role='status'>{filteredActions.length} matching priorities · showing {visibleActions.length}</p>
+        </div>}
+        {(visibleEggs || (showAll && actionKind === 'eggs')) && <label className='egg-sort'>Egg order <select value={eggSort} onChange={event => { setEggSort(event.target.value as EggSort); setVisibleCount(20); }}><option value='most-eggs'>Most eggs affordable</option><option value='least-progress'>Least collection progress</option></select></label>}
         <div className='priority-list'>
-          {(showAll ? candyActions : candyActions.slice(0, 3)).map(({ pokemon, label, cost, eggBudget, kind }, index) => (
+          {visibleActions.map(({ pokemon, label, cost, eggBudget, kind }, index) => (
             <button key={pokemon.id} className='priority-row' onClick={() => onPokemon(pokemon.id)}>
               <span className='rank'>{index + 1}</span>
               <PokemonSprite pokemon={pokemon} size={46} />
@@ -91,8 +104,11 @@ export function HomePage({
             </button>
           ))}
         </div>
+        {showAll && visibleActions.length < filteredActions.length && <button className='secondary load-more' onClick={() => setVisibleCount(count => count + 20)}>Show 20 more</button>}
+        {showAll && !filteredActions.length && candyActions.length > 0 && <div className='empty-panel'><Search /><div><strong>No matching candy priorities</strong><span>Try another Pokémon or action type.</span></div></div>}
         {!candyActions.length && <div className='empty-panel'><Database /><div><strong>No affordable candy actions</strong><span>Earn more candy or import a newer save to refresh availability.</span></div></div>}
-        {candyActions.some(action => action.kind === 'eggs') && <p className='candy-explainer'>Eggs may improve moves, IVs, natures, hidden abilities or shinies; no unlock is guaranteed. Budgets use current hatch-based prices and exclude your game's egg-slot limit. One recommendation per Pokémon; nothing is purchased here.</p>}
+        {visibleEggs && <details className='candy-notes'><summary>How egg budgets work</summary><p className='candy-explainer'>Eggs may improve moves, IVs, natures, hidden abilities or shinies; no unlock is guaranteed. Budgets use current hatch-based prices and exclude your game's egg-slot limit. One recommendation per Pokémon; nothing is purchased here.</p></details>}
+        <p className='candy-explainer'>Use candy in PokéRogue. Nothing is purchased here.</p>
       </section>
 
       <section className='section'>

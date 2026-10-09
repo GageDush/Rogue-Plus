@@ -43,10 +43,18 @@ export async function checkTheme(browser, base) {
           await page.getByRole('heading', { name: 'Profile overview', exact: true }).waitFor();
           assert.equal(await page.getByRole('progressbar').count(), 4);
           assert.equal(await page.locator('.priority-row').filter({ hasText: /Finish egg moves|Unlock egg/ }).count(), 0);
-          const all = page.getByRole('button', { name: /Show all/ });
+          const all = page.getByRole('button', { name: /Browse all/ });
           assert.equal(await all.count(), 1, 'Synthetic candy list must exercise expansion');
           await all.click();
           assert.ok(await page.locator('.priority-row').count() > 3);
+          assert.ok(await page.locator('.priority-row').count() <= 20, 'Candy browser must load bounded batches');
+          await page.getByRole('combobox', { name: 'Candy action type', exact: true }).selectOption('eggs');
+          assert.ok(await page.locator('.priority-row').count() > 0);
+          assert.equal(await page.locator('.priority-row').filter({ hasText: /Unlock passive|Reduce starter cost/ }).count(), 0);
+          await page.getByRole('textbox', { name: 'Search candy priorities', exact: true }).fill('no-such-pokemon');
+          await page.getByText('No matching candy priorities', { exact: true }).waitFor();
+          await page.getByRole('button', { name: 'Clear candy search', exact: true }).click();
+          await page.getByRole('combobox', { name: 'Candy action type', exact: true }).selectOption('all');
           await page.getByRole('button', { name: 'Show fewer', exact: true }).click();
           assert.equal(await page.locator('.priority-row').count(), 3);
           await page.getByRole('combobox', { name: 'Egg order' }).selectOption('least-progress');
@@ -56,6 +64,9 @@ export async function checkTheme(browser, base) {
         }
         assert.equal(await actual(), mode.toLowerCase());
         assert.ok(await page.evaluate(() => document.documentElement.scrollWidth) <= width, destination + ' overflows ' + width);
+        if (destination === 'Dex' || destination === 'Build') {
+          assert.ok(await page.locator(destination === 'Dex' ? '.filter-row' : '.team-tabs').evaluate(el => el.scrollWidth <= el.clientWidth), 'Filter/tab options are hidden horizontally');
+        }
         if (width < 980) {
           assert.ok(await page.locator('.topbar').evaluate(el => parseFloat(getComputedStyle(el).paddingTop) >= 71), 'Camera inset lost to stylesheet override');
           assert.ok(await page.locator('.topbar-copy').evaluate(el => el.getBoundingClientRect().top >= 59), 'Brand enters status area');

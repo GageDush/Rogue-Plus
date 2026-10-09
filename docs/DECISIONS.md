@@ -46,3 +46,7 @@ DES-006 supersedes Home score-ranked mixed next actions: show only candy-afforda
 Egg costs/discounts are added from the already-pinned official source at e734a202a912cc969409c84111b5ab6a15fc7774, without changing the reference pin. Counts are floor(candy/current hatch-based egg price), not guaranteed unlocks, predicted hatch discounts or purchases against free slots. The normalized snapshot has no egg inventory; UI explicitly excludes capacity and states random outcomes. Imported facts remain dated.
 
 DES-007 replaces large completion ratios with accessible progress bars, a percentage and smaller counts on Home, Trainer completion and Pokémon detail. Unavailable totals show unknown; rounding never reports 100% early. Replace displayed T1/T2/T3 shorthand with yellow/blue/red shiny labels and a red star where appropriate; internal keys and historical source terminology remain unchanged.
+
+## DES-008 — bounded candy browsing (2026-10-08)
+
+Previous: unbounded Show all list and horizontally clipped phone filters. Replacement: a searchable, filtered Home expansion in batches of 20, with wrapping Dex/strategy controls. Reason: mk2 phone review shows 419 recommendations; preserve a short default Home and avoid new route complexity. Approval: user requested review and necessary changes. Applies to U1-POLISH; a dedicated candy route remains a future option.

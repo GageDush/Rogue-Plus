@@ -37,3 +37,7 @@ Use real collection denominators for starters, passives, egg moves and red-shiny
 ## Device safe areas
 
 The final field-guide stylesheet owns top, bottom and landscape side insets after legacy rules and breakpoints. Edge-to-edge backgrounds remain; header controls, content, navigation, recovery screens and notifications reserve system-control clearance. Tests simulate insets because desktop automation reports zero native values. Physical installed iPhone/Safari portrait, landscape, keyboard and larger-text verification remain pending under U1-SAFE.
+
+## Candy browsing and visible phone filters
+
+Home shows three candy priorities. Browse all expands a searchable, action-filtered view on Home, rendering up to 20 rows initially and adding 20 per request. Filters/search reset the batch; collapsing resets browsing controls. Egg order appears with visible egg recommendations or the egg category, and budget detail uses an expandable disclosure. Domain ordering and affordability remain unchanged. Dex filters and strategy selectors wrap so options stay visible on phone widths.

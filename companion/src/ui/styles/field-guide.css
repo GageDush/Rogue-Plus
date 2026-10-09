@@ -103,6 +103,17 @@ h1, h2, h3, .kpi > strong { font-family: var(--font-display); }
 .appearance-options button[aria-pressed='true'] { background: var(--accent-soft); border-color: var(--accent-text); color: var(--accent-text); font-weight: 750; }
 .toast { font-size: 14px; bottom: calc(88px + env(safe-area-inset-bottom)); }
 .icon-button { min-width: 44px; min-height: 44px; }
+.filter-row, .team-tabs { flex-wrap: wrap; overflow: visible; }
+.team-tabs { gap: 8px; border: 0; }
+.team-tabs button, .team-tabs button:first-child, .team-tabs button:last-child {
+  flex: 1 1 140px; min-width: 0; min-height: 44px; white-space: normal;
+  border: 1px solid var(--line-strong); border-radius: 10px; font-size: 14px;
+}
+.filter-row .filter { flex: 1 1 auto; }
+.candy-browser { margin-block: 16px; }
+.candy-notes { margin-top: 12px; }
+.candy-notes summary { min-height: 44px; display: list-item; padding-block: 10px; font-size: 14px; cursor: pointer; color: var(--muted); }
+.section-heading { flex-wrap: wrap; gap: 4px 12px; }
 button:focus-visible, input:focus-visible { outline: var(--focus-ring); }
 @media (max-width: 360px) {
   .topbar { padding-inline: 12px; }
