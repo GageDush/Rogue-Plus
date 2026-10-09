@@ -15,11 +15,11 @@ A mobile-first, local-first PokéRogue companion. Explore an imported collection
 <!-- PROJECT:START -->
 ## Project progress
 
-20 / 51 tracked tasks verified. Counts describe this work plan, not overall product completion.
+21 / 51 tracked tasks verified. Counts describe this work plan, not overall product completion.
 
 | Verified | In progress | Ready for review | Blocked | Planned |
 | --- | --- | --- | --- | --- |
-| ✓ 20 | ◐ 0 | ◇ 3 | ! 0 | ○ 28 |
+| ✓ 21 | ◐ 0 | ◇ 3 | ! 0 | ○ 27 |
 
 <details>
 <summary>View milestone progress illustration</summary>
@@ -34,7 +34,7 @@ A mobile-first, local-first PokéRogue companion. Explore an imported collection
 | ID | Milestone | Verified/total |
 | --- | --- | --- |
 | T | Project tracking | 2/2 |
-| A | Foundation release candidate | 1/3 |
+| A | Foundation release candidate | 2/3 |
 | B | Hybrid visual redesign | 17/29 |
 | C | Module contracts | 0/1 |
 | D | Privacy and source quality | 0/3 |

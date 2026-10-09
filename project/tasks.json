@@ -266,9 +266,10 @@
     },
     {
       "name": "Failed-load preservation and strict nested backup validation",
-      "result": "fail",
+      "result": "pass",
       "evidence": [
-        "project/evidence/RELEASE-AUDIT-2026-10-09.md"
+        "project/evidence/S0.md",
+        "project/evidence/S1.md"
       ]
     },
     {
@@ -514,32 +515,39 @@
       "scope": "Reject malformed nested/future backup values before replacement.",
       "excludes": "No unrelated features, mechanics changes, storage migration or production deployment.",
       "class": "data",
-      "authorization": "pending",
-      "status": "planned",
+      "authorization": "approved",
+      "status": "verified",
       "dependsOn": [
         "S0"
       ],
       "paths": [
         "companion/src/storage/schema.ts",
-        "companion/tests/storage-safety.test.ts"
+        "companion/tests/storage-safety.test.ts",
+        "companion/src/storage/validate-state.ts",
+        "companion/tests/startup-recovery.test.ts",
+        "project/evidence/S1.md"
       ],
       "guidance": [
         "docs/DECISIONS.md",
         "docs/ARCHITECTURE.md",
         "docs/DESIGN.md"
       ],
-      "docsReviewed": [],
+      "docsReviewed": [
+        "docs/DECISIONS.md",
+        "docs/ARCHITECTURE.md",
+        "docs/DESIGN.md"
+      ],
       "delivery": {
-        "stage": "not_started",
-        "branch": null
+        "stage": "working_branch",
+        "branch": "design/profile-candy-overview"
       },
       "acceptance": [
         {
           "id": "AC1",
           "description": "Malformed nested payload cannot replace current state.",
-          "result": "fail",
+          "result": "pass",
           "evidence": [
-            "project/evidence/RELEASE-AUDIT-2026-10-09.md"
+            "project/evidence/S1.md"
           ]
         },
         {
@@ -547,10 +555,11 @@
           "description": "Supported versioned/legacy backup round trips pass.",
           "result": "pass",
           "evidence": [
-            "project/evidence/RELEASE-AUDIT-2026-10-09.md"
+            "project/evidence/S1.md"
           ]
         }
-      ]
+      ],
+      "verifiedOn": "2026-10-09"
     },
     {
       "id": "U1",

@@ -1,5 +1,6 @@
 import type { AppState, Snapshot } from '../domain/types';
 import { REFERENCE_VERSION } from '../reference';
+import { timestamp, validateState } from './validate-state';
 import {
   BACKUP_KIND,
   BACKUP_SCHEMA_VERSION,
@@ -34,6 +35,7 @@ export function normalizeLoadedState(value: unknown): AppState {
   if (!isAppStateLike(value)) {
     throw new Error('Stored Command Center data had an invalid state shape.');
   }
+  validateState(value);
   return {
     current: value.current ? markSnapshotLegacy(value.current as Snapshot) : null,
     snapshots: (value.snapshots as Snapshot[]).map(markSnapshotLegacy),
@@ -55,8 +57,8 @@ export function parseStateEnvelope(value: unknown): StoredStateEnvelope {
   if (!isRecord(value) || value.kind !== 'pokerogue-command-center-state') {
     throw new Error('Stored data was not a versioned Command Center state envelope.');
   }
-  const version = Number(value.schemaVersion);
-  if (version > STATE_ENVELOPE_SCHEMA_VERSION) {
+  const version = value.schemaVersion;
+  if (typeof version === 'number' && version > STATE_ENVELOPE_SCHEMA_VERSION) {
     throw new Error(
       'This local state was created by a newer Command Center storage schema (' + String(version) + ').'
     );
@@ -67,6 +69,7 @@ export function parseStateEnvelope(value: unknown): StoredStateEnvelope {
   if (typeof value.referenceVersion !== 'string' || typeof value.savedAt !== 'string') {
     throw new Error('Stored Command Center state metadata was incomplete.');
   }
+  timestamp(value.savedAt, 'savedAt');
   return {
     kind: 'pokerogue-command-center-state',
     schemaVersion: STATE_ENVELOPE_SCHEMA_VERSION,
@@ -93,8 +96,8 @@ export function createBackupEnvelope(state: AppState, exportedAt = new Date().to
 
 export function parseBackup(value: unknown): BackupRestoreResult {
   if (isRecord(value) && value.kind === BACKUP_KIND) {
-    const backupVersion = Number(value.backupSchemaVersion);
-    if (backupVersion > BACKUP_SCHEMA_VERSION) {
+    const backupVersion = value.backupSchemaVersion;
+    if (typeof backupVersion === 'number' && backupVersion > BACKUP_SCHEMA_VERSION) {
       throw new Error(
         'This backup was created by a newer Command Center backup format (' + String(backupVersion) + ').'
       );
@@ -102,12 +105,15 @@ export function parseBackup(value: unknown): BackupRestoreResult {
     if (backupVersion !== BACKUP_SCHEMA_VERSION) {
       throw new Error('Unsupported Command Center backup format ' + String(backupVersion) + '.');
     }
-    const stateSchemaVersion = Number(value.stateSchemaVersion);
-    if (stateSchemaVersion > STATE_ENVELOPE_SCHEMA_VERSION) {
+    const stateSchemaVersion = value.stateSchemaVersion;
+    if (typeof stateSchemaVersion === 'number' && stateSchemaVersion > STATE_ENVELOPE_SCHEMA_VERSION) {
       throw new Error(
         'This backup contains a newer state schema (' + String(stateSchemaVersion) + ').'
       );
     }
+    if (stateSchemaVersion !== STATE_ENVELOPE_SCHEMA_VERSION) throw new Error('Unsupported or missing backup state schema.');
+    if (typeof value.referenceVersion !== 'string' || !value.referenceVersion.trim()) throw new Error('Backup reference metadata was incomplete.');
+    timestamp(value.exportedAt, 'exportedAt');
     const warnings: string[] = [];
     if (typeof value.referenceVersion === 'string' && value.referenceVersion !== REFERENCE_VERSION) {
       warnings.push(
@@ -137,21 +143,12 @@ export function parseBackup(value: unknown): BackupRestoreResult {
 export function runStorageSchemaSelfTest(): boolean {
   try {
     const legacy = {
-      current: {
-        id: 'legacy',
-        importId: 'legacy',
-        sourceFile: 'legacy.prsv',
-        saveTimestamp: '2026-01-01T00:00:00.000Z',
-        gameVersion: 'legacy',
-        pokemon: [],
-        account: {},
-        latestChanges: [],
-      },
+      current: null,
       snapshots: [],
       history: [],
     };
     const migrated = migrateLegacyState(legacy);
-    if (!migrated.current?.legacy) return false;
+    if (migrated.current !== null) return false;
 
     const envelope = createStateEnvelope(emptyAppState(), '2026-01-01T00:00:00.000Z');
     if (parseStateEnvelope(envelope).schemaVersion !== 2) return false;

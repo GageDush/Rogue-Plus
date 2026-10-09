@@ -18,11 +18,12 @@
 
 | Task | Work packet | Implementation approval |
 | --- | --- | --- |
-| S1 | Validate backup payloads deeply | pending |
 | U2 | Shell, navigation and authentic branding | pending |
 | U4B | Pokemon detail composition | pending |
+| U8 | Settings and persistent recovery feedback | pending |
 | C0 | First narrow companion module contract | pending |
 | I0 | Lock dependencies and reproducible CI | pending |
+| V0 | Profile/Run/UserContent schema contracts | pending |
 | REF0 | Rules-legal Build reference coverage | pending |
 | O0 | Offline caches and controlled updates | pending |
 | DEX-SEARCH | Advanced search and available-option matching | pending |
