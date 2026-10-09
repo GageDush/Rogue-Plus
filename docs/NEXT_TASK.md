@@ -12,7 +12,7 @@
 | --- | --- | --- |
 | BASE-FOUND | Review existing foundation extraction | [Open PR](https://github.com/GageDush/Rogue-Plus/pull/2) |
 | BASE-SHELL | Review existing canonical hybrid shell | [Open PR](https://github.com/GageDush/Rogue-Plus/pull/3) |
-| U1-SAFE | Device safe areas and installed header clearance | [Open PR](https://github.com/GageDush/Rogue-Plus/pull/8) |
+| D0 | Public-source and reachable-history review | design/profile-candy-overview |
 
 ## Dependency-ready tasks
 
@@ -23,7 +23,6 @@
 | U4B | Pokemon detail composition | pending |
 | C0 | First narrow companion module contract | pending |
 | I0 | Lock dependencies and reproducible CI | pending |
-| D0 | Public-source and reachable-history review | pending |
 | REF0 | Rules-legal Build reference coverage | pending |
 | O0 | Offline caches and controlled updates | pending |
 | DEX-SEARCH | Advanced search and available-option matching | pending |
