@@ -280,7 +280,9 @@
     {
       "name": "Real phone/desktop interaction signoff",
       "result": "not_tested",
-      "evidence": []
+      "evidence": [
+        "project/evidence/U1-SAFE.md"
+      ]
     },
     {
       "name": "Explicit merge and production rollout approval",
@@ -1861,17 +1863,20 @@
         "companion/src/ui/styles/field-guide.css",
         "companion/scripts/check-theme.mjs",
         "docs/DESIGN.md",
-        "project/evidence/U1-SAFE.md"
+        "project/evidence/U1-SAFE.md",
+        "docs/DEX_HANDOFF.md"
       ],
       "guidance": [
         "docs/DESIGN.md",
         "docs/DECISIONS.md",
-        "docs/ARCHITECTURE.md"
+        "docs/ARCHITECTURE.md",
+        "docs/DEX_HANDOFF.md"
       ],
       "docsReviewed": [
         "docs/DESIGN.md",
         "docs/DECISIONS.md",
-        "docs/ARCHITECTURE.md"
+        "docs/ARCHITECTURE.md",
+        "docs/DEX_HANDOFF.md"
       ],
       "delivery": {
         "stage": "pr_open",
@@ -1891,7 +1896,9 @@
           "id": "AC2",
           "description": "Physical iPhone installed/Safari portrait and landscape review confirms header and final-row clearance.",
           "result": "not_tested",
-          "evidence": []
+          "evidence": [
+            "project/evidence/U1-SAFE.md"
+          ]
         }
       ]
     },

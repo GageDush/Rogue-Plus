@@ -31,3 +31,17 @@ AC2 remains not_tested; task remains ready_for_review. Production remains unchan
 ## User device report — 2026-10-08
 
 User confirmed phone keyboard functionality was tested and worked. This satisfies the reported keyboard interaction subcheck; it does not independently establish every portrait/landscape or camera/browser chrome condition in the broader physical-device criterion.
+
+## Installed iPhone acceptance — 2026-10-09
+
+At 13:33 America/Chicago, the user replied “1–5 pass” to the following Home Screen app checks against the current branch preview:
+
+1. Dex search with Garchomp: Return/Done dismisses the keyboard and results remain accessible.
+2. Detail return retains search, filters, List layout and scroll position.
+3. Portrait detail final content clears bottom navigation; all navigation controls respond.
+4. Landscape detail and More remain accessible without clipped content, overlapping controls or notch-blocked buttons.
+5. Returning to portrait keeps the page usable and retains selections.
+
+Evidence is the user's interaction report, not an automated physical-device observation. Earlier supplied portrait/landscape images are private and remain outside Git. This closes the five requested installed-app checks. A separate Safari browser-mode run and larger-text review were not requested in this checklist and remain untested; AC2 retains ready_for_review coverage until its full installed/Safari scope is established. Full offline, backup-validation, privacy and production release gates are unaffected.
+
+The tested branch preview was deployed at 5caad52e8e0780a291802f0408b62b93f3bf79b9. Cloudflare build 613d6f9e-859a-47ef-9492-011af674de3e succeeded on 2026-10-09 at 17:36:39 UTC; subsequent live desktop interaction checks confirmed theme persistence, detail-return search/layout/card focus and restored synthetic starter options surviving reload. Synthetic backup checks are not an actual-user backup restoration signoff. The bundled sample has zero caught-form source bits despite unlocked summary flags, so option availability was checked with a consistent synthetic backup instead. No application code changed during this acceptance update.

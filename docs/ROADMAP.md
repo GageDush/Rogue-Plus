@@ -471,15 +471,15 @@ Shared top/bottom/landscape safe areas in both themes, automated simulated inset
 **Acceptance**
 
 - ✓ Pass — Final shared stylesheet reserves top, bottom and landscape side insets without route overflow in both themes. · [project/evidence/U1-SAFE.md](../project/evidence/U1-SAFE.md)
-- ○ Not tested — Physical iPhone installed/Safari portrait and landscape review confirms header and final-row clearance.
+- ○ Not tested — Physical iPhone installed/Safari portrait and landscape review confirms header and final-row clearance. · [project/evidence/U1-SAFE.md](../project/evidence/U1-SAFE.md)
 
 **Dependencies:** U1.
 
 **Excluded:** No candy view, feature typography, data/schema changes, merge or production deployment.
 
-**Affected paths:** [companion/src/ui/styles/field-guide.css](../companion/src/ui/styles/field-guide.css), [companion/scripts/check-theme.mjs](../companion/scripts/check-theme.mjs), [docs/DESIGN.md](../docs/DESIGN.md), [project/evidence/U1-SAFE.md](../project/evidence/U1-SAFE.md)
+**Affected paths:** [companion/src/ui/styles/field-guide.css](../companion/src/ui/styles/field-guide.css), [companion/scripts/check-theme.mjs](../companion/scripts/check-theme.mjs), [docs/DESIGN.md](../docs/DESIGN.md), [project/evidence/U1-SAFE.md](../project/evidence/U1-SAFE.md), [docs/DEX_HANDOFF.md](../docs/DEX_HANDOFF.md)
 
-**Guidance:** [docs/DESIGN.md](../docs/DESIGN.md), [docs/DECISIONS.md](../docs/DECISIONS.md), [docs/ARCHITECTURE.md](../docs/ARCHITECTURE.md)
+**Guidance:** [docs/DESIGN.md](../docs/DESIGN.md), [docs/DECISIONS.md](../docs/DECISIONS.md), [docs/ARCHITECTURE.md](../docs/ARCHITECTURE.md), [docs/DEX_HANDOFF.md](../docs/DEX_HANDOFF.md)
 
 </details>
 

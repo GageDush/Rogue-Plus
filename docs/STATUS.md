@@ -182,7 +182,7 @@ Source and synthetic browser checks pass; physical iPhone review and production 
 - **Failed-load preservation and strict nested backup validation** — No passing evidence recorded.
 - **Public content/history privacy review** — No passing evidence recorded.
 - **Offline cold start and safe cache updates** — No passing evidence recorded.
-- **Real phone/desktop interaction signoff** — No passing evidence recorded.
+- **Real phone/desktop interaction signoff** — [project/evidence/U1-SAFE.md](../project/evidence/U1-SAFE.md)
 - **Explicit merge and production rollout approval** — No passing evidence recorded.
 
 </details>

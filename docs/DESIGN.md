@@ -36,7 +36,7 @@ Use real collection denominators for starters, passives, egg moves and red-shiny
 
 ## Device safe areas
 
-The final field-guide stylesheet owns top, bottom and landscape side insets after legacy rules and breakpoints. Edge-to-edge backgrounds remain; header controls, content, navigation, recovery screens and notifications reserve system-control clearance. Tests simulate insets because desktop automation reports zero native values. Physical installed iPhone/Safari portrait, landscape, keyboard and larger-text verification remain pending under U1-SAFE.
+The final field-guide stylesheet owns top, bottom and landscape side insets after legacy rules and breakpoints. Edge-to-edge backgrounds remain; header controls, content, navigation, recovery screens and notifications reserve system-control clearance. Tests simulate insets because desktop automation reports zero native values. On 2026-10-09 the user reported passing installed-iPhone keyboard dismissal, detail-return state, portrait final-row/navigation clearance, landscape detail/More clearance and rotation back. Separate Safari browser mode and larger-text review remain pending under U1-SAFE; see its tracked acceptance evidence.
 
 ## Candy browsing and visible phone filters
 
