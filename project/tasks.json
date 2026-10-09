@@ -2002,7 +2002,8 @@
       "excludes": "No storage/mechanics/import/cache overhaul, route migration, merge or production deployment.",
       "class": "interaction",
       "authorization": "approved",
-      "status": "ready_for_review",
+      "status": "verified",
+      "verifiedOn": "2026-10-09",
       "dependsOn": [
         "U1-MENU"
       ],
@@ -2040,14 +2041,14 @@
         {
           "id": "AC1",
           "description": "Tall desktop shows all destinations without More; shorter desktop shows More beside its trigger, bounded within viewport, with dismissal preserving page state.",
-          "result": "not_tested",
-          "evidence": []
+          "result": "pass",
+          "evidence": ["project/evidence/U1-NAVFIT.md"]
         },
         {
           "id": "AC2",
           "description": "Both themes, 320/390 phones, short landscape and desktop resizing retain navigation and existing storage/import behavior.",
-          "result": "not_tested",
-          "evidence": []
+          "result": "pass",
+          "evidence": ["project/evidence/U1-NAVFIT.md"]
         }
       ]
     }
