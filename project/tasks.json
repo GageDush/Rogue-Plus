@@ -281,7 +281,7 @@
     },
     {
       "name": "Offline cold start and safe cache updates",
-      "result": "not_tested",
+      "result": "pass",
       "evidence": [
         "project/evidence/O0.md"
       ]
@@ -538,8 +538,9 @@
         "docs/DESIGN.md"
       ],
       "delivery": {
-        "stage": "working_branch",
-        "branch": "design/profile-candy-overview"
+        "stage": "pr_open",
+        "branch": "design/profile-candy-overview",
+        "pr": "https://github.com/GageDush/Rogue-Plus/pull/8"
       },
       "acceptance": [
         {
@@ -1533,7 +1534,7 @@
       "excludes": "No unrelated features, mechanics changes, storage migration or production deployment.",
       "class": "infrastructure",
       "authorization": "approved",
-      "status": "ready_for_review",
+      "status": "verified",
       "dependsOn": [],
       "paths": [
         "companion/public/sw.js",
@@ -1565,8 +1566,9 @@
         "docs/DEX_HANDOFF.md"
       ],
       "delivery": {
-        "stage": "working_branch",
-        "branch": "design/profile-candy-overview"
+        "stage": "pr_open",
+        "branch": "design/profile-candy-overview",
+        "pr": "https://github.com/GageDush/Rogue-Plus/pull/8"
       },
       "acceptance": [
         {
@@ -1585,7 +1587,8 @@
             "project/evidence/O0.md"
           ]
         }
-      ]
+      ],
+      "verifiedOn": "2026-10-09"
     },
     {
       "id": "R0",
