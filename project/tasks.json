@@ -1885,7 +1885,7 @@
       "excludes": "No mechanics/ranking/storage changes, new routes, settings restructure, merge or production deployment.",
       "class": "interaction",
       "authorization": "approved",
-      "status": "ready_for_review",
+      "status": "verified",
       "dependsOn": [
         "U1-CANDY"
       ],
@@ -1916,16 +1916,21 @@
         {
           "id": "AC1",
           "description": "Candy search/category/expansion/reset retain deterministic affordable domain actions with bounded rows.",
-          "result": "not_tested",
-          "evidence": []
+          "result": "pass",
+          "evidence": [
+            "project/evidence/U1-POLISH.md"
+          ]
         },
         {
           "id": "AC2",
           "description": "Both themes and 320/390/desktop layouts, wrapped tabs and safe-area regressions pass.",
-          "result": "not_tested",
-          "evidence": []
+          "result": "pass",
+          "evidence": [
+            "project/evidence/U1-POLISH.md"
+          ]
         }
-      ]
+      ],
+      "verifiedOn": "2026-10-08"
     }
   ]
 }

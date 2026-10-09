@@ -13,7 +13,6 @@
 | BASE-FOUND | Review existing foundation extraction | [Open PR](https://github.com/GageDush/Rogue-Plus/pull/2) |
 | BASE-SHELL | Review existing canonical hybrid shell | [Open PR](https://github.com/GageDush/Rogue-Plus/pull/3) |
 | U1-SAFE | Device safe areas and installed header clearance | [Open PR](https://github.com/GageDush/Rogue-Plus/pull/8) |
-| U1-POLISH | Bounded candy browsing and visible phone filters | [Open PR](https://github.com/GageDush/Rogue-Plus/pull/8) |
 
 ## Dependency-ready tasks
 
