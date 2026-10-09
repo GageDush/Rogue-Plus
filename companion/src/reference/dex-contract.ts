@@ -62,6 +62,8 @@ export interface DexSpeciesReference extends NamedReference {
   readonly passiveAbilityId: ReferenceValue<number | null>;
   /** Preserve official slot order. Ownership and unlocks are account facts. */
   readonly eggMoveIds: ReferenceValue<readonly number[]>;
+  /** Explicit source owner for inherited egg slots, including Pikachu → Pichu. */
+  readonly eggMoveSourceId: ReferenceValue<number | null>;
 }
 export interface DexRelationship {
   readonly targetSpeciesId: number;

@@ -56,7 +56,7 @@ export function enumValues(text, name) {
   }
   return out;
 }
-export const camel = key => key.toLowerCase().replace(/_([a-z0-9])/g, (_, c) => c.toUpperCase());
+export const camel = key => key.toLowerCase().replace(/_+([a-z0-9])/g, (_, c) => c.toUpperCase());
 export function named(key, id, names) {
   const entry = names[camel(key)], name = typeof entry === 'string' ? entry : entry?.name;
   if (typeof name !== 'string' || !name) throw Error('Missing official name: ' + key);
@@ -114,7 +114,8 @@ export function extractSpecies(entries, enums, names) {
     records.push({ ...named(key,id,names), generation: known(generation), originalStarterCost: known(cost), forms: known(forms),
       starterRootIds: unavailable('Root reference packet pending.'), evolutionIds: unavailable('Root reference packet pending.'),
       evolutionLinks: unavailable('Root reference packet pending.'), formChangeLinks: unavailable('Root reference packet pending.'),
-      passiveAbilityId: unavailable('Ability reference packet pending.'), eggMoveIds: unavailable('Move reference packet pending.') });
+      passiveAbilityId: unavailable('Ability reference packet pending.'), eggMoveIds: unavailable('Move reference packet pending.'),
+      eggMoveSourceId: unavailable('Move reference packet pending.') });
   }
   return records.sort((a,b) => a.id-b.id);
 }
@@ -184,4 +185,81 @@ export function applyAbilities(species, entries, enums, names) {
     });
   }
   return abilities.sort((a,b)=>a.id-b.id);
+}
+
+export function resolvedFields(node,enums) {
+  if (!ts.isObjectLiteralExpression(node)) throw Error('Expected explicit keyed table');
+  const result=new Map();
+  for (const property of node.properties) {
+    if (!ts.isPropertyAssignment(property)) throw Error('Unsupported keyed-table entry');
+    const key=ts.isComputedPropertyName(property.name) ? literal(property.name.expression,enums)
+      : ts.isStringLiteral(property.name) ? property.name.text : property.name.getText();
+    if(result.has(key))throw Error('Duplicate keyed-table identity');
+    result.set(key,property.initializer);
+  }
+  return result;
+}
+function variableObject(text,name) {
+  const declarations=visit(syntax(text),n=>ts.isVariableDeclaration(n)&&n.name.getText()===name);
+  if(declarations.length!==1)throw Error('Missing/duplicate table: '+name);
+  let expression=declarations[0].initializer;
+  while(expression && (ts.isSatisfiesExpression(expression)||ts.isAsExpression(expression)||ts.isParenthesizedExpression(expression)))expression=expression.expression;
+  return expression;
+}
+export function extractMoves(text,enums,names) {
+  const init=visit(syntax(text),n=>ts.isFunctionDeclaration(n)&&n.name?.text==='initMoves');
+  if(init.length!==1)throw Error('Missing/duplicate initMoves');
+  const pushes=visit(init[0],n=>ts.isCallExpression(n)&&ts.isPropertyAccessExpression(n.expression)
+    &&n.expression.name.text==='push'&&/\ballMoves\b/.test(n.expression.expression.getText()));
+  if(pushes.length!==1)throw Error('Unexpected move registration shape');
+  const constructors=pushes[0].arguments.map(argument=>{
+    let node=argument;
+    while(ts.isCallExpression(node)&&ts.isPropertyAccessExpression(node.expression))node=node.expression.expression;
+    if(!ts.isNewExpression(node)||!node.arguments?.length)throw Error('Unsupported move registration');
+    return node;
+  });
+  const records=[],seen=new Set();
+  for(const node of constructors) {
+    const key=node.arguments[0].name.text,id=literal(node.arguments[0],enums);
+    if(id===0)continue; // NONE sentinel is not a selectable move identity.
+    if(seen.has(id))throw Error('Duplicate move identity');seen.add(id);
+    const kind=node.expression.getText(), attack=['AttackMove','ChargingAttackMove'].includes(kind),status=['StatusMove','SelfStatusMove','ChargingSelfStatusMove'].includes(kind);
+    if(!attack&&!status)throw Error('Unsupported move constructor: '+kind);
+    const typeId=literal(node.arguments[1],enums);
+    if(!Number.isInteger(typeId)||typeId < -1||typeId > 18)throw Error('Invalid move type');
+    const category=attack ? node.arguments[2].getText().match(/^MoveCategory\.(PHYSICAL|SPECIAL)$/)?.[1] : 'STATUS';
+    if(!category)throw Error('Unsupported move category');
+    const basePower=attack ? literal(node.arguments[3],enums) : -1;
+    if(!Number.isInteger(basePower)||basePower < -1)throw Error('Invalid move base power');
+    records.push({...named(key,id,names),typeId:known(typeId),category:known(category),basePower:known(basePower)});
+  }
+  const expected=[...enums.MoveId.values()].filter(id=>id>0);
+  if(expected.length!==records.length||expected.some(id=>!seen.has(id)))throw Error('Incomplete move declaration coverage');
+  return records.sort((a,b)=>a.id-b.id);
+}
+export function applyLearnsets(species,entries,enums,moves,eggText,constants) {
+  const moveIds=new Set(moves.map(m=>m.id)),byId=new Map(species.map(s=>[s.id,s]));
+  const eggTable=resolvedFields(variableObject(eggText,'speciesEggMoves'),enums);
+  for(const [id,node] of eggTable) {
+    if(!byId.has(id)||byId.get(id).originalStarterCost.value===null)throw Error('Unknown/unpriced egg-move owner');
+    const ids=literal(node,enums);
+    if(ids.length!==4||ids.some(id=>!moveIds.has(id)))throw Error('Invalid egg slot count/identity');
+  }
+  const levels=node=>{
+    const rows=literal(node,enums,constants);
+    if(!Array.isArray(rows)||rows.some(row=>!Array.isArray(row)||row.length!==2||!Number.isInteger(row[0])||row[0]<-1||!moveIds.has(row[1])))throw Error('Invalid level move row');
+    return rows.map(([level,moveId])=>({level,moveId}));
+  };
+  for(const {key,config} of entries) {
+    const record=byId.get(enums.SpeciesId.get(key));
+    const base=levels(config.get('levelMoves'));
+    const table=config.has('formLevelMoves') ? resolvedFields(config.get('formLevelMoves'),enums) : new Map();
+    for(const formKey of table.keys())if(!record.forms.value.some(f=>f.key===formKey))throw Error('Unknown learnset form: '+key+' / '+formKey);
+    for(const form of record.forms.value)form.levelMoves=known([...base,...(table.has(form.key)?levels(table.get(form.key)):[])]);
+    // Keep the slot owner explicit: Pikachu's source intentionally excludes its own table.
+    const owner=eggTable.has(record.id) ? record.id : record.starterRootIds.value?.[0];
+    if(!eggTable.has(owner))throw Error('Missing starter-root egg slots: '+key);
+    record.eggMoveSourceId=known(owner);
+    record.eggMoveIds=known(literal(eggTable.get(owner),enums));
+  }
 }

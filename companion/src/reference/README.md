@@ -1,6 +1,6 @@
 # PokéRogue Command Center source contract
 
-The current bundle provides generated pinned starter IDs/names/costs and static mechanics/asset references. `dex-contract.ts` defines expanded public-fact types and an account-independent build-pack index; it does not yet populate expanded data or enable rich reference search.
+The current runtime consumes generated pinned starter IDs/names/costs and static mechanics/asset references. Build generation also produces expanded pinned species/forms/roots/abilities/moves through `dex-contract.ts`, with source digests and declared coverage. Selection compatibility, runtime facade integration and rich reference search remain pending.
 
 ## Rules
 - Mutable imported player state is not game reference data.
@@ -19,3 +19,7 @@ DEX-REF-SPECIES statically reads TypeScript syntax at the unchanged game pin, in
 ## Ability/passive coverage
 
 DEX-REF-ABILITIES resolves 317 officially named ability IDs, ordinary/hidden slots for all 1,500 forms and form-specific passives. Declared NONE is null; the game constructor's second-slot alias is left for selection compatibility. Passive lookup reproduces the pinned registry's form-zero fallback. Official unnamed ABILITY_314/ABILITY_317 enum placeholders are excluded and coverage is partial; referenced unknown names fail generation. These public facts contain no unlocked/enabled ownership. Reference CI installs TypeScript before extraction; application CI now runs extractor tests.
+
+## Move/egg/learnset coverage
+
+DEX-REF-MOVES generates 920 official move identities with type, PHYSICAL/SPECIAL/STATUS category and declared base power. The upstream -1 power sentinel is preserved for status/variable-power moves; it is not calculated damage. Four ordered egg slots resolve through 571 source tables with explicit `eggMoveSourceId` (including Pikachu → Pichu and evolved species associations). Each form's level moves combine base rows and its form-key rows exactly as the pinned registry does; EVOLVE_MOVE=0 and RELEARN_MOVE=-1 remain source sentinels. The pack has 26,219 rows across 1,500 forms. This is learnability data, not starter-selectable-now claims. Egg ownership/replacement/challenge selection rules remain packet 7. No search/UI or account behavior changes.

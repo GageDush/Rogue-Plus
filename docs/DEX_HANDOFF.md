@@ -80,7 +80,7 @@ Authorized by the user on 2026-10-09. Query and panel behavior are documented in
 
 The user authorized eight sequential packets on 2026-10-09: artwork transport verification, reference contract, species fundamentals, evolution/roots, abilities/passives, moves/learnsets, starter-selection rules, and integration. Their individual states and evidence live only in project/tasks.json. Downstream search grammar/UI, candy reservation and runtime reference-pack updates remain outside these packets. ART-VERIFY corrects PNG readiness/failure handling without changing artwork pins or imported visual ownership.
 
-The expanded reference contract is implemented in `reference/dex-contract.ts`: known/null/empty values remain distinct from unavailable coverage, and public facts carry provenance without ownership. Species/forms/abilities/moves/selection data are not yet populated through this contract. Its interface is an implementation choice inside the authorized contract packet, not approval of the proposed advanced-search grammar.
+The expanded reference contract is implemented in `reference/dex-contract.ts`: known/null/empty values remain distinct from unavailable coverage, and public facts carry provenance without ownership. Species/forms, relationships, named abilities/passives and move/egg/learnset facts are now generated through this contract; selection compatibility and domain integration remain pending. Its interface is an implementation choice inside the authorized contract packet, not approval of the proposed advanced-search grammar.
 
 ## Populated species fundamentals
 
@@ -93,3 +93,7 @@ DEX-REF-ROOTS populates every species' official `starter` association, direct de
 ## Ability/passive coverage
 
 DEX-REF-ABILITIES resolves 317 officially named ability IDs, ordinary/hidden slots for all 1,500 forms and form-specific passives. Declared NONE is null; the game constructor's second-slot alias is left for selection compatibility. Passive lookup reproduces the pinned registry's form-zero fallback. Official unnamed ABILITY_314/ABILITY_317 enum placeholders are excluded and coverage is partial; referenced unknown names fail generation. These public facts contain no unlocked/enabled ownership. Reference CI installs TypeScript before extraction; application CI now runs extractor tests.
+
+## Move/egg/learnset coverage
+
+DEX-REF-MOVES generates 920 official move identities with type, PHYSICAL/SPECIAL/STATUS category and declared base power. The upstream -1 power sentinel is preserved for status/variable-power moves; it is not calculated damage. Four ordered egg slots resolve through 571 source tables with explicit `eggMoveSourceId` (including Pikachu → Pichu and evolved species associations). Each form's level moves combine base rows and its form-key rows exactly as the pinned registry does; EVOLVE_MOVE=0 and RELEARN_MOVE=-1 remain source sentinels. The pack has 26,219 rows across 1,500 forms. This is learnability data, not starter-selectable-now claims. Egg ownership/replacement/challenge selection rules remain packet 7. No search/UI or account behavior changes.

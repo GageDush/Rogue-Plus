@@ -1,7 +1,7 @@
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { resolve, dirname } from 'node:path';
 import { createHash } from 'node:crypto';
-import { enumValues, speciesEntries, extractSpecies, applyRoots, applyAbilities } from './dex-reference-extractor.mjs';
+import { enumValues, speciesEntries, extractSpecies, applyRoots, applyAbilities, extractMoves, applyLearnsets, visit, syntax, literal } from './dex-reference-extractor.mjs';
 const root = resolve(import.meta.dirname,'..');
 // Gitlink at the unchanged game revision; do not use the locales moving branch.
 export const localeCommit = '0696f674f631b47f208f5d687b427ed3e7cd81b0';
@@ -31,6 +31,18 @@ export async function generateDexReferences() {
   for (const path of ['src/data/species-data-registry.ts','src/data/pokemon-species.ts']) {
     paths.push(path); await source(lock.game.repository,lock.game.commit,path);
   }
+  const movePaths=['src/enums/move-id.ts','src/data/moves/move.ts','src/data/balance/moves/egg-moves.ts','src/constants.ts','src/utils/strings.ts'];
+  const [moveEnum,moveText,eggText,constantText]=await Promise.all(movePaths.map(path=>source(lock.game.repository,lock.game.commit,path)));
+  paths.push(...movePaths);
+  enums.MoveId=enumValues(moveEnum,'MoveId');
+  const constants={};
+  for(const declaration of visit(syntax(constantText),node=>node.name && ['EVOLVE_MOVE','RELEARN_MOVE'].includes(node.name.getText()))) {
+    if(declaration.initializer)constants[declaration.name.getText()]=literal(declaration.initializer);
+  }
+  if(constants.EVOLVE_MOVE!==0||constants.RELEARN_MOVE!==-1)throw Error('Review move sentinel semantics');
+  const moveNames=JSON.parse(await source('pagefaultgames/pokerogue-locales',localeCommit,'en/move.json'));
+  const moves=extractMoves(moveText,enums,moveNames);
+  applyLearnsets(species,entries,enums,moves,eggText,constants);
   const expectedIds = [...enums.SpeciesId.values()].filter(id => id > 0);
   if (expectedIds.length !== species.length || expectedIds.some(id => !species.some(s => s.id === id))) throw Error('Incomplete species declaration coverage');
   const types = [...enums.PokemonType].filter(([,id]) => id >= 0).map(([key,id]) => ({key,id,name:key[0]+key.slice(1).toLowerCase()}));
@@ -39,13 +51,16 @@ export async function generateDexReferences() {
     provenance:{repository:lock.game.repository,commit:lock.game.commit,paths},
     coverage:{species:{status:'complete',count:species.length,boundary:'Every non-NONE SpeciesId declaration and explicit PokemonForm at the pinned game revision.'},
       roots:{status:'complete',count:species.length,boundary:'Explicit starter associations and declared evolution/form-change links; no evolution eligibility claims.'},
-      abilities:{status:'partial',count:abilities.length,boundary:'Named ability IDs and all declared per-form ordinary/hidden slots and passives, including index-zero passive fallback. Official unnamed ABILITY_314/ABILITY_317 placeholders excluded.'}, moves:pending('Move packet pending.'), selection:pending('Starter compatibility packet pending.')},
-    species,types,abilities,moves:[]};
+      abilities:{status:'partial',count:abilities.length,boundary:'Named ability IDs and all declared per-form ordinary/hidden slots and passives, including index-zero passive fallback. Official unnamed ABILITY_314/ABILITY_317 placeholders excluded.'},
+      moves:{status:'complete',count:moves.length,boundary:'Every non-NONE MoveId declaration, ordered egg slots with explicit root source (including Pikachu→Pichu), and base plus form-key level moves; not current starter availability.'}, selection:pending('Starter compatibility packet pending.')},
+    species,types,abilities,moves};
   const output = resolve(root,'companion/src/reference/generated/dex-reference.v1.json');
   await mkdir(dirname(output),{recursive:true});
   await writeFile(output,JSON.stringify(pack,null,2)+'\n');
   const report = {schemaVersion:1,gameCommit:lock.game.commit,localeCommit,
-    counts:{species:species.length,forms:species.reduce((n,s)=>n+s.forms.value.length,0)},
+    counts:{species:species.length,forms:species.reduce((n,s)=>n+s.forms.value.length,0),
+      abilities:abilities.length,moves:moves.length,eggSlotOwners:new Set(species.map(s=>s.eggMoveSourceId.value)).size,
+      levelMoveRows:species.reduce((n,s)=>n+s.forms.value.reduce((total,f)=>total+f.levelMoves.value.length,0),0)},
     sources:sources.sort((a,b)=>(a.repository+'/'+a.path).localeCompare(b.repository+'/'+b.path))};
   await writeFile(resolve(root,'companion/src/reference/generated/dex-coverage.v1.json'),JSON.stringify(report,null,2)+'\n');
   console.log(`Generated ${report.counts.species} species / ${report.counts.forms} forms at unchanged pin`);

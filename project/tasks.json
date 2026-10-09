@@ -2571,37 +2571,51 @@
       "excludes": "No search parser/UI expansion, candy reservation/pricing changes, reference updates, storage migration, private data, merge or production deployment.",
       "class": "data",
       "authorization": "approved",
-      "status": "planned",
+      "status": "verified",
       "dependsOn": [
         "DEX-REF-ABILITIES"
       ],
       "paths": [
-        "companion/src/reference/index.ts"
+        "scripts/dex-reference-extractor.mjs",
+        "scripts/dex-reference-extractor.test.mjs",
+        "scripts/generate-dex-references.mjs",
+        "companion/src/reference/dex-contract.ts",
+        "companion/tests/dex-reference-contract.test.ts",
+        "project/evidence/DEX-REF-MOVES.md"
       ],
       "guidance": [
         "docs/DEX_HANDOFF.md",
         "docs/DATA_SOURCES.md",
         "docs/ARCHITECTURE.md"
       ],
-      "docsReviewed": [],
+      "docsReviewed": [
+        "docs/DEX_HANDOFF.md",
+        "docs/DATA_SOURCES.md",
+        "docs/ARCHITECTURE.md"
+      ],
       "delivery": {
-        "stage": "not_started",
-        "branch": null
+        "stage": "working_branch",
+        "branch": "design/profile-candy-overview"
       },
       "acceptance": [
         {
           "id": "AC1",
           "description": "Packet scope and official pinned provenance verified with meaningful positive, negative and unavailable-data cases.",
-          "result": "not_tested",
-          "evidence": []
+          "result": "pass",
+          "evidence": [
+            "project/evidence/DEX-REF-MOVES.md"
+          ]
         },
         {
           "id": "AC2",
           "description": "Affected consumers and guidance reviewed; applicable application, browser and tracking checks pass with honest limits.",
-          "result": "not_tested",
-          "evidence": []
+          "result": "pass",
+          "evidence": [
+            "project/evidence/DEX-REF-MOVES.md"
+          ]
         }
-      ]
+      ],
+      "verifiedOn": "2026-10-09"
     },
     {
       "id": "DEX-REF-SELECTION",
