@@ -66,7 +66,7 @@ export async function checkTheme(browser, base) {
         if (destination === 'Dex') {
           const search = page.getByRole('textbox', { name: 'Search Pokémon or collection gaps', exact: true });
           await search.fill('a');
-          await page.evaluate(() => window.scrollTo(0, 300));
+          await page.evaluate(() => window.scrollTo({ top: 300, behavior: 'instant' }));
           const scroll = await page.evaluate(() => window.scrollY);
           const more = page.getByRole('button', { name: 'More navigation', exact: true });
           for (const dismissal of ['toggle', 'outside', 'escape']) {
@@ -84,7 +84,7 @@ export async function checkTheme(browser, base) {
             await page.getByRole('heading', { name: 'Pokédex', exact: true }).waitFor();
           }
           await search.fill('');
-          await page.evaluate(() => window.scrollTo(0, 0));
+          await page.evaluate(() => window.scrollTo({ top: 0, behavior: 'instant' }));
         }
         assert.ok(await page.evaluate(() => document.documentElement.scrollWidth) <= width, destination + ' overflows ' + width);
         if (destination === 'Dex' || destination === 'Build') {
